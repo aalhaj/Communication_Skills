@@ -57,7 +57,7 @@
         
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-        /* --- COMPONENTS --- */
+        /* --- NAVBAR --- */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; height: 65px;
             background: var(--nav-bg); backdrop-filter: blur(10px);
@@ -92,7 +92,7 @@
         .badge-prof { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
         .badge-dev { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-        /* Cards */
+        /* Dashboard */
         .card-box { background: var(--card); border-radius: 16px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform 0.2s; }
         .card-box:hover { border-color: var(--primary); }
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -101,24 +101,53 @@
         .form-select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--input-bg); color: var(--text); margin-bottom: 15px; font-size: 14px; }
         .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
 
-        /* Loading Screen */
-        .loading-screen { text-align: center; padding: 50px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--primary-light); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Quiz & Study Items */
+        /* --- FIXED QUIZ BUTTONS --- */
+        .q-card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+        
         .option-btn { 
-            width: 100%; text-align: left; padding: 16px; 
-            border: 2px solid var(--border); border-radius: 12px; margin-bottom: 12px; 
-            background: var(--card); color: var(--text);
-            cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 15px; 
+            width: 100%; 
+            text-align: inherit; 
+            padding: 18px 20px; 
+            border: 2px solid var(--border); 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            background: var(--card); 
+            color: var(--text);
+            cursor: pointer; 
+            transition: all 0.2s ease; 
+            font-size: 16px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 1.5;
         }
-        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
-        .option-btn.correct { background: var(--success-bg); border-color: var(--success); color: var(--success-text); font-weight: 800; }
-        .option-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: #b91c1c; }
+        
+        .option-btn:hover:not(:disabled) { 
+            border-color: var(--primary); 
+            background: var(--primary-light); 
+            transform: translateY(-2px);
+        }
+        
+        .option-btn:disabled { cursor: default; opacity: 0.9; }
 
+        /* Correct Answer Style (Green) */
+        .option-btn.correct { 
+            background-color: var(--success-bg) !important; 
+            border-color: var(--success) !important; 
+            color: var(--success-text) !important; 
+            font-weight: 800;
+        }
+        
+        /* Wrong Answer Style (Red) */
+        .option-btn.wrong { 
+            background-color: var(--danger-bg) !important; 
+            border-color: var(--danger) !important; 
+            color: #b91c1c !important; 
+        }
+
+        /* --- STUDY LIST ITEMS --- */
         .study-item { background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .study-header { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .study-option { 
             padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); 
             margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7;
@@ -126,25 +155,24 @@
         }
         .study-option.is-answer { 
             background: var(--success-bg); border-color: var(--success); color: var(--success-text); 
-            opacity: 1; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            opacity: 1; font-weight: 700;
         }
 
-        .rationale-box { margin-top: 15px; padding: 15px; background: var(--primary-light); border-radius: 8px; font-size: 14px; color: var(--text); border: 1px solid var(--border); }
         .feedback-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; animation: slideIn 0.3s; }
         .feedback-box.correct-ref { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success); }
         .feedback-box.wrong-exp { background: var(--danger-bg); color: #991b1b; border: 1px solid var(--danger); }
         
         @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
-        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; }
-        .en-text { font-family: 'Inter', sans-serif; direction: ltr; }
+        
+        /* Loading */
+        .loading-screen { text-align: center; padding: 50px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--primary-light); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Layout Adjustments */
-        body.lang-ar .rationale-box, body.lang-both .rationale-box { border-right: 3px solid var(--primary); }
-        body.lang-en .rationale-box { border-left: 3px solid var(--primary); }
-        body.lang-ar .option-btn, body.lang-both .option-btn { text-align: right; }
+        body.lang-ar .option-btn { text-align: right; }
         body.lang-en .option-btn { text-align: left; }
-        body.lang-ar .study-option, body.lang-both .study-option { flex-direction: row; } 
     </style>
 </head>
 <body class="lang-both">
@@ -155,7 +183,6 @@
                 <i class="fas fa-graduation-cap"></i>
                 <span style="font-weight:800; letter-spacing:-0.5px">CommSkills</span>
             </div>
-            
             <div style="display:flex; align-items:center">
                 <button class="theme-btn" onclick="toggleTheme()" id="themeBtn"><i class="fas fa-moon"></i></button>
                 <div class="lang-pills">
@@ -185,19 +212,14 @@
         <div id="loadingView" class="loading-screen">
             <div class="spinner"></div>
             <h3 style="color:var(--primary)">Loading Database...</h3>
-            <p style="color:var(--muted); font-size:13px">
-                جاري تحميل ملف الأسئلة تلقائياً<br>
-                <span style="opacity:0.7">(training_bank_communication_skills_full_package_EN_AR.json)</span>
-            </p>
-            <div id="errorMsg" class="hidden" style="color:var(--danger); margin-top:20px; font-weight:bold; background:var(--danger-bg); padding:10px; border-radius:8px;">
-                خطأ: لم يتم العثور على ملف JSON!<br>
-                يرجى التأكد من أن ملف البيانات موجود في نفس المجلد مع هذه الصفحة.
+            <p style="color:var(--muted)">جاري تحميل الأسئلة تلقائياً...</p>
+            <div id="errorMsg" class="hidden" style="color:var(--danger); margin-top:20px; font-weight:bold;">
+                Error: JSON file not found.<br>Make sure the file is in the same folder.
             </div>
         </div>
 
         <div id="dashboardView" class="hidden">
             <h2 style="margin-bottom:20px" data-i18n="welcome">مرحباً! اختر الوضع المناسب:</h2>
-            
             <div class="dashboard-grid">
                 <div class="card-box">
                     <h3 style="margin-top:0; color:var(--primary)" data-i18n="modeQuiz"><i class="fas fa-stopwatch"></i> اختبر نفسك</h3>
@@ -256,7 +278,7 @@
                 </button>
                 <div style="font-weight:700; color:var(--muted)"><span data-i18n="qLabel">سؤال</span> <span id="qCurr">1</span> / <span id="qTotal">10</span></div>
             </div>
-            <div class="card-box">
+            <div class="q-card">
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px">
                     <span id="qDifficultyBadge" class="badge badge-info">Easy</span>
                     <span id="qTypeBadge" class="badge badge-prof">MCQ</span>
@@ -353,7 +375,7 @@
     const APP = { data: [], sources: [], lang: 'both', quiz: { set: [], idx: 0, score: 0, correct: 0 }, study: { set: [] } };
     const JSON_FILENAME = 'training_bank_communication_skills_full_package_EN_AR.json';
 
-    /* --- INIT --- */
+    /* --- INITIALIZATION --- */
     function init() {
         initTheme();
         setLang('both');
@@ -373,13 +395,11 @@
                 setTimeout(() => {
                     document.getElementById('loadingView').classList.add('hidden');
                     document.getElementById('dashboardView').classList.remove('hidden');
-                }, 800); // Small delay for UX
+                }, 800);
             })
             .catch(err => {
                 console.error(err);
                 document.getElementById('errorMsg').classList.remove('hidden');
-                // Optional: Show manual upload if auto-fail?
-                // For now, just show error as requested "Auto link".
             });
     }
 
@@ -433,7 +453,7 @@
         document.getElementById('heroSection').classList.remove('hidden');
     }
 
-    /* --- QUIZ --- */
+    /* --- QUIZ LOGIC --- */
     function startQuizMode() {
         const src = document.getElementById('quizSource').value;
         const diff = document.getElementById('quizDiff').value;
@@ -463,10 +483,12 @@
         elEn.innerHTML = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
         elAr.style.display = lang==='en'?'none':'block';
         elEn.style.display = lang==='ar'?'none':'block';
+        
         const cont = document.getElementById('qOptions'); cont.innerHTML = '';
         const opts = q.type==='TRUE_FALSE' 
             ? [{key:true, ar:'صح', en:'True'}, {key:false, ar:'خطأ', en:'False'}]
             : q.options.map(o => ({key:o.key, ar:o.ar, en:o.en}));
+            
         opts.forEach(o => {
             const btn = document.createElement('button');
             btn.className = 'option-btn';
@@ -488,12 +510,23 @@
         if(!document.getElementById('btnNext').disabled) return;
         const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
         const isCorrect = String(key) === correctKey;
+        
+        // Highlight logic for Quiz Mode
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
-            if(b.dataset.key === correctKey) { b.classList.add('correct'); b.innerHTML += ' <i class="fas fa-check"></i>'; }
+            if(b.dataset.key === correctKey) { 
+                b.classList.add('correct'); 
+                b.innerHTML += ' <i class="fas fa-check"></i>'; 
+            }
         });
-        if(isCorrect) APP.quiz.correct++;
-        else btn.classList.add('wrong');
+
+        if(isCorrect) {
+            APP.quiz.correct++;
+        } else {
+            btn.classList.add('wrong');
+            btn.innerHTML += ' <i class="fas fa-times"></i>';
+        }
+        
         showFeedback(q, isCorrect);
         document.getElementById('btnNext').disabled = false;
         document.getElementById('btnHint').disabled = true;
@@ -504,9 +537,12 @@
         const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
-            if(b.dataset.key === correctKey) { b.classList.add('correct'); b.innerHTML += ' <i class="fas fa-check"></i>'; }
+            if(b.dataset.key === correctKey) { 
+                b.classList.add('correct'); 
+                b.innerHTML += ' <i class="fas fa-check"></i>'; 
+            }
         });
-        showFeedback(q, false);
+        showFeedback(q, false); // Treated as wrong for feedback
         document.getElementById('btnNext').disabled = false;
         document.getElementById('btnHint').disabled = true;
     }
@@ -539,7 +575,7 @@
         }
     }
 
-    /* --- STUDY --- */
+    /* --- STUDY LOGIC --- */
     function startStudyMode() {
         const src = document.getElementById('studySource').value;
         const diff = document.getElementById('studyDiff').value;
@@ -558,10 +594,12 @@
         const sRat = document.getElementById('showRat').checked;
         const sRef = document.getElementById('showRef').checked;
         const lang = APP.lang;
+        
         APP.study.set.forEach((q, idx) => {
             const item = document.createElement('div'); item.className = 'study-item';
             const refHtml = sRef ? `<span><i class="fas fa-book"></i> ${q.source.filename} : ${q.source.page}</span>` : '';
             item.innerHTML = `<div class="study-header"><span>#${idx+1} [${q.type}]</span>${refHtml}</div>`;
+            
             let qHtml = '';
             const arQ = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
             const enQ = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
@@ -575,6 +613,7 @@
             
             opts.forEach(o => {
                 const isAns = String(o.key)===correctKey;
+                // Use distinct class for correct answer in Study Mode
                 const cls = isAns ? 'study-option is-answer' : 'study-option';
                 let txt = '';
                 if(lang!=='en') txt += `<span class="ar-text">${o.ar}</span>`;
@@ -582,7 +621,7 @@
                 if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
                 
                 // Add Check Icon for Answer
-                const icon = isAns ? '<i class="fas fa-check-circle" style="color:inherit"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
+                const icon = isAns ? '<i class="fas fa-check-circle" style="color:var(--success-text)"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
                 item.innerHTML += `<div class="${cls}">${icon}${txt}</div>`;
             });
             
@@ -591,13 +630,12 @@
                 if(lang!=='en') rHtml += `<div class="ar-text">${q.rationale.ar}</div>`;
                 if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${q.rationale.en}</div>`;
                 if(lang==='en') rHtml = `<div class="en-text">${q.rationale.en}</div>`;
-                item.innerHTML += `<div class="rationale-box"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
+                item.innerHTML += `<div class="rationale-box" style="background:var(--primary-light); color:var(--text); border:1px solid var(--border)"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
             }
             container.appendChild(item);
         });
     }
 
-    // RUN
     init();
 </script>
 </body>
