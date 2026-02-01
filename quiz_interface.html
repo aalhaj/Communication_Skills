@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Communication Skills Practice Quiz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- THEME VARIABLES --- */
+        :root {
+            /* Light Mode */
+            --primary: #2563eb;
+            --primary-light: #eff6ff;
+            --success: #059669;
+            --success-bg: #d1fae5;
+            --success-text: #064e3b;
+            --danger: #dc2626;
+            --danger-bg: #fee2e2;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --input-bg: #f8fafc;
+            --nav-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode */
+            --primary: #60a5fa;
+            --primary-light: #1e293b;
+            --success: #34d399;
+            --success-bg: #064e3b;
+            --success-text: #ecfdf5; /* Fixed Text Color for Dark Mode */
+            --danger: #f87171;
+            --danger-bg: #7f1d1d;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f1f5f9;
+            --muted: #94a3b8;
+            --border: #334155;
+            --input-bg: #0f172a;
+            --nav-bg: rgba(30, 41, 59, 0.95);
+            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+        }
+
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; background: var(--bg); color: var(--text); 
+            font-family: 'Inter', sans-serif; min-height: 100vh; padding-top: 70px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        body.lang-ar, body.lang-both { font-family: 'Cairo', sans-serif; direction: rtl; }
+        body.lang-en { font-family: 'Inter', sans-serif; direction: ltr; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+
+        /* --- COMPONENTS --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; height: 65px;
+            background: var(--nav-bg); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: var(--shadow);
+        }
+        .nav-content { width: 100%; max-width: 900px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-weight: 800; font-size: 18px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+        
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--muted); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+        .theme-btn { background: var(--input-bg); border: 1px solid var(--border); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-left: 10px; margin-right: 10px;}
+        
+        .lang-pills { display: flex; background: var(--input-bg); padding: 4px; border-radius: 20px; border: 1px solid var(--border); }
+        .lang-btn { border: none; background: transparent; padding: 5px 12px; border-radius: 16px; font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; transition: 0.2s; }
+        .lang-btn.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+        /* Hero */
+        .hero-header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white; border-radius: 20px; padding: 30px; margin-bottom: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3); text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .hero-title { font-size: 24px; font-weight: 900; margin: 0 0 15px 0; }
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; backdrop-filter: blur(4px); margin: 3px; }
+        .badge-prof { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-dev { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+        /* Cards */
+        .card-box { background: var(--card); border-radius: 16px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform 0.2s; }
+        .card-box:hover { border-color: var(--primary); }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
+
+        .form-select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--input-bg); color: var(--text); margin-bottom: 15px; font-size: 14px; }
+        .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+
+        /* Quiz & Study Items */
+        .option-btn { 
+            width: 100%; text-align: left; padding: 16px; 
+            border: 2px solid var(--border); border-radius: 12px; margin-bottom: 12px; 
+            background: var(--card); color: var(--text);
+            cursor: pointer; transition: 0.2s; display: flex; justify-content: space-between; align-items: center; font-size: 15px; 
+        }
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+        .option-btn.correct { background: var(--success-bg); border-color: var(--success); color: var(--success-text); font-weight: 800; }
+        .option-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: #b91c1c; }
+
+        /* Study List Specific Fixes */
+        .study-item { background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .study-header { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .study-option { 
+            padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); 
+            margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7;
+            display: flex; align-items: center; gap: 10px;
+        }
+        /* Highlight Correct Answer in Study Mode */
+        .study-option.is-answer { 
+            background: var(--success-bg); 
+            border-color: var(--success); 
+            color: var(--success-text); 
+            opacity: 1; 
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .rationale-box { margin-top: 15px; padding: 15px; background: var(--primary-light); border-radius: 8px; font-size: 14px; color: var(--text); border: 1px solid var(--border); }
+        .upload-area { background: var(--card); border: 2px dashed var(--border); border-radius: 16px; padding: 50px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
+
+        .hidden { display: none !important; }
+        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; }
+        .en-text { font-family: 'Inter', sans-serif; direction: ltr; }
+        
+        /* Layout Adjustments */
+        body.lang-ar .option-btn, body.lang-both .option-btn { text-align: right; }
+        body.lang-en .option-btn { text-align: left; }
+        body.lang-ar .study-option, body.lang-both .study-option { flex-direction: row; } 
+    </style>
+</head>
+<body class="lang-both">
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span style="font-weight:800; letter-spacing:-0.5px">CommSkills</span>
+            </div>
+            
+            <div style="display:flex; align-items:center">
+                <button class="theme-btn" onclick="toggleTheme()" id="themeBtn"><i class="fas fa-moon"></i></button>
+                <div class="lang-pills">
+                    <button class="lang-btn active" onclick="setLang('both')" id="btn-both">Mixed</button>
+                    <button class="lang-btn" onclick="setLang('ar')" id="btn-ar">عربي</button>
+                    <button class="lang-btn" onclick="setLang('en')" id="btn-en">Eng</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div id="heroSection" class="hero-header">
+            <div class="hero-content">
+                <h1 class="hero-title">Communication Skills Practice Quiz</h1>
+                <div class="hero-badges">
+                    <div class="badge badge-prof"><i class="fas fa-user-tie"></i> د. صفاء الهادي - مهارات الاتصال</div>
+                    <div class="badge badge-info"><i class="fas fa-university"></i> علوم الحاسوب - مستوى ثاني</div>
+                </div>
+                <div class="badge badge-dev" style="margin-top:5px; font-size:12px; opacity:0.9">
+                    <i class="fas fa-code"></i> تم التطوير بواسطة المهندس: عبدالملك حسان الحاج
+                </div>
+            </div>
+        </div>
+
+        <div id="uploadView">
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div style="width:60px; height:60px; background:var(--primary-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:var(--primary)">
+                    <i class="fas fa-cloud-upload-alt fa-2x"></i>
+                </div>
+                <h3 style="margin:0 0 10px 0; font-size:18px" data-i18n="uploadTitle">رفع بنك الأسئلة</h3>
+                <p style="color:var(--muted); margin:0" data-i18n="uploadDesc">اضغط لاختيار ملف JSON</p>
+                <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFile(this)">
+            </div>
+        </div>
+
+        <div id="dashboardView" class="hidden">
+            <h2 style="margin-bottom:20px" data-i18n="welcome">مرحباً! اختر الوضع المناسب:</h2>
+            
+            <div class="dashboard-grid">
+                <div class="card-box">
+                    <h3 style="margin-top:0; color:var(--primary)" data-i18n="modeQuiz"><i class="fas fa-stopwatch"></i> اختبر نفسك</h3>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lblSource">المصدر</label>
+                        <select id="quizSource" class="form-select"><option value="all" data-i18n="optAllSources">الكل</option></select>
+                        <label class="form-label" data-i18n="lblDiff">الصعوبة</label>
+                        <select id="quizDiff" class="form-select">
+                            <option value="all" data-i18n="diffMixed">متنوع</option>
+                            <option value="easy" data-i18n="diffEasy">سهل</option>
+                            <option value="medium" data-i18n="diffMedium">متوسط</option>
+                            <option value="hard" data-i18n="diffHard">صعب</option>
+                        </select>
+                        <label class="form-label" data-i18n="lblCount">العدد</label>
+                        <select id="quizCount" class="form-select">
+                            <option value="10" data-i18n="cnt10">10 أسئلة</option>
+                            <option value="25" data-i18n="cnt25">25 سؤال</option>
+                            <option value="all" data-i18n="cntMax">الكل</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="startQuizMode()">
+                        <span data-i18n="btnStart">ابدأ الاختبار</span> <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <div class="card-box" style="border-top: 4px solid var(--success)">
+                    <h3 style="margin-top:0; color:var(--success)" data-i18n="modeStudy"><i class="fas fa-book-open"></i> المذاكرة والمراجعة</h3>
+                    <div class="form-group">
+                        <label class="form-label" data-i18n="lblSource">المصدر</label>
+                        <select id="studySource" class="form-select"><option value="all" data-i18n="optAllSources">الكل</option></select>
+                        <label class="form-label" data-i18n="lblDiff">الصعوبة</label>
+                        <select id="studyDiff" class="form-select">
+                            <option value="all" data-i18n="diffAll">كل المستويات</option>
+                            <option value="easy" data-i18n="diffEasyOnly">السهل فقط</option>
+                            <option value="medium" data-i18n="diffMedOnly">المتوسط فقط</option>
+                            <option value="hard" data-i18n="diffHardOnly">الصعب فقط</option>
+                        </select>
+                    </div>
+                    <div style="margin-top:20px">
+                        <button class="btn btn-outline" style="border-color:var(--success); color:var(--success)" onclick="startStudyMode()">
+                            <span data-i18n="btnStudy">فتح القائمة</span> <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="quizView" class="hidden container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px">
+                <button class="btn btn-outline" style="width:auto; padding:5px 15px; font-size:12px" onclick="goHome()">
+                    <i class="fas fa-home"></i> <span data-i18n="btnHome">الرئيسية</span>
+                </button>
+                <div style="font-weight:700; color:var(--muted)"><span data-i18n="qLabel">سؤال</span> <span id="qCurr">1</span> / <span id="qTotal">10</span></div>
+            </div>
+            <div class="q-card">
+                <div style="display:flex; justify-content:space-between; margin-bottom:15px">
+                    <span id="qDifficultyBadge" class="badge badge-info">Easy</span>
+                    <span id="qTypeBadge" class="badge badge-prof">MCQ</span>
+                </div>
+                <div style="margin-bottom:25px">
+                    <h2 id="qTextAr" class="ar-text" style="margin:0 0 10px 0; line-height:1.6"></h2>
+                    <div id="qTextEn" class="en-text" style="color:var(--muted); font-size:0.95em"></div>
+                </div>
+                <div id="qOptions"></div>
+                <div id="qFeedback" class="hidden"></div>
+                <div style="display:flex; gap:10px; margin-top:25px">
+                    <button id="btnHint" class="btn btn-outline" onclick="revealAnswer()" data-i18n="btnShowAns">إظهار الإجابة</button>
+                    <button id="btnNext" class="btn btn-primary" onclick="nextQuestion()" disabled data-i18n="btnNext">السؤال التالي</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="studyView" class="hidden container">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px">
+                <h2><i class="fas fa-book-reader"></i> <span data-i18n="studyTitle">قائمة المذاكرة</span></h2>
+                <button class="btn btn-outline" style="width:auto" onclick="goHome()" data-i18n="btnExit">خروج</button>
+            </div>
+            
+            <div class="card-box" style="margin-bottom:20px; position:sticky; top:75px; z-index:30">
+                <div style="display:flex; gap:15px; flex-wrap:wrap">
+                    <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="showTrans" checked onchange="renderStudyList()"> <span data-i18n="chkTrans">ترجمة</span></label>
+                    <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="showRat" checked onchange="renderStudyList()"> <span data-i18n="chkRat">تعليل</span></label>
+                    <label style="display:flex;align-items:center;gap:5px;cursor:pointer"><input type="checkbox" id="showRef" checked onchange="renderStudyList()"> <span data-i18n="chkRef">مصدر</span></label>
+                </div>
+            </div>
+
+            <div id="studyListContainer"></div>
+        </div>
+
+        <div id="resultView" class="hidden container" style="text-align:center; max-width:600px; margin-top:50px">
+            <div class="card-box">
+                <i class="fas fa-trophy fa-4x" style="color:#fbbf24; margin-bottom:20px"></i>
+                <h1 data-i18n="quizDone">انتهى الاختبار!</h1>
+                <div style="font-size:50px; font-weight:900; color:var(--primary); margin:20px 0; letter-spacing:-2px">
+                    <span id="finalScore">0</span>%
+                </div>
+                <div style="display:flex; justify-content:center; gap:20px; margin-bottom:30px">
+                    <div style="background:var(--success-bg); color:var(--success-text); padding:10px 20px; border-radius:10px; font-weight:700">
+                        <span data-i18n="resCorrect">صحيحة</span>: <span id="resCorrect">0</span>
+                    </div>
+                    <div style="background:var(--danger-bg); color:#991b1b; padding:10px 20px; border-radius:10px; font-weight:700">
+                        <span data-i18n="resWrong">خاطئة</span>: <span id="resWrong">0</span>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="goHome()" data-i18n="btnBack">عودة للرئيسية</button>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+    /* --- CONFIG --- */
+    const I18N = {
+        en: {
+            uploadTitle: "Upload Question Bank", uploadDesc: "Click to select the JSON file",
+            welcome: "Welcome! Choose your mode:",
+            modeQuiz: "Test Yourself", modeQuizDesc: "Interactive Quiz Mode",
+            modeStudy: "Study & Review", modeStudyDesc: "View All Questions with Answers",
+            lblSource: "Select Source", optAllSources: "All Lectures",
+            lblDiff: "Difficulty", diffMixed: "Mixed", diffEasy: "Easy", diffMedium: "Medium", diffHard: "Hard",
+            diffAll: "All Levels", diffEasyOnly: "Easy Only", diffMedOnly: "Medium Only", diffHardOnly: "Hard Only",
+            lblCount: "Questions Count", cnt10: "10 Questions", cnt25: "25 Questions", cnt50: "50 Questions", cntMax: "Max Available",
+            btnStart: "Start Quiz", btnStudy: "Open Study List",
+            dbLoaded: "Database loaded:", dbQs: "questions",
+            btnHome: "Home", qLabel: "Question", btnShowAns: "Show Answer", btnNext: "Next Question",
+            studyTitle: "Study List", btnExit: "Exit",
+            chkTrans: "Translation", chkRat: "Rationale", chkRef: "Source",
+            quizDone: "Quiz Completed!", resCorrect: "Correct", resWrong: "Wrong", btnBack: "Back to Dashboard",
+            refTitle: "Reference", expTitle: "Explanation"
+        },
+        ar: {
+            uploadTitle: "رفع بنك الأسئلة", uploadDesc: "اضغط لاختيار ملف JSON",
+            welcome: "مرحباً! اختر الوضع المناسب:",
+            modeQuiz: "اختبر نفسك", modeQuizDesc: "نظام الاختبار التفاعلي",
+            modeStudy: "المذاكرة والمراجعة", modeStudyDesc: "عرض كل الأسئلة مع الحلول",
+            lblSource: "اختر المصدر", optAllSources: "كل المصادر",
+            lblDiff: "مستوى الصعوبة", diffMixed: "متنوع", diffEasy: "سهل", diffMedium: "متوسط", diffHard: "صعب",
+            diffAll: "كل المستويات", diffEasyOnly: "السهل فقط", diffMedOnly: "المتوسط فقط", diffHardOnly: "الصعب فقط",
+            lblCount: "عدد الأسئلة", cnt10: "10 أسئلة", cnt25: "25 سؤال", cnt50: "50 سؤال", cntMax: "أقصى عدد متاح",
+            btnStart: "ابدأ الاختبار", btnStudy: "فتح قائمة المذاكرة",
+            dbLoaded: "تم تحميل:", dbQs: "سؤال",
+            btnHome: "الرئيسية", qLabel: "سؤال", btnShowAns: "إظهار الإجابة", btnNext: "السؤال التالي",
+            studyTitle: "قائمة المذاكرة", btnExit: "خروج",
+            chkTrans: "الترجمة", chkRat: "التعليل", chkRef: "المصدر",
+            quizDone: "انتهى الاختبار!", resCorrect: "صحيحة", resWrong: "خاطئة", btnBack: "عودة للرئيسية",
+            refTitle: "المرجع", expTitle: "التعليل"
+        }
+    };
+    const APP = { data: [], sources: [], lang: 'both', quiz: { set: [], idx: 0, score: 0, correct: 0 }, study: { set: [] } };
+
+    /* --- THEME LOGIC --- */
+    function initTheme() {
+        const pref = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', pref);
+        updateThemeIcon(pref);
+    }
+    function toggleTheme() {
+        const curr = document.documentElement.getAttribute('data-theme');
+        const newTheme = curr === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
+    function updateThemeIcon(theme) {
+        document.getElementById('themeBtn').innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+
+    /* --- APP --- */
+    function loadFile(input) {
+        const file = input.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                APP.data = JSON.parse(e.target.result).questions;
+                extractSources();
+                document.getElementById('uploadView').classList.add('hidden');
+                document.getElementById('dashboardView').classList.remove('hidden');
+            } catch(err) { alert("Invalid JSON"); }
+        };
+        reader.readAsText(file);
+    }
+
+    function extractSources() {
+        const unique = [...new Set(APP.data.map(q => q.source.filename))].sort();
+        APP.sources = unique;
+        const fill = (id) => {
+            const el = document.getElementById(id);
+            const first = el.firstElementChild; el.innerHTML = ''; el.appendChild(first);
+            unique.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.innerText = s.replace('.pdf', ''); el.appendChild(opt); });
+        };
+        fill('quizSource'); fill('studySource');
+    }
+
+    function setLang(l) {
+        APP.lang = l;
+        ['both','ar','en'].forEach(k => document.getElementById(`btn-${k}`).classList.toggle('active', k===l));
+        const uiLang = (l === 'en') ? 'en' : 'ar';
+        document.body.className = `lang-${l}`; 
+        const dict = I18N[uiLang];
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if(dict[key]) el.innerText = dict[key];
+        });
+        if(!document.getElementById('quizView').classList.contains('hidden')) renderQuestion();
+        if(!document.getElementById('studyView').classList.contains('hidden')) renderStudyList();
+    }
+
+    function goHome() {
+        ['uploadView','dashboardView','quizView','studyView','resultView'].forEach(id => document.getElementById(id).classList.add('hidden'));
+        document.getElementById('dashboardView').classList.remove('hidden');
+        document.getElementById('heroSection').classList.remove('hidden');
+    }
+
+    /* --- QUIZ --- */
+    function startQuizMode() {
+        const src = document.getElementById('quizSource').value;
+        const diff = document.getElementById('quizDiff').value;
+        const count = document.getElementById('quizCount').value;
+        let set = APP.data.filter(q => (src==='all'||q.source.filename===src) && (diff==='all'||(q.difficulty||'').toLowerCase()===diff));
+        if(!set.length) return alert("No questions found.");
+        set.sort(() => Math.random() - 0.5);
+        if(count !== 'all') set = set.slice(0, parseInt(count));
+        APP.quiz = { set, idx: 0, score: 0, correct: 0 };
+        document.getElementById('dashboardView').classList.add('hidden');
+        document.getElementById('heroSection').classList.add('hidden');
+        document.getElementById('quizView').classList.remove('hidden');
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        const q = APP.quiz.set[APP.quiz.idx];
+        const lang = APP.lang;
+        document.getElementById('qCurr').innerText = APP.quiz.idx + 1;
+        document.getElementById('qTotal').innerText = APP.quiz.set.length;
+        document.getElementById('qDifficultyBadge').innerText = (q.difficulty||'Gen').toUpperCase();
+        document.getElementById('qTypeBadge').innerText = q.type;
+        const elAr = document.getElementById('qTextAr');
+        const elEn = document.getElementById('qTextEn');
+        elAr.innerHTML = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
+        elEn.innerHTML = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
+        elAr.style.display = lang==='en'?'none':'block';
+        elEn.style.display = lang==='ar'?'none':'block';
+        const cont = document.getElementById('qOptions'); cont.innerHTML = '';
+        const opts = q.type==='TRUE_FALSE' 
+            ? [{key:true, ar:'صح', en:'True'}, {key:false, ar:'خطأ', en:'False'}]
+            : q.options.map(o => ({key:o.key, ar:o.ar, en:o.en}));
+        opts.forEach(o => {
+            const btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.dataset.key = String(o.key);
+            let txt = '';
+            if(lang==='ar') txt = o.ar;
+            else if(lang==='en') txt = o.en;
+            else txt = `<span class="ar-text">${o.ar}</span><span class="en-text" style="color:var(--muted)">${o.en}</span>`;
+            btn.innerHTML = txt;
+            btn.onclick = () => handleAnswer(o.key, btn, q);
+            cont.appendChild(btn);
+        });
+        document.getElementById('qFeedback').className = 'hidden';
+        document.getElementById('btnNext').disabled = true;
+        document.getElementById('btnHint').disabled = false;
+    }
+
+    function handleAnswer(key, btn, q) {
+        if(!document.getElementById('btnNext').disabled) return;
+        const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
+        const isCorrect = String(key) === correctKey;
+        document.querySelectorAll('#qOptions .option-btn').forEach(b => {
+            b.disabled = true;
+            if(b.dataset.key === correctKey) { b.classList.add('correct'); b.innerHTML += ' <i class="fas fa-check"></i>'; }
+        });
+        if(isCorrect) APP.quiz.correct++;
+        else btn.classList.add('wrong');
+        showFeedback(q, isCorrect);
+        document.getElementById('btnNext').disabled = false;
+        document.getElementById('btnHint').disabled = true;
+    }
+
+    function revealAnswer() {
+        const q = APP.quiz.set[APP.quiz.idx];
+        const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
+        document.querySelectorAll('#qOptions .option-btn').forEach(b => {
+            b.disabled = true;
+            if(b.dataset.key === correctKey) { b.classList.add('correct'); b.innerHTML += ' <i class="fas fa-check"></i>'; }
+        });
+        showFeedback(q, false);
+        document.getElementById('btnNext').disabled = false;
+        document.getElementById('btnHint').disabled = true;
+    }
+
+    function showFeedback(q, isCorrect) {
+        const fb = document.getElementById('qFeedback');
+        fb.className = isCorrect ? 'feedback-box correct-ref' : 'feedback-box wrong-exp';
+        const uiLang = (APP.lang === 'en') ? 'en' : 'ar';
+        const dict = I18N[uiLang];
+        let html = `<div style="font-weight:700; margin-bottom:5px">
+            ${isCorrect ? `<i class="fas fa-check-circle"></i> ${dict.refTitle}` : `<i class="fas fa-exclamation-circle"></i> ${dict.expTitle}`}
+        </div>`;
+        if(!isCorrect) {
+            if(APP.lang!=='en') html += `<div class="ar-text">${q.rationale.ar}</div>`;
+            if(APP.lang!=='ar') html += `<div class="en-text" style="margin-top:5px">${q.rationale.en}</div>`;
+        }
+        html += `<div style="margin-top:8px; font-size:12px; opacity:0.8"><i class="fas fa-book"></i> ${q.source.filename} (p. ${q.source.page})</div>`;
+        fb.innerHTML = html; fb.classList.remove('hidden');
+    }
+
+    function nextQuestion() {
+        APP.quiz.idx++;
+        if(APP.quiz.idx < APP.quiz.set.length) renderQuestion();
+        else {
+            document.getElementById('quizView').classList.add('hidden');
+            document.getElementById('resultView').classList.remove('hidden');
+            document.getElementById('finalScore').innerText = Math.round((APP.quiz.correct/APP.quiz.set.length)*100);
+            document.getElementById('resCorrect').innerText = APP.quiz.correct;
+            document.getElementById('resWrong').innerText = APP.quiz.set.length - APP.quiz.correct;
+        }
+    }
+
+    /* --- STUDY --- */
+    function startStudyMode() {
+        const src = document.getElementById('studySource').value;
+        const diff = document.getElementById('studyDiff').value;
+        let set = APP.data.filter(q => (src==='all'||q.source.filename===src) && (diff==='all'||(q.difficulty||'').toLowerCase()===diff));
+        if(!set.length) return alert("No questions.");
+        APP.study.set = set;
+        document.getElementById('dashboardView').classList.add('hidden');
+        document.getElementById('heroSection').classList.add('hidden');
+        document.getElementById('studyView').classList.remove('hidden');
+        renderStudyList();
+    }
+
+    function renderStudyList() {
+        const container = document.getElementById('studyListContainer'); container.innerHTML = '';
+        const sTrans = document.getElementById('showTrans').checked;
+        const sRat = document.getElementById('showRat').checked;
+        const sRef = document.getElementById('showRef').checked;
+        const lang = APP.lang;
+        APP.study.set.forEach((q, idx) => {
+            const item = document.createElement('div'); item.className = 'study-item';
+            const refHtml = sRef ? `<span><i class="fas fa-book"></i> ${q.source.filename} : ${q.source.page}</span>` : '';
+            item.innerHTML = `<div class="study-header"><span>#${idx+1} [${q.type}]</span>${refHtml}</div>`;
+            let qHtml = '';
+            const arQ = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
+            const enQ = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
+            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px">${arQ}</div>`;
+            if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${enQ}</div>`;
+            if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${enQ}</div>`;
+            item.innerHTML += `<div style="margin-bottom:15px">${qHtml}</div>`;
+            const correctKey = String(q.type==='TRUE_FALSE'?q.answer:q.answerKey);
+            let opts = q.type==='TRUE_FALSE'?[{key:'true',ar:'صح',en:'True'},{key:'false',ar:'خطأ',en:'False'}]:q.options.map(o=>({key:o.key,ar:o.ar,en:o.en}));
+            opts.forEach(o => {
+                const isAns = String(o.key)===correctKey;
+                const cls = isAns?'study-option is-answer':'study-option';
+                let txt = '';
+                if(lang!=='en') txt += `<span class="ar-text">${o.ar}</span>`;
+                if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em">(${o.en})</span>`;
+                if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
+                item.innerHTML += `<div class="${cls}">${isAns?'<i class="fas fa-check"></i> ':''}${txt}</div>`;
+            });
+            if(sRat) {
+                let rHtml = '';
+                if(lang!=='en') rHtml += `<div class="ar-text">${q.rationale.ar}</div>`;
+                if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${q.rationale.en}</div>`;
+                if(lang==='en') rHtml = `<div class="en-text">${q.rationale.en}</div>`;
+                item.innerHTML += `<div class="rationale-box">${rHtml}</div>`;
+            }
+            container.appendChild(item);
+        });
+    }
+
+    initTheme();
+    setLang('both');
+</script>
+</body>
+</html>
