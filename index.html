@@ -682,17 +682,23 @@
         }
 
         // ==================== QUIZ ENGINE ====================
+        // ==================== QUIZ ENGINE ====================
         function startQuiz(chapterId, mode) {
             currentChapter = chapterId;
             currentMode = mode;
             userAnswers = {};
             currentQuestionIndex = 0;
 
-            quizQuestions = QUESTIONS[chapterId];
-            if (!quizQuestions || quizQuestions.length === 0) {
-                alert('Questions for this chapter are not yet available. Please add questions to the QUESTIONS object.');
+            // Get questions and SHUFFLE them for a new random experience every time
+            const allQuestions = QUESTIONS[chapterId] || [];
+            if (allQuestions.length === 0) {
+                alert('Questions for this chapter are not yet available.');
                 return;
             }
+
+            // Create a copy and shuffle
+            quizQuestions = [...allQuestions];
+            shuffleArray(quizQuestions);
 
             document.getElementById('quiz-title').textContent = CHAPTERS.find(c => c.id === chapterId).name;
             document.getElementById('quiz-mode-display').textContent = mode === 'practice' ? 'Practice Mode' : 'Exam Mode';
@@ -702,6 +708,14 @@
             setupQuizEventListeners();
             startTimer();
             showView('quiz');
+        }
+
+        // Fisher-Yates Shuffle Algorithm
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
         }
 
 
@@ -867,21 +881,53 @@
             html += `</div>`;
 
             // Rationale: Only Show in Practice Mode
+            // Rationale (Feedback)
             if (!isExam && isAnswered) {
-                html += `
-                    <div class="mt-6 animate-fade-in">
-                        <button onclick="document.getElementById('rationale-${q.id}').classList.toggle('hidden')" 
-                            class="flex items-center gap-2 text-xs text-slate-400 hover:text-white mb-2 ml-auto">
-                            <span>💡 Show/Hide Rationale</span>
-                        </button>
-                        <div id="rationale-${q.id}" class="bg-slate-800/50 rounded-lg p-5 border border-slate-700/50">
-                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Explanation / التعليل</h4>
-                            <div class="space-y-3 text-sm">
-                                ${q.explanation}
+                const isCorrect = userAns === correctAns;
+
+                html += `<div class="mt-6 animate-fade-in">`;
+
+                const sourceContent = q.source ? `
+                    <div class="text-xs text-sky-400 mt-2 flex items-center gap-2 font-mono bg-black/20 p-2 rounded w-fit">
+                        <span>📚 ${q.source.filename}</span>
+                        ${q.source.page ? `<span class="opacity-75 border-l border-white/10 pl-2 ml-2">Page ${q.source.page}</span>` : ''}
+                    </div>
+                ` : '';
+
+                if (isCorrect) {
+                    html += `
+                        <div class="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 shadow-lg shadow-emerald-900/10">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-2xl">🎉</span>
+                                <span class="font-bold text-emerald-400 text-lg">Correct Answer!</span>
+                            </div>
+                            <!-- Only show Source for correct answers as requested -->
+                            ${sourceContent}
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="p-5 rounded-xl border border-red-500/20 bg-red-500/5 shadow-lg shadow-red-900/10">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="text-2xl">❌</span>
+                                <span class="font-bold text-red-400 text-lg">Incorrect</span>
+                            </div>
+                            
+                            ${sourceContent}
+
+                            <div class="mt-4 pt-4 border-t border-white/5">
+                                <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                    <span>💡 Rationale</span>
+                                    <span class="text-[10px] bg-slate-800 px-1.5 py-0.5 rounded">التعليل</span>
+                                </h4>
+                                <div class="text-sm text-slate-200 leading-relaxed bg-slate-800/50 p-4 rounded-lg border border-white/5">
+                                    ${q.explanation}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                `;
+                    `;
+                }
+                html += `</div>`;
             }
 
             container.innerHTML = html;
