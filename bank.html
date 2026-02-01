@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Communication Skills Practice Quiz</title>
+    <style>
+        :root {
+            --brand: #0C8A4D;
+            --brand-weak: #e6f6ef;
+            --wrong: #d63b2c;
+            --line: #0C8A4D;
+            --ink: #1f2a37;
+            --muted: #6b7280;
+            --bg: #ffffff;
+            --card: #ffffff;
+            --ring: #0ea5e9;
+            --radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, "Noto Kufi Arabic", Tahoma, Arial;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 16px 18px 64px
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: var(--bg);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 10px 0 14px;
+            margin-bottom: 16px
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center
+        }
+
+        header p {
+            margin: 4px 0 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--brand);
+            background: transparent;
+            color: var(--brand);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--brand);
+            color: white;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 18px 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .stack {
+            display: grid;
+            gap: 14px
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .label {
+            font-weight: 600
+        }
+
+        input[type="number"] {
+            width: 120px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            font-size: 15px
+        }
+
+        .checks {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap
+        }
+
+        .checks label {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            color: #374151;
+            font-size: 14px
+        }
+
+        .filebox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap
+        }
+
+        input[type="file"] {
+            font-size: 14px
+        }
+
+        button.primary,
+        .option {
+            border: none;
+            outline: 0;
+            cursor: pointer;
+            transition: .15s ease;
+        }
+
+        button.primary {
+            background: #111827;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 16px;
+            min-width: 140px
+        }
+
+        button.primary:disabled {
+            opacity: .5;
+            cursor: not-allowed
+        }
+
+        .primary.small {
+            min-width: auto;
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        .question-container {
+            margin: 4px 0 6px;
+        }
+
+        .question-arabic {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-align: right;
+            direction: rtl;
+        }
+
+        .question-english {
+            font-size: 16px;
+            color: var(--muted);
+            font-style: italic;
+            margin-top: 8px;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+            font-size: 13px
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+            margin-top: 10px
+        }
+
+        .option {
+            width: 100%;
+            text-align: left;
+            font-size: 16px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            border: 2px solid #0c8a4d30;
+            background: #fff;
+        }
+
+        .option:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06)
+        }
+
+        .option.correct {
+            background: var(--brand);
+            color: #fff;
+            border-color: var(--brand)
+        }
+
+        .option.wrong {
+            background: var(--wrong);
+            color: #fff;
+            border-color: var(--wrong)
+        }
+
+        .navrow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px
+        }
+
+        .link {
+            color: #0ea5e9;
+            text-decoration: underline;
+            cursor: pointer
+        }
+
+        .pill {
+            display: inline-block;
+            border: 1px solid var(--line);
+            color: var(--line);
+            border-radius: 999px;
+            padding: 2px 10px;
+            font-size: 12px
+        }
+
+        .summary {
+            display: grid;
+            gap: 8px;
+            text-align: center
+        }
+
+        .progress {
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden
+        }
+
+        .bar {
+            height: 100%;
+            width: 0;
+            background: var(--brand);
+            transition: width .25s
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(12, 138, 77, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--brand);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        /* Explanation & references */
+        .feedback-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 12px;
+            background: var(--brand-weak);
+            border: 1px solid rgba(12, 138, 77, 0.2);
+        }
+
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--brand);
+            margin-bottom: 10px;
+        }
+
+        .feedback-content {
+            color: #1f2a37;
+        }
+
+        .feedback-arabic,
+        .feedback-english {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .feedback-arabic {
+            text-align: right;
+            direction: rtl;
+        }
+
+        .feedback-english {
+            font-style: italic;
+            color: var(--muted);
+        }
+
+        .reference-section {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: #e9f7fe;
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            font-size: 14px;
+        }
+
+        .reference-section i {
+            color: var(--ring);
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            background: var(--card);
+            border-radius: var(--radius);
+            border: 1px solid #e5e7eb;
+            min-width: 120px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .score-display {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--brand);
+            margin: 10px 0;
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        .hint {
+            font-size: 12px;
+            color: var(--muted);
+        }
+
+        .hint code {
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Communication Skills Practice Quiz</h1>
+        <p>د. صفاء الهادي - مهارات الاتصال</p>
+        <p>تم بواسطة المهندس: عبدالملك حسان الحاج</p>
+        <p>علوم الحاسوب - مستوى ثاني</p>
+        <div class="language-switcher">
+            <button class="lang-btn active" onclick="switchLanguage('both', this)">العربية والإنجليزية</button>
+            <button class="lang-btn" onclick="switchLanguage('arabic', this)">العربية فقط</button>
+            <button class="lang-btn" onclick="switchLanguage('english', this)">الإنجليزية فقط</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Setup -->
+        <div id="setup" class="card stack">
+            <div class="filebox">
+                <span class="label">Question Bank:</span>
+                <span id="fileStatus" class="pill">
+                    <span id="loadingSpinner" class="loading"></span>
+                    <span id="fileStatusText">Loading training_bank_communication_skills_full_package_EN_AR.json...</span>
+                </span>
+
+                <!-- Optional manual load (useful if running as a local file) -->
+                <input type="file" id="bankFile" accept="application/json,.json" />
+                <button class="primary small" id="loadFileBtn" type="button">Load</button>
+            </div>
+            <div class="hint">
+                Tip: Place <code>bank.html</code> and <code>training_bank_communication_skills_full_package_EN_AR.json</code> in the same folder.
+            </div>
+
+            <div class="row">
+                <label class="label" for="qty">How many questions (1-N)?</label>
+                <input id="qty" type="number" min="1" step="1" value="10" />
+            </div>
+
+            <div class="checks">
+                <label><input type="checkbox" id="allQ"> All Questions</label>
+                <label><input type="checkbox" id="randQ" checked> Randomize Questions</label>
+                <label><input type="checkbox" id="randA" checked> Randomize Answers</label>
+                <label><input type="checkbox" id="includeMCQ" checked> MCQ</label>
+                <label><input type="checkbox" id="includeTF" checked> True/False</label>
+                <label><input type="checkbox" id="showRef" checked> Show References</label>
+                <label><input type="checkbox" id="showCorr" checked> Show Explanations</label>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="totalStat">0</div>
+                    <div class="stat-label">Total Questions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="tfStat">0</div>
+                    <div class="stat-label">True/False</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="mcqStat">0</div>
+                    <div class="stat-label">MCQ</div>
+                </div>
+            </div>
+
+            <div class="row" style="justify-content:center">
+                <button class="primary" id="start" disabled>Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Quiz -->
+        <div id="quiz" class="hidden card stack">
+            <div class="row" style="justify-content:space-between">
+                <div class="pill" id="counter">1 / 1</div>
+                <div class="pill" id="bankTag">MCQ</div>
+            </div>
+
+            <div class="question-container">
+                <div class="question-arabic" id="qtext-ar"></div>
+                <div class="question-english" id="qtext-en"></div>
+            </div>
+
+            <div class="options" id="opts"></div>
+
+            <!-- Explanation + references -->
+            <div id="feedback" class="hidden feedback-section">
+                <div class="feedback-header">
+                    <i class="fas fa-lightbulb"></i>
+                    <span id="correctionTitle">Explanation / تعليل الإجابة</span>
+                </div>
+                <div class="feedback-content">
+                    <div class="feedback-arabic" id="correction-ar"></div>
+                    <div class="feedback-english" id="correction-en"></div>
+                </div>
+
+                <div id="reference" class="reference-section">
+                    <i class="fas fa-book"></i>
+                    <span id="referenceText">Source: file.pdf - Page: 1</span>
+                </div>
+            </div>
+
+            <div class="navrow">
+                <span class="link" id="reveal">Show Answer</span>
+                <button class="primary" id="next">Next</button>
+            </div>
+
+            <div class="progress">
+                <div class="bar" id="bar"></div>
+            </div>
+        </div>
+
+        <!-- Result -->
+        <div id="result" class="hidden card summary">
+            <h3 style="margin:0">Quiz Summary</h3>
+            <div class="score-display" id="scoreDisplay">0 / 0</div>
+            <div class="score-label" id="percentLine">0%</div>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="correctStat">0</div>
+                    <div class="stat-label">Correct</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="wrongStat">0</div>
+                    <div class="stat-label">Wrong</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="skippedStat">0</div>
+                    <div class="stat-label">Skipped</div>
+                </div>
+            </div>
+
+            <div class="row" style="justify-content:center;gap:12px;margin-top:4px">
+                <button class="primary" id="retry">Try Again</button>
+                <button class="primary" id="review">Review Questions</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+
+    <script>
+        /* ===== Bank file ===== */
+        const DEFAULT_BANK_FILE = 'training_bank_communication_skills_full_package_EN_AR.json';
+
+        /* ===== App state ===== */
+        let currentLanguage = 'both';
+        let showReferences = true;
+        let showCorrections = true;
+        let questionsData = null;
+        let bankQuestions = [];         // normalized full bank
+        let currentQuestions = [];      // selected for the quiz
+        let currentIndex = 0;
+
+        let score = 0;
+        let answered = 0;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        let skippedAnswers = 0;
+
+        let appEventsBound = false;
+
+        /* ===== UI elements ===== */
+        const qtextAr = document.querySelector("#qtext-ar");
+        const qtextEn = document.querySelector("#qtext-en");
+        const opts = document.querySelector("#opts");
+        const next = document.querySelector("#next");
+        const counter = document.querySelector("#counter");
+        const reveal = document.querySelector("#reveal");
+        const bar = document.querySelector("#bar");
+        const quiz = document.querySelector("#quiz");
+        const result = document.querySelector("#result");
+        const retry = document.querySelector("#retry");
+        const review = document.querySelector("#review");
+        const feedback = document.querySelector("#feedback");
+        const correctionAr = document.querySelector("#correction-ar");
+        const correctionEn = document.querySelector("#correction-en");
+        const reference = document.querySelector("#reference");
+        const referenceText = document.querySelector("#referenceText");
+        const correctionTitle = document.querySelector("#correctionTitle");
+
+        const startBtn = document.getElementById('start');
+        const fileStatus = document.getElementById('fileStatus');
+        const fileStatusText = document.getElementById('fileStatusText');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        const qtyInput = document.getElementById('qty');
+        const allQ = document.getElementById('allQ');
+        const randQ = document.getElementById('randQ');
+        const randA = document.getElementById('randA');
+        const includeMCQ = document.getElementById('includeMCQ');
+        const includeTF = document.getElementById('includeTF');
+        const showRefCheckbox = document.getElementById('showRef');
+        const showCorrCheckbox = document.getElementById('showCorr');
+
+        const bankFileInput = document.getElementById('bankFile');
+        const loadFileBtn = document.getElementById('loadFileBtn');
+
+        /* ===== Helpers ===== */
+        function normalizeValue(v) {
+            return (typeof v === 'boolean') ? (v ? 'true' : 'false') : String(v);
+        }
+
+        function basename(path) {
+            if (!path) return '';
+            const parts = String(path).split(/[\\/]/);
+            return parts[parts.length - 1];
+        }
+
+        function renderBilingual(arEl, enEl, arText, enText) {
+            const hasAr = !!arText;
+            const hasEn = !!enText;
+
+            if (currentLanguage === 'arabic') {
+                arEl.style.display = hasAr ? 'block' : 'none';
+                enEl.style.display = 'none';
+                arEl.textContent = arText || '';
+                return;
+            }
+
+            if (currentLanguage === 'english') {
+                arEl.style.display = 'none';
+                enEl.style.display = hasEn ? 'block' : 'none';
+                enEl.textContent = enText || '';
+                return;
+            }
+
+            // both
+            arEl.style.display = hasAr ? 'block' : 'none';
+            enEl.style.display = hasEn ? 'block' : 'none';
+            arEl.textContent = arText || '';
+            enEl.textContent = enText || '';
+        }
+
+        function setExplanationTitle() {
+            if (currentLanguage === 'arabic') {
+                correctionTitle.textContent = 'تعليل الإجابة';
+            } else if (currentLanguage === 'english') {
+                correctionTitle.textContent = 'Explanation';
+            } else {
+                correctionTitle.textContent = 'Explanation / تعليل الإجابة';
+            }
+        }
+
+        function updateFileStatus(state, message) {
+            // state: 'loading' | 'ok' | 'error'
+            const isLoading = state === 'loading';
+            if (loadingSpinner) loadingSpinner.style.display = isLoading ? 'inline-block' : 'none';
+            if (fileStatusText) {
+                fileStatusText.textContent = message;
+            } else {
+                // Fallback
+                fileStatus.textContent = message;
+            }
+        }
+
+        /* ===== Load JSON bank (fetch) ===== */
+        async function loadQuestionsFromFetch() {
+            try {
+                updateFileStatus('loading', 'Loading ' + DEFAULT_BANK_FILE + '...');
+                const response = await fetch(DEFAULT_BANK_FILE, { cache: 'no-store' });
+                if (!response.ok) throw new Error('HTTP ' + response.status);
+                const data = await response.json();
+                questionsData = data;
+                initializeApp();
+            } catch (error) {
+                console.error('Error loading bank via fetch:', error);
+                updateFileStatus('error', 'Could not load bank automatically. Please use the file picker.');
+            }
+        }
+
+        /* ===== Load JSON bank (file input) ===== */
+        function loadQuestionsFromFile() {
+            const file = bankFileInput.files && bankFileInput.files[0];
+            if (!file) {
+                alert('Please choose the JSON file first.');
+                return;
+            }
+
+            updateFileStatus('loading', 'Loading ' + file.name + '...');
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    questionsData = JSON.parse(reader.result);
+                    initializeApp();
+                } catch (e) {
+                    console.error(e);
+                    updateFileStatus('error', 'Invalid JSON file.');
+                    alert('Invalid JSON. Please select the correct bank file.');
+                }
+            };
+            reader.onerror = () => {
+                updateFileStatus('error', 'Failed to read file.');
+            };
+            reader.readAsText(file, 'utf-8');
+        }
+
+        /* ===== Normalize bank questions ===== */
+        function normalizeBankQuestions(raw) {
+            if (!raw || !Array.isArray(raw.questions)) return [];
+
+            const out = [];
+            raw.questions.forEach((item) => {
+                if (!item || !item.type) return;
+
+                const type = String(item.type).toUpperCase();
+
+                if (type === 'MCQ') {
+                    const options = Array.isArray(item.options) ? item.options.map((o) => ({
+                        key: o.key,
+                        textEn: o.en,
+                        textAr: o.ar,
+                        value: o.key
+                    })) : [];
+
+                    out.push({
+                        id: item.id,
+                        type: 'MCQ',
+                        typeLabel: 'MCQ',
+                        difficulty: item.difficulty || '',
+                        tags: item.tags || [],
+                        sourceFilename: item.source?.filename || '',
+                        sourcePage: item.source?.page ?? null,
+                        questionEn: item.question?.en || '',
+                        questionAr: item.question?.ar || '',
+                        options,
+                        correctValue: item.answerKey,
+                        rationaleEn: item.rationale?.en || '',
+                        rationaleAr: item.rationale?.ar || ''
+                    });
+                    return;
+                }
+
+                if (type === 'TRUE_FALSE' || type === 'TRUE/FALSE' || type === 'TF') {
+                    out.push({
+                        id: item.id,
+                        type: 'TRUE_FALSE',
+                        typeLabel: 'True/False',
+                        difficulty: item.difficulty || '',
+                        tags: item.tags || [],
+                        sourceFilename: item.source?.filename || '',
+                        sourcePage: item.source?.page ?? null,
+                        questionEn: item.statement?.en || '',
+                        questionAr: item.statement?.ar || '',
+                        options: [
+                            { key: '', textEn: 'True', textAr: 'صح', value: true },
+                            { key: '', textEn: 'False', textAr: 'خطأ', value: false }
+                        ],
+                        correctValue: !!item.answer,
+                        rationaleEn: item.rationale?.en || '',
+                        rationaleAr: item.rationale?.ar || ''
+                    });
+                    return;
+                }
+            });
+
+            return out;
+        }
+
+        /* ===== Initialize app ===== */
+        function initializeApp() {
+            bankQuestions = normalizeBankQuestions(questionsData);
+
+            if (!bankQuestions.length) {
+                updateFileStatus('error', 'Loaded, but no questions found in this JSON.');
+                startBtn.disabled = true;
+                return;
+            }
+
+            const loadedName = basename(DEFAULT_BANK_FILE);
+            const shownName = (bankFileInput.files && bankFileInput.files[0]) ? bankFileInput.files[0].name : loadedName;
+
+            updateFileStatus('ok', shownName + ' loaded');
+            startBtn.disabled = false;
+
+            // Bind events (only once)
+            if (!appEventsBound) {
+                startBtn.addEventListener('click', startQuiz);
+                retry.addEventListener('click', resetQuiz);
+                review.addEventListener('click', reviewQuestions);
+                showRefCheckbox.addEventListener('change', function () { showReferences = this.checked; });
+                showCorrCheckbox.addEventListener('change', function () { showCorrections = this.checked; });
+                loadFileBtn.addEventListener('click', loadQuestionsFromFile);
+                appEventsBound = true;
+            }
+
+            // Set defaults
+            showReferences = showRefCheckbox.checked;
+            showCorrections = showCorrCheckbox.checked;
+
+            updateStats();
+        }
+
+        /* ===== Update stats ===== */
+        function updateStats() {
+            const total = bankQuestions.length;
+            const tfCount = bankQuestions.filter(q => q.type === 'TRUE_FALSE').length;
+            const mcqCount = bankQuestions.filter(q => q.type === 'MCQ').length;
+
+            document.getElementById('totalStat').textContent = total;
+            document.getElementById('tfStat').textContent = tfCount;
+            document.getElementById('mcqStat').textContent = mcqCount;
+        }
+
+        /* ===== Start quiz ===== */
+        function startQuiz() {
+            document.getElementById('setup').classList.add('hidden');
+            quiz.classList.remove('hidden');
+
+            // How many
+            const qty = parseInt(qtyInput.value, 10) || 10;
+            const useAll = allQ.checked;
+
+            // Filter types
+            const allowMCQ = includeMCQ.checked;
+            const allowTF = includeTF.checked;
+
+            let selected = bankQuestions.filter(q => (allowMCQ && q.type === 'MCQ') || (allowTF && q.type === 'TRUE_FALSE'));
+
+            if (!selected.length) {
+                alert('No questions selected. Please enable MCQ and/or True/False.');
+                resetQuiz();
+                return;
+            }
+
+            // Shuffle questions once if requested
+            if (randQ.checked) {
+                selected = shuffleCopy(selected);
+            } else {
+                selected = [...selected];
+            }
+
+            // Slice
+            if (!useAll && qty < selected.length) {
+                selected = selected.slice(0, qty);
+            }
+
+            // Clone for session + set per-question session fields
+            const randomizeAnswers = randA.checked;
+            currentQuestions = selected.map((q) => {
+                const cloned = {
+                    ...q,
+                    options: q.options.map(o => ({ ...o })),
+                    userAnswer: undefined,   // value for answered questions
+                    wasSkipped: false,       // true if "Show Answer" used
+                    renderOptions: null
+                };
+
+                // Precompute option order for this session
+                cloned.renderOptions = randomizeAnswers ? shuffleCopy(cloned.options) : [...cloned.options];
+
+                return cloned;
+            });
+
+            currentIndex = 0;
+            score = 0;
+            answered = 0;
+            correctAnswers = 0;
+            wrongAnswers = 0;
+            skippedAnswers = 0;
+
+            showQuestion();
+        }
+
+        /* ===== Render question ===== */
+        function showQuestion() {
+            if (currentIndex >= currentQuestions.length) {
+                showResults();
+                return;
+            }
+
+            const q = currentQuestions[currentIndex];
+            const tagParts = [q.typeLabel];
+            if (q.difficulty) tagParts.push(q.difficulty);
+            document.getElementById('bankTag').textContent = tagParts.join(' • ');
+
+            counter.textContent = `${currentIndex + 1} / ${currentQuestions.length}`;
+
+            renderBilingual(qtextAr, qtextEn, q.questionAr, q.questionEn);
+
+            // Build options
+            opts.innerHTML = '';
+
+            const options = Array.isArray(q.renderOptions) ? q.renderOptions : q.options;
+            const correctNorm = normalizeValue(q.correctValue);
+
+            options.forEach((option) => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.type = 'button';
+
+                const prefix = option.key ? (option.key + '. ') : '';
+                let label = '';
+                if (currentLanguage === 'arabic') {
+                    label = prefix + (option.textAr || '');
+                } else if (currentLanguage === 'english') {
+                    label = prefix + (option.textEn || '');
+                } else {
+                    label = prefix + (option.textAr || '') + ' / ' + (option.textEn || '');
+                }
+
+                button.textContent = label;
+                button.dataset.value = normalizeValue(option.value);
+
+                button.addEventListener('click', () => checkAnswer(option.value, button));
+                opts.appendChild(button);
+            });
+
+            // Reset feedback visibility
+            feedback.classList.add('hidden');
+
+            // If already answered/skipped, restore state
+            const alreadyAnswered = (q.userAnswer !== undefined) || q.wasSkipped;
+            if (alreadyAnswered) {
+                // disable buttons
+                opts.querySelectorAll('button').forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.dataset.value === correctNorm) btn.classList.add('correct');
+                });
+
+                // mark wrong if answered incorrectly
+                if (q.userAnswer !== undefined && q.userAnswer !== null) {
+                    const userNorm = normalizeValue(q.userAnswer);
+                    if (userNorm !== correctNorm) {
+                        opts.querySelectorAll('button').forEach(btn => {
+                            if (btn.dataset.value === userNorm) btn.classList.add('wrong');
+                        });
+                    }
+                }
+
+                if (showCorrections || showReferences) {
+                    showFeedback(q);
+                }
+
+                next.disabled = false;
+            } else {
+                next.disabled = true;
+            }
+
+            updateProgressBar();
+        }
+
+        /* ===== Check answer ===== */
+        function checkAnswer(selectedValue, clickedButton) {
+            const q = currentQuestions[currentIndex];
+
+            // Prevent double answering
+            if (q.userAnswer !== undefined || q.wasSkipped) return;
+
+            q.userAnswer = selectedValue;
+            q.wasSkipped = false;
+
+            const selectedNorm = normalizeValue(selectedValue);
+            const correctNorm = normalizeValue(q.correctValue);
+            const isCorrect = selectedNorm === correctNorm;
+
+            // Disable all options + highlight correct
+            opts.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.value === correctNorm) {
+                    btn.classList.add('correct');
+                }
+            });
+
+            // Highlight wrong selection
+            if (!isCorrect) {
+                clickedButton.classList.add('wrong');
+            }
+
+            // Update score
+            answered++;
+            if (isCorrect) {
+                score++;
+                correctAnswers++;
+            } else {
+                wrongAnswers++;
+            }
+
+            if (showCorrections || showReferences) {
+                showFeedback(q);
+            }
+
+            next.disabled = false;
+        }
+
+        /* ===== Show explanation + reference ===== */
+        function showFeedback(q) {
+            setExplanationTitle();
+
+            // Explanation
+            if (showCorrections && (q.rationaleAr || q.rationaleEn)) {
+                renderBilingual(correctionAr, correctionEn, q.rationaleAr, q.rationaleEn);
+                correctionAr.style.display = correctionAr.textContent ? correctionAr.style.display : 'none';
+                correctionEn.style.display = correctionEn.textContent ? correctionEn.style.display : 'none';
+            } else {
+                correctionAr.style.display = 'none';
+                correctionEn.style.display = 'none';
+            }
+
+            // Reference
+            if (showReferences && q.sourceFilename && q.sourcePage !== null && q.sourcePage !== undefined) {
+                reference.style.display = 'block';
+                const f = basename(q.sourceFilename);
+                const p = q.sourcePage;
+
+                if (currentLanguage === 'arabic') {
+                    referenceText.innerHTML = `المرجع: <b>${f}</b> - الصفحة: <b>${p}</b>`;
+                } else if (currentLanguage === 'english') {
+                    referenceText.innerHTML = `Source: <b>${f}</b> - Page: <b>${p}</b>`;
+                } else {
+                    referenceText.innerHTML = `Source: <b>${f}</b> - Page: <b>${p}</b><br>المرجع: <b>${f}</b> - الصفحة: <b>${p}</b>`;
+                }
+            } else {
+                reference.style.display = 'none';
+            }
+
+            feedback.classList.remove('hidden');
+        }
+
+        /* ===== Switch language ===== */
+        function switchLanguage(lang, btn) {
+            currentLanguage = lang;
+
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            // If quiz is running, re-render current question (without changing scoring)
+            if (!quiz.classList.contains('hidden') && currentQuestions.length > 0) {
+                showQuestion();
+            }
+
+            // Also update explanation title if visible
+            if (!feedback.classList.contains('hidden')) {
+                setExplanationTitle();
+            }
+        }
+
+        /* ===== Progress bar ===== */
+        function updateProgressBar() {
+            const progress = (currentIndex + 1) / currentQuestions.length;
+            bar.style.width = `${progress * 100}%`;
+        }
+
+        /* ===== Next ===== */
+        next.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex < currentQuestions.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        /* ===== Reveal answer ===== */
+        reveal.addEventListener('click', () => {
+            const q = currentQuestions[currentIndex];
+
+            // Prevent double actions
+            if (q.userAnswer !== undefined || q.wasSkipped) return;
+
+            q.wasSkipped = true;
+            q.userAnswer = null;
+
+            const correctNorm = normalizeValue(q.correctValue);
+
+            opts.querySelectorAll('button').forEach(btn => {
+                btn.disabled = true;
+                if (btn.dataset.value === correctNorm) btn.classList.add('correct');
+            });
+
+            answered++;
+            skippedAnswers++;
+
+            if (showCorrections || showReferences) {
+                showFeedback(q);
+            }
+
+            next.disabled = false;
+        });
+
+        /* ===== Results ===== */
+        function showResults() {
+            quiz.classList.add('hidden');
+            result.classList.remove('hidden');
+
+            const total = currentQuestions.length || 1;
+            const percentage = Math.round((score / total) * 100);
+
+            document.getElementById('scoreDisplay').textContent = `${score} / ${total}`;
+            document.getElementById('percentLine').textContent = `${percentage}%`;
+
+            document.getElementById('correctStat').textContent = correctAnswers;
+            document.getElementById('wrongStat').textContent = wrongAnswers;
+            document.getElementById('skippedStat').textContent = skippedAnswers;
+        }
+
+        /* ===== Reset ===== */
+        function resetQuiz() {
+            result.classList.add('hidden');
+            quiz.classList.add('hidden');
+            document.getElementById('setup').classList.remove('hidden');
+
+            currentQuestions = [];
+            currentIndex = 0;
+            score = 0;
+            answered = 0;
+            correctAnswers = 0;
+            wrongAnswers = 0;
+            skippedAnswers = 0;
+
+            // keep bank loaded
+        }
+
+        /* ===== Review ===== */
+        function reviewQuestions() {
+            result.classList.add('hidden');
+            quiz.classList.remove('hidden');
+            currentIndex = 0;
+            showQuestion();
+        }
+
+        /* ===== Shuffle (copy) ===== */
+        function shuffleCopy(array) {
+            const a = [...array];
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+
+        /* ===== Start ===== */
+        loadQuestionsFromFetch();
+    </script>
+</body>
+</html>
