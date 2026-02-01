@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Summary | Communication Skills</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#0f172a',
+                        secondary: '#1e293b',
+                        accent: {
+                            emerald: '#10b981',
+                            sky: '#38bdf8',
+                            purple: '#8b5cf6',
+                            rose: '#f43f5e'
+                        }
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'slide-up': 'slideUp 0.5s ease-out forwards',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Modern Glassmorphism & Cyber-Academic Theme */
+        :root {
+            --glass-bg: rgba(30, 41, 59, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-highlight: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: #020617;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 25%), 
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 25%);
+            min-height: 100vh;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+
+        /* Base Glass Card */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shine Effect on Hover */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.05),
+                transparent
+            );
+            transform: skewX(-25deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .glass-card:hover::before {
+            left: 125%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+            background: rgba(30, 41, 59, 0.6);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-200 selection:bg-sky-500/30 p-4 md:p-8">
+    <div class="max-w-5xl mx-auto animate-fade-in">
+                <header class="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-bold font-display bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent mb-2">
+                    Progress Summary
+                </h1>
+                <p id="bank-subtitle-summary" class="text-slate-400 text-lg">Loading question bank…</p>
+                <div id="bank-status-summary" class="mt-2 text-xs font-mono text-slate-500"></div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center gap-3">
+                <a href="index.html" class="glass-card px-6 py-3 rounded-xl hover:bg-slate-700/50 transition flex items-center gap-3 font-semibold group border-slate-700">
+                    <span class="group-hover:-translate-x-1 transition-transform duration-300">←</span>
+                    Back to Dashboard
+                </a>
+
+                <button id="load-json-btn" class="glass-card px-6 py-3 rounded-xl hover:bg-slate-700/50 transition flex items-center gap-3 font-semibold group border-slate-700">
+                    <span aria-hidden="true">📁</span> Load JSON
+                </button>
+                <input id="bank-file-input" type="file" accept=".json" class="hidden" />
+            </div>
+        </header>
+
+        <!-- Overall Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-emerald-500 animate-slide-up" style="animation-delay: 0.1s">
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="p-3 bg-emerald-500/10 rounded-lg text-emerald-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="text-slate-400 font-medium">Completed</div>
+                </div>
+                <div class="text-5xl font-bold text-white font-display" id="total-completed">0</div>
+                <div class="text-sm text-slate-500 mt-2">lectures passed</div>
+            </div>
+            
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-sky-500 animate-slide-up" style="animation-delay: 0.2s">
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="p-3 bg-sky-500/10 rounded-lg text-sky-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div class="text-slate-400 font-medium">Correct Answers</div>
+                </div>
+                <div class="text-5xl font-bold text-white font-display" id="questions-answered">0</div>
+                <div class="text-sm text-slate-500 mt-2">total correct responses</div>
+            </div>
+            
+            <div class="glass-card p-6 rounded-2xl border-t-4 border-purple-500 animate-slide-up" style="animation-delay: 0.3s">
+                <div class="flex items-center gap-4 mb-2">
+                    <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                    </div>
+                    <div class="text-slate-400 font-medium">Average Score</div>
+                </div>
+                <div class="text-5xl font-bold text-white font-display" id="average-score">0%</div>
+                <div class="text-sm text-slate-500 mt-2">across all attempts</div>
+            </div>
+        </div>
+
+        <!-- Detailed Table -->
+        <div class="glass-card rounded-2xl overflow-hidden shadow-2xl animate-slide-up" style="animation-delay: 0.4s">
+            <div class="p-6 border-b border-slate-700/50 flex justify-between items-center bg-slate-800/20">
+                <h2 class="text-xl font-bold text-white flex items-center gap-3">
+                    <span class="w-2 h-8 bg-emerald-500 rounded-full"></span>
+                    Lecture Breakdown
+                </h2>
+                <button onclick="clearProgress()" class="group flex items-center gap-2 text-xs text-rose-400 hover:text-rose-300 transition bg-rose-500/10 px-4 py-2 rounded-lg hover:bg-rose-500/20 border border-rose-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transition-transform group-hover:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    Reset All Progress
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-800/40 text-slate-400 text-xs uppercase tracking-wider font-semibold">
+                        <tr>
+                            <th class="p-6">Lecture</th>
+                            <th class="p-6">Performance</th>
+                            <th class="p-6 text-center">Best Score</th>
+                            <th class="p-6 text-right">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-body" class="divide-y divide-slate-700/30 text-sm">
+                        <!-- Rows injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Import Data -->
+        <script>
+        // =========================================================
+        // Progress Summary (Communication Skills Question Bank)
+        // Reads progress from localStorage and displays lecture analytics.
+        // =========================================================
+
+        const BANK_JSON_URL = 'training_bank_communication_skills_full_package_EN_AR.json';
+        const PROGRESS_KEY = 'cs_quiz_progress_v2';
+
+        let BANK = null;
+        let CHAPTERS = [];
+        let QUESTIONS_BY_CHAPTER = {};
+        let ALL_QUESTIONS = [];
+
+        function slugify(str) {
+            return String(str || '')
+                .toLowerCase()
+                .replace(/&/g, 'and')
+                .replace(/[^a-z0-9]+/g, '_')
+                .replace(/^_+|_+$/g, '');
+        }
+
+        function setBankStatus(message, tone = 'info') {
+            const el = document.getElementById('bank-status-summary');
+            if (!el) return;
+
+            const base = 'mt-2 text-xs font-mono ';
+            const tones = {
+                info: 'text-slate-500',
+                success: 'text-emerald-300',
+                warning: 'text-amber-300',
+                error: 'text-rose-300'
+            };
+            el.className = base + (tones[tone] || tones.info);
+            el.textContent = message || '';
+        }
+
+        async function loadBankFromUrl(url) {
+            const res = await fetch(url, { cache: 'no-store' });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return await res.json();
+        }
+
+        function loadBankFromFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    try {
+                        resolve(JSON.parse(reader.result));
+                    } catch (e) { reject(e); }
+                };
+                reader.onerror = () => reject(reader.error || new Error('Failed to read file'));
+                reader.readAsText(file, 'utf-8');
+            });
+        }
+
+        function validateBankShape(bank) {
+            return bank && Array.isArray(bank.questions) && Array.isArray(bank.sources);
+        }
+
+        function normalizeQuestion(raw) {
+            const base = {
+                id: raw.id,
+                difficulty: raw.difficulty || 'medium',
+                tags: Array.isArray(raw.tags) ? raw.tags : [],
+                source: raw.source || { filename: 'Unknown', page: null },
+                type: raw.type === 'MCQ' ? 'mcq' : 'tf'
+            };
+
+            if (raw.type === 'MCQ') {
+                return { ...base };
+            }
+            return { ...base };
+        }
+
+        function buildStructuresFromBank(bank) {
+            QUESTIONS_BY_CHAPTER = {};
+            ALL_QUESTIONS = [];
+
+            (bank.questions || []).forEach(raw => {
+                const q = normalizeQuestion(raw);
+                const chapterId = slugify(q.source?.filename || 'unknown');
+
+                if (!QUESTIONS_BY_CHAPTER[chapterId]) QUESTIONS_BY_CHAPTER[chapterId] = [];
+                QUESTIONS_BY_CHAPTER[chapterId].push(q);
+                ALL_QUESTIONS.push(q);
+            });
+
+            const lectureChapters = (bank.sources || []).map(src => {
+                const id = slugify(src.filename);
+                const qs = QUESTIONS_BY_CHAPTER[id] || [];
+                const mcq = qs.filter(q => q.type === 'mcq').length;
+                const tf = qs.filter(q => q.type === 'tf').length;
+
+                return {
+                    id,
+                    name: src.label || src.filename,
+                    icon: iconForSourceLabel(src.label || src.filename),
+                    filename: src.filename,
+                    counts: { total: qs.length, mcq, tf }
+                };
+            });
+
+            const allCounts = bank.counts || { total: ALL_QUESTIONS.length, mcq: 0, true_false: 0 };
+            const allChapter = {
+                id: 'all',
+                name: 'All Lectures (Full Package)',
+                icon: '📚',
+                filename: '*',
+                counts: {
+                    total: allCounts.total ?? ALL_QUESTIONS.length,
+                    mcq: allCounts.mcq ?? ALL_QUESTIONS.filter(q => q.type === 'mcq').length,
+                    tf: allCounts.true_false ?? ALL_QUESTIONS.filter(q => q.type === 'tf').length
+                }
+            };
+
+            CHAPTERS = [allChapter, ...lectureChapters];
+        }
+
+        function iconForSourceLabel(label) {
+            const m = String(label || '').match(/Lecture\s*(\d+)/i);
+            const n = m ? parseInt(m[1], 10) : null;
+            const map = { 1: '💬', 2: '💬', 3: '🧩', 4: '📅', 5: '🎤', 9: '🧠', 10: '🧱' };
+            return (n && map[n]) ? map[n] : '📘';
+        }
+
+        function loadProgressStore() {
+            try { return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') || {}; }
+            catch { return {}; }
+        }
+
+        function getBest(progressEntry) {
+            return progressEntry?.best || null;
+        }
+
+        function pct(n) {
+            const v = Number.isFinite(n) ? Math.round(n) : 0;
+            return `${v}%`;
+        }
+
+        function escapeHtml(s) {
+            return String(s ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function loadSummary() {
+            const progress = loadProgressStore();
+            const tbody = document.getElementById('summary-body');
+
+            let lecturesPassed = 0;
+            let totalCorrect = 0;
+            let totalAttemptedQuestions = 0;
+            let chaptersWithAttempts = 0;
+
+            tbody.innerHTML = CHAPTERS.map((chapter) => {
+                const p = progress[chapter.id];
+                const best = getBest(p);
+                const bestPercent = best ? best.percent : 0;
+
+                const totalQuestionsInPool = chapter.counts?.total ?? 0;
+                const attempts = p?.attempts || 0;
+
+                // Totals
+                if (attempts > 0) chaptersWithAttempts++;
+                if (Array.isArray(p?.history)) {
+                    p.history.forEach(a => {
+                        totalCorrect += (a.score || 0);
+                        totalAttemptedQuestions += (a.total || 0);
+                    });
+                } else if (best) {
+                    totalCorrect += best.score || 0;
+                    totalAttemptedQuestions += best.total || 0;
+                }
+
+                let statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-700/30 text-slate-400 border border-slate-600/50">Not Started</span>';
+
+                if (best) {
+                    if (bestPercent === 100) {
+                        statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.2)]">✨ Perfect</span>';
+                        if (chapter.id !== 'all') lecturesPassed++;
+                    } else if (bestPercent >= 70) {
+                        statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20"> Passed</span>';
+                        if (chapter.id !== 'all') lecturesPassed++;
+                    } else {
+                        statusBadge = '<span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20">Needs Work</span>';
+                    }
+                }
+
+                const percentBar = best ? bestPercent : 0;
+
+                // Dynamic gradient for progress bar
+                let barColor = 'from-emerald-500 to-emerald-400';
+                if (percentBar < 50) barColor = 'from-rose-500 to-rose-400';
+                else if (percentBar < 75) barColor = 'from-amber-500 to-amber-400';
+
+                const bestScoreText = best ? `${best.score}/${best.total}` : '0';
+                const bestScoreSub = best ? `${pct(bestPercent)}` : '—';
+
+                return `
+                    <tr class="hover:bg-slate-700/20 transition-colors duration-200 group">
+                        <td class="p-6">
+                            <div class="flex items-center gap-5">
+                                <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 group-hover:rotate-3 transition duration-300">
+                                    ${chapter.icon}
+                                </div>
+                                <div>
+                                    <div class="font-bold text-base text-slate-200 group-hover:text-sky-400 transition-colors">${escapeHtml(chapter.name)}</div>
+                                    <div class="flex flex-wrap gap-2 mt-2">
+                                        <div class="text-xs text-slate-500 font-mono bg-slate-800/50 px-2 py-0.5 rounded inline-block border border-slate-700/50">${totalQuestionsInPool} Q</div>
+                                        <div class="text-xs text-slate-500 font-mono bg-slate-800/50 px-2 py-0.5 rounded inline-block border border-slate-700/50">Attempts: ${attempts}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="p-6 w-1/3 align-middle">
+                            <div class="flex justify-between text-xs mb-2 font-medium">
+                                <span class="text-slate-400">Best</span>
+                                <span class="${percentBar === 100 ? 'text-emerald-400' : 'text-slate-300'}">${Math.round(percentBar)}%</span>
+                            </div>
+                            <div class="w-full bg-slate-700/30 rounded-full h-2.5 overflow-hidden ring-1 ring-white/5">
+                                <div class="bg-gradient-to-r ${barColor} h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(0,0,0,0.3)] relative" style="width: ${percentBar}%">
+                                    <div class="absolute inset-0 bg-white/20 w-full h-full animate-[pulse_2s_infinite]"></div>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="p-6 font-display text-center align-middle">
+                            <div class="inline-block px-4 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 min-w-[120px]">
+                                <div class="text-xl font-bold ${best ? 'text-slate-100' : 'text-slate-600'}">${escapeHtml(bestScoreText)}</div>
+                                <div class="text-xs text-slate-500 mt-1">${escapeHtml(bestScoreSub)}</div>
+                            </div>
+                        </td>
+
+                        <td class="p-6 text-right align-middle">
+                            ${statusBadge}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Update Stats
+            document.getElementById('total-completed').textContent = lecturesPassed;
+            document.getElementById('questions-answered').textContent = totalCorrect;
+
+            const overallAvg = totalAttemptedQuestions > 0 ? Math.round((totalCorrect / totalAttemptedQuestions) * 100) : 0;
+            document.getElementById('average-score').textContent = overallAvg + '%';
+        }
+
+        function clearProgress() {
+            if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+                localStorage.removeItem(PROGRESS_KEY);
+                loadSummary();
+            }
+        }
+
+        async function bootstrap() {
+            setBankStatus('Trying to load JSON from the same folder…', 'info');
+
+            try {
+                const bank = await loadBankFromUrl(BANK_JSON_URL);
+                if (!validateBankShape(bank)) throw new Error('Invalid JSON structure');
+                BANK = bank;
+                buildStructuresFromBank(BANK);
+
+                const total = BANK.counts?.total ?? ALL_QUESTIONS.length;
+                const mcq = BANK.counts?.mcq ?? 0;
+                const tf = BANK.counts?.true_false ?? 0;
+
+                document.getElementById('bank-subtitle-summary').textContent = `Loaded • ${total} questions (MCQ: ${mcq}, T/F: ${tf})`;
+                setBankStatus(`Loaded: ${BANK_JSON_URL}`, 'success');
+
+                loadSummary();
+            } catch (err) {
+                console.warn(err);
+                document.getElementById('bank-subtitle-summary').textContent = 'Could not auto-load the JSON (common with file://). Click “Load JSON”.';
+                setBankStatus('Auto-load failed. Please load the JSON file manually.', 'warning');
+
+                // Still render empty table headers
+                CHAPTERS = [];
+                document.getElementById('summary-body').innerHTML = `
+                    <tr>
+                        <td class="p-6 text-slate-400" colspan="4">
+                            JSON not loaded yet. Click “Load JSON” to select the training bank file.
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        // Wire up manual loader
+        document.getElementById('load-json-btn').addEventListener('click', () => {
+            document.getElementById('bank-file-input').click();
+        });
+
+        document.getElementById('bank-file-input').addEventListener('change', async (e) => {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+
+            try {
+                setBankStatus('Loading JSON file…', 'info');
+                const bank = await loadBankFromFile(file);
+                if (!validateBankShape(bank)) throw new Error('Invalid JSON structure');
+
+                BANK = bank;
+                buildStructuresFromBank(BANK);
+
+                const total = BANK.counts?.total ?? ALL_QUESTIONS.length;
+                const mcq = BANK.counts?.mcq ?? 0;
+                const tf = BANK.counts?.true_false ?? 0;
+
+                document.getElementById('bank-subtitle-summary').textContent = `Loaded • ${total} questions (MCQ: ${mcq}, T/F: ${tf})`;
+                setBankStatus(`Loaded from file: ${file.name}`, 'success');
+
+                loadSummary();
+            } catch (err) {
+                console.error(err);
+                setBankStatus('Failed to load this JSON file. Please select the correct training bank file.', 'error');
+                alert('Failed to load JSON. Please select the correct file.');
+            } finally {
+                e.target.value = '';
+            }
+        });
+
+        // Expose reset globally for the inline onclick in HTML
+        window.clearProgress = clearProgress;
+
+        bootstrap();
+    </script>
+</body>
+</html>
