@@ -10,7 +10,6 @@
     <style>
         /* --- THEME VARIABLES --- */
         :root {
-            /* Light Mode */
             --primary: #2563eb;
             --primary-light: #eff6ff;
             --success: #059669;
@@ -29,12 +28,11 @@
         }
 
         [data-theme="dark"] {
-            /* Dark Mode */
             --primary: #60a5fa;
             --primary-light: #1e293b;
             --success: #34d399;
             --success-bg: #064e3b;
-            --success-text: #ecfdf5; /* Fixed Text Color for Dark Mode */
+            --success-text: #ecfdf5;
             --danger: #f87171;
             --danger-bg: #7f1d1d;
             --bg: #0f172a;
@@ -103,6 +101,11 @@
         .form-select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--input-bg); color: var(--text); margin-bottom: 15px; font-size: 14px; }
         .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
 
+        /* Loading Screen */
+        .loading-screen { text-align: center; padding: 50px; }
+        .spinner { width: 40px; height: 40px; border: 4px solid var(--primary-light); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* Quiz & Study Items */
         .option-btn { 
             width: 100%; text-align: left; padding: 16px; 
@@ -114,7 +117,6 @@
         .option-btn.correct { background: var(--success-bg); border-color: var(--success); color: var(--success-text); font-weight: 800; }
         .option-btn.wrong { background: var(--danger-bg); border-color: var(--danger); color: #b91c1c; }
 
-        /* Study List Specific Fixes */
         .study-item { background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
         .study-header { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .study-option { 
@@ -122,25 +124,24 @@
             margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7;
             display: flex; align-items: center; gap: 10px;
         }
-        /* Highlight Correct Answer in Study Mode */
         .study-option.is-answer { 
-            background: var(--success-bg); 
-            border-color: var(--success); 
-            color: var(--success-text); 
-            opacity: 1; 
-            font-weight: 700;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: var(--success-bg); border-color: var(--success); color: var(--success-text); 
+            opacity: 1; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .rationale-box { margin-top: 15px; padding: 15px; background: var(--primary-light); border-radius: 8px; font-size: 14px; color: var(--text); border: 1px solid var(--border); }
-        .upload-area { background: var(--card); border: 2px dashed var(--border); border-radius: 16px; padding: 50px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
-
+        .feedback-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; animation: slideIn 0.3s; }
+        .feedback-box.correct-ref { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success); }
+        .feedback-box.wrong-exp { background: var(--danger-bg); color: #991b1b; border: 1px solid var(--danger); }
+        
+        @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; }
         .en-text { font-family: 'Inter', sans-serif; direction: ltr; }
-        
+
         /* Layout Adjustments */
+        body.lang-ar .rationale-box, body.lang-both .rationale-box { border-right: 3px solid var(--primary); }
+        body.lang-en .rationale-box { border-left: 3px solid var(--primary); }
         body.lang-ar .option-btn, body.lang-both .option-btn { text-align: right; }
         body.lang-en .option-btn { text-align: left; }
         body.lang-ar .study-option, body.lang-both .study-option { flex-direction: row; } 
@@ -181,14 +182,16 @@
             </div>
         </div>
 
-        <div id="uploadView">
-            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-                <div style="width:60px; height:60px; background:var(--primary-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:var(--primary)">
-                    <i class="fas fa-cloud-upload-alt fa-2x"></i>
-                </div>
-                <h3 style="margin:0 0 10px 0; font-size:18px" data-i18n="uploadTitle">رفع بنك الأسئلة</h3>
-                <p style="color:var(--muted); margin:0" data-i18n="uploadDesc">اضغط لاختيار ملف JSON</p>
-                <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFile(this)">
+        <div id="loadingView" class="loading-screen">
+            <div class="spinner"></div>
+            <h3 style="color:var(--primary)">Loading Database...</h3>
+            <p style="color:var(--muted); font-size:13px">
+                جاري تحميل ملف الأسئلة تلقائياً<br>
+                <span style="opacity:0.7">(training_bank_communication_skills_full_package_EN_AR.json)</span>
+            </p>
+            <div id="errorMsg" class="hidden" style="color:var(--danger); margin-top:20px; font-weight:bold; background:var(--danger-bg); padding:10px; border-radius:8px;">
+                خطأ: لم يتم العثور على ملف JSON!<br>
+                يرجى التأكد من أن ملف البيانات موجود في نفس المجلد مع هذه الصفحة.
             </div>
         </div>
 
@@ -212,6 +215,7 @@
                         <select id="quizCount" class="form-select">
                             <option value="10" data-i18n="cnt10">10 أسئلة</option>
                             <option value="25" data-i18n="cnt25">25 سؤال</option>
+                            <option value="50" data-i18n="cnt50">50 سؤال</option>
                             <option value="all" data-i18n="cntMax">الكل</option>
                         </select>
                     </div>
@@ -240,6 +244,9 @@
                     </div>
                 </div>
             </div>
+            <div style="text-align:center; margin-top:20px; font-size:12px; color:var(--muted)">
+                <i class="fas fa-database"></i> <span data-i18n="dbLoaded">تم تحميل:</span> <span id="totalQsBadge">0</span> <span data-i18n="dbQs">سؤال</span>
+            </div>
         </div>
 
         <div id="quizView" class="hidden container">
@@ -249,7 +256,7 @@
                 </button>
                 <div style="font-weight:700; color:var(--muted)"><span data-i18n="qLabel">سؤال</span> <span id="qCurr">1</span> / <span id="qTotal">10</span></div>
             </div>
-            <div class="q-card">
+            <div class="card-box">
                 <div style="display:flex; justify-content:space-between; margin-bottom:15px">
                     <span id="qDifficultyBadge" class="badge badge-info">Easy</span>
                     <span id="qTypeBadge" class="badge badge-prof">MCQ</span>
@@ -295,7 +302,7 @@
                     <div style="background:var(--success-bg); color:var(--success-text); padding:10px 20px; border-radius:10px; font-weight:700">
                         <span data-i18n="resCorrect">صحيحة</span>: <span id="resCorrect">0</span>
                     </div>
-                    <div style="background:var(--danger-bg); color:#991b1b; padding:10px 20px; border-radius:10px; font-weight:700">
+                    <div style="background:var(--danger-bg); color:#b91c1c; padding:10px 20px; border-radius:10px; font-weight:700">
                         <span data-i18n="resWrong">خاطئة</span>: <span id="resWrong">0</span>
                     </div>
                 </div>
@@ -344,8 +351,39 @@
         }
     };
     const APP = { data: [], sources: [], lang: 'both', quiz: { set: [], idx: 0, score: 0, correct: 0 }, study: { set: [] } };
+    const JSON_FILENAME = 'training_bank_communication_skills_full_package_EN_AR.json';
 
-    /* --- THEME LOGIC --- */
+    /* --- INIT --- */
+    function init() {
+        initTheme();
+        setLang('both');
+        autoConnect();
+    }
+
+    /* --- AUTO CONNECT --- */
+    function autoConnect() {
+        fetch(JSON_FILENAME)
+            .then(res => {
+                if(!res.ok) throw new Error("File not found");
+                return res.json();
+            })
+            .then(json => {
+                APP.data = json.questions;
+                extractSources();
+                setTimeout(() => {
+                    document.getElementById('loadingView').classList.add('hidden');
+                    document.getElementById('dashboardView').classList.remove('hidden');
+                }, 800); // Small delay for UX
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('errorMsg').classList.remove('hidden');
+                // Optional: Show manual upload if auto-fail?
+                // For now, just show error as requested "Auto link".
+            });
+    }
+
+    /* --- THEME --- */
     function initTheme() {
         const pref = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', pref);
@@ -362,22 +400,7 @@
         document.getElementById('themeBtn').innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
 
-    /* --- APP --- */
-    function loadFile(input) {
-        const file = input.files[0];
-        if(!file) return;
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                APP.data = JSON.parse(e.target.result).questions;
-                extractSources();
-                document.getElementById('uploadView').classList.add('hidden');
-                document.getElementById('dashboardView').classList.remove('hidden');
-            } catch(err) { alert("Invalid JSON"); }
-        };
-        reader.readAsText(file);
-    }
-
+    /* --- HELPERS --- */
     function extractSources() {
         const unique = [...new Set(APP.data.map(q => q.source.filename))].sort();
         APP.sources = unique;
@@ -387,6 +410,7 @@
             unique.forEach(s => { const opt = document.createElement('option'); opt.value = s; opt.innerText = s.replace('.pdf', ''); el.appendChild(opt); });
         };
         fill('quizSource'); fill('studySource');
+        document.getElementById('totalQsBadge').innerText = APP.data.length;
     }
 
     function setLang(l) {
@@ -404,7 +428,7 @@
     }
 
     function goHome() {
-        ['uploadView','dashboardView','quizView','studyView','resultView'].forEach(id => document.getElementById(id).classList.add('hidden'));
+        ['loadingView','dashboardView','quizView','studyView','resultView'].forEach(id => document.getElementById(id).classList.add('hidden'));
         document.getElementById('dashboardView').classList.remove('hidden');
         document.getElementById('heroSection').classList.remove('hidden');
     }
@@ -430,6 +454,7 @@
         const lang = APP.lang;
         document.getElementById('qCurr').innerText = APP.quiz.idx + 1;
         document.getElementById('qTotal').innerText = APP.quiz.set.length;
+        document.getElementById('qProgress').style.width = `${((APP.quiz.idx)/APP.quiz.set.length)*100}%`;
         document.getElementById('qDifficultyBadge').innerText = (q.difficulty||'Gen').toUpperCase();
         document.getElementById('qTypeBadge').innerText = q.type;
         const elAr = document.getElementById('qTextAr');
@@ -540,34 +565,40 @@
             let qHtml = '';
             const arQ = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
             const enQ = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
-            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px">${arQ}</div>`;
+            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px;font-size:16px">${arQ}</div>`;
             if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${enQ}</div>`;
             if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${enQ}</div>`;
             item.innerHTML += `<div style="margin-bottom:15px">${qHtml}</div>`;
+            
             const correctKey = String(q.type==='TRUE_FALSE'?q.answer:q.answerKey);
             let opts = q.type==='TRUE_FALSE'?[{key:'true',ar:'صح',en:'True'},{key:'false',ar:'خطأ',en:'False'}]:q.options.map(o=>({key:o.key,ar:o.ar,en:o.en}));
+            
             opts.forEach(o => {
                 const isAns = String(o.key)===correctKey;
-                const cls = isAns?'study-option is-answer':'study-option';
+                const cls = isAns ? 'study-option is-answer' : 'study-option';
                 let txt = '';
                 if(lang!=='en') txt += `<span class="ar-text">${o.ar}</span>`;
-                if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em">(${o.en})</span>`;
+                if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em; margin-right:10px">(${o.en})</span>`;
                 if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
-                item.innerHTML += `<div class="${cls}">${isAns?'<i class="fas fa-check"></i> ':''}${txt}</div>`;
+                
+                // Add Check Icon for Answer
+                const icon = isAns ? '<i class="fas fa-check-circle" style="color:inherit"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
+                item.innerHTML += `<div class="${cls}">${icon}${txt}</div>`;
             });
+            
             if(sRat) {
                 let rHtml = '';
                 if(lang!=='en') rHtml += `<div class="ar-text">${q.rationale.ar}</div>`;
                 if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${q.rationale.en}</div>`;
                 if(lang==='en') rHtml = `<div class="en-text">${q.rationale.en}</div>`;
-                item.innerHTML += `<div class="rationale-box">${rHtml}</div>`;
+                item.innerHTML += `<div class="rationale-box"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
             }
             container.appendChild(item);
         });
     }
 
-    initTheme();
-    setLang('both');
+    // RUN
+    init();
 </script>
 </body>
 </html>
