@@ -3,13 +3,17 @@
 
 
 <!-- Mirrored from saud-aqel.github.io/Exam/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Jan 2026 13:31:16 GMT -->
-<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Communication Skills Question Bank</title>
+    <title>Communication Skills Training Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Cairo:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -17,6 +21,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         display: ['Plus Jakarta Sans', 'sans-serif'],
+                        arabic: ['Cairo', 'sans-serif'],
                     },
                     colors: {
                         primary: '#0f172a',
@@ -61,25 +66,75 @@
         }
 
         body {
-            background-color: #020617;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 25%), 
-                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 25%);
+            background-color: #0f172a;
+            /* Dark Slate */
+            /* Cleaner, more professional/SaaS gradient */
+            background-image: radial-gradient(at 0% 0%, hsla(213, 85%, 26%, 0.1) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, hsla(168, 85%, 26%, 0.1) 0px, transparent 50%);
             min-height: 100vh;
-            color: #f8fafc;
+            color: #f1f5f9;
+            font-size: 15px;
+            /* Compact base size */
             overflow-x: hidden;
         }
 
         /* Base Glass Card */
         .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background: rgba(30, 41, 59, 0.7);
+            /* More opaque, less glassy */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+        }
+
+        /* Modern Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #334155;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.slider {
+            background-color: #10b981;
+        }
+
+        input:checked+.slider:before {
+            transform: translateX(20px);
         }
 
         /* Shine Effect on Hover */
@@ -90,12 +145,10 @@
             left: -100%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(
-                to right,
-                transparent,
-                rgba(255, 255, 255, 0.05),
-                transparent
-            );
+            background: linear-gradient(to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.05),
+                    transparent);
             transform: skewX(-25deg);
             transition: 0.5s;
             pointer-events: none;
@@ -143,7 +196,7 @@
             left: -100%;
             width: 50%;
             height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
             transform: skewX(-20deg);
             transition: 0.5s;
         }
@@ -165,12 +218,12 @@
             border-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
         }
-        
+
         .btn-accent {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
         }
-        
+
         .btn-accent:hover {
             background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
             box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
@@ -242,15 +295,18 @@
         ::-webkit-scrollbar {
             width: 8px;
         }
+
         ::-webkit-scrollbar-track {
-            background: #0f172a; 
+            background: #0f172a;
         }
+
         ::-webkit-scrollbar-thumb {
-            background: #334155; 
+            background: #334155;
             border-radius: 4px;
         }
+
         ::-webkit-scrollbar-thumb:hover {
-            background: #475569; 
+            background: #475569;
         }
 
         /* Modal */
@@ -258,11 +314,12 @@
             background: rgba(2, 6, 23, 0.85);
             backdrop-filter: blur(8px);
         }
+
         .modal-content {
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(15, 23, 42, 0.95);
         }
-        
+
         .confetti {
             position: fixed;
             width: 8px;
@@ -272,7 +329,9 @@
         }
 
         @keyframes confetti-fall {
-            to { transform: translateY(100vh) rotate(720deg); }
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
         }
     </style>
 </head>
@@ -282,34 +341,23 @@
     <div id="app" class="container mx-auto px-4 py-8 max-w-7xl">
         <!-- Dashboard View -->
         <div id="dashboard-view">
-                        <header class="text-center mb-12">
-                <div class="flex items-center justify-center gap-4 mb-4">
-                    <div class="text-4xl animate-float" aria-hidden="true">🗣️</div>
-                    <h1
-                        class="text-5xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
-                        Communication Skills Question Bank
-                    </h1>
-                </div>
-
-                <p id="bank-subtitle" class="text-gray-400 text-lg mb-6">Loading question bank…</p>
-
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <a href="summary.html"
-                       class="inline-flex items-center gap-2 glass-card px-8 py-3 rounded-full font-bold text-white hover:bg-slate-700 transition shadow-lg shadow-emerald-900/20 group border border-slate-600/50 hover:border-emerald-500/50">
-                        <span aria-hidden="true">📊</span> View Progress Summary
-                        <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" aria-hidden="true">→</span>
-                    </a>
-
-                    <button id="load-json-btn"
-                            class="inline-flex items-center gap-2 glass-card px-8 py-3 rounded-full font-bold text-white hover:bg-slate-700 transition shadow-lg shadow-sky-900/20 group border border-slate-600/50 hover:border-sky-500/50">
-                        <span aria-hidden="true">📁</span> Load JSON
-                        <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all" aria-hidden="true">↻</span>
-                    </button>
-
-                    <input id="bank-file-input" type="file" accept=".json" class="hidden" />
-                </div>
-
-                <div id="bank-status" class="mt-4 text-xs font-mono text-slate-400/90"></div>
+            <header class="text-center mb-12">
+                <h1
+                    class="text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
+                    Communication Skills Training Portal
+                </h1>
+                <p class="text-gray-400 text-lg mb-6">Master Communication Skills with Bilingual Questions (English &
+                    Arabic)</p>
+                <!-- <p class="text-gray-400 text-lg mb-6"></p> -->
+                <!-- <h1>Communication Skills Practice Quiz</h1> -->
+                <p class="text-gray-400 text-lg mb-1">د. صفاء الهادي - مهارات الاتصال</p>
+                <p class="text-gray-400 text-lg mb-1">تم بواسطة المهندس: عبدالملك حسان الحاج</p>
+                <p class="text-gray-400 text-lg mb-1">علوم الحاسوب - مستوى ثاني</p>
+                <a href="summary.html"
+                    class="inline-flex items-center gap-2 glass-card px-8 py-3 rounded-full font-bold text-white hover:bg-slate-700 transition shadow-lg shadow-emerald-900/20 group border border-slate-600/50 hover:border-emerald-500/50">
+                    <span>📊</span> View Progress Summary
+                    <span class="opacity-0 -ml-2 group-hover:opacity-100 group-hover:ml-0 transition-all">→</span>
+                </a>
             </header>
 
             <div id="chapters-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -320,14 +368,21 @@
         <!-- Quiz View -->
         <div id="quiz-view" class="hidden">
             <!-- Timer Header -->
-            <div class="glass-card rounded-2xl p-6 mb-8 sticky top-4 z-10 flex justify-between items-center bg-slate-900/80 backdrop-blur-xl border-slate-700/50 shadow-2xl">
+            <div
+                class="glass-card rounded-2xl p-6 mb-8 sticky top-4 z-10 flex justify-between items-center bg-slate-900/80 backdrop-blur-xl border-slate-700/50 shadow-2xl">
                 <div>
-                    <h2 id="quiz-title" class="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent"></h2>
-                    <p id="quiz-mode-display" class="text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold"></p>
+                    <h2 id="quiz-title"
+                        class="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
+                    </h2>
+                    <p id="quiz-mode-display"
+                        class="text-sm text-slate-400 mt-1 uppercase tracking-wider font-semibold"></p>
                 </div>
                 <div class="text-right">
-                    <div id="timer" class="text-4xl font-mono font-bold text-sky-400 tracking-wider drop-shadow-lg">00:00</div>
-                    <div id="progress-text" class="text-xs text-slate-500 font-medium bg-slate-800 px-3 py-1 rounded-full mt-2 inline-block">Question 1 of 50</div>
+                    <div id="timer" class="text-4xl font-mono font-bold text-sky-400 tracking-wider drop-shadow-lg">
+                        00:00</div>
+                    <div id="progress-text"
+                        class="text-xs text-slate-500 font-medium bg-slate-800 px-3 py-1 rounded-full mt-2 inline-block">
+                        Question 1 of 50</div>
                 </div>
             </div>
 
@@ -335,7 +390,8 @@
                 <!-- Question Area -->
                 <div class="lg:col-span-3">
                     <!-- Single Question Display -->
-                    <div id="current-question" class="question-card p-10 rounded-2xl mb-8 min-h-[400px] shadow-2xl relative overflow-hidden">
+                    <div id="current-question"
+                        class="question-card p-10 rounded-2xl mb-8 min-h-[400px] shadow-2xl relative overflow-hidden">
                         <!-- Current question will be rendered here -->
                     </div>
 
@@ -346,17 +402,17 @@
                                 class="btn-secondary px-6 py-3 rounded-xl font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
                                 ← Previous
                             </button>
-                            <button id="next-btn"
-                                class="btn-secondary px-6 py-3 rounded-xl font-semibold">
+                            <button id="next-btn" class="btn-secondary px-6 py-3 rounded-xl font-semibold">
                                 Next →
                             </button>
                         </div>
                         <div class="flex gap-3">
-                            <button id="check-btn"
+                            <!-- <button id="check-btn"
                                 class="btn-accent px-8 py-3 rounded-xl font-bold text-white shadow-lg shadow-emerald-900/20 transition-transform active:scale-95">
                                 Check Answer
-                            </button>
-                            <button id="submit-quiz" class="btn-primary px-8 py-3 rounded-xl font-bold text-lg text-white shadow-lg shadow-blue-900/20 active:scale-95">
+                            </button> -->
+                            <button id="submit-quiz"
+                                class="btn-primary px-8 py-3 rounded-xl font-bold text-lg text-white shadow-lg shadow-blue-900/20 active:scale-95 hidden">
                                 Submit Quiz
                             </button>
                         </div>
@@ -386,7 +442,7 @@
             <div class="glass-card rounded-3xl p-12 max-w-3xl mx-auto text-center border-slate-700/50 shadow-2xl mt-10">
                 <div class="text-6xl mb-4">🎉</div>
                 <h2 class="text-5xl font-bold mb-8 text-white">Quiz Complete!</h2>
-                
+
                 <div class="relative inline-block mb-12">
                     <div class="absolute inset-0 bg-emerald-500 blur-3xl opacity-20 rounded-full"></div>
                     <div id="score-display"
@@ -400,7 +456,8 @@
                 </div>
 
                 <div class="flex gap-4 justify-center">
-                    <button id="retake-quiz" class="btn-primary px-10 py-4 rounded-xl font-bold text-lg text-white shadow-xl shadow-blue-500/20">
+                    <button id="retake-quiz"
+                        class="btn-primary px-10 py-4 rounded-xl font-bold text-lg text-white shadow-xl shadow-blue-500/20">
                         Retake Quiz
                     </button>
                     <button id="results-to-dashboard" class="btn-secondary px-10 py-4 rounded-xl font-bold text-lg">
@@ -411,8 +468,10 @@
         </div>
 
         <!-- Custom Modal -->
-        <div id="custom-modal" class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none modal-overlay transition-opacity duration-300">
-            <div class="modal-content glass-card p-8 rounded-2xl max-w-md w-full mx-4 text-center border border-slate-600/50 shadow-2xl">
+        <div id="custom-modal"
+            class="fixed inset-0 z-50 flex items-center justify-center opacity-0 pointer-events-none modal-overlay transition-opacity duration-300">
+            <div
+                class="modal-content glass-card p-8 rounded-2xl max-w-md w-full mx-4 text-center border border-slate-600/50 shadow-2xl">
                 <div class="text-6xl mb-6" id="modal-icon">👋</div>
                 <h3 class="text-2xl font-bold text-white mb-2" id="modal-title">Title</h3>
                 <p class="text-gray-300 mb-8 leading-relaxed" id="modal-message">Message content.</p>
@@ -423,502 +482,149 @@
         </div>
     </div>
 
-        <script>
-        // =========================================================
-        // Communication Skills Question Bank Portal
-        // Data source: training_bank_communication_skills_full_package_EN_AR.json
-        // Supports: Filter by Lecture/File, Difficulty, Type, Tags + bilingual (EN/AR)
-        // =========================================================
+    <script>
+        // ==================== DATA MANAGEMENT ====================
+        let CHAPTERS = [];
+        let QUESTIONS = {};
 
-        const BANK_JSON_URL = 'training_bank_communication_skills_full_package_EN_AR.json';
-        const PROGRESS_KEY = 'cs_quiz_progress_v2';
-        const SETTINGS_KEY = 'cs_quiz_settings_v2';
-        const MAX_QUIZ_SIZE = 100;
+        async function fetchData() {
+            try {
+                // Show loading state if needed
+                const grid = document.getElementById('chapters-grid');
+                if (grid) grid.innerHTML = '<div class="col-span-full text-center text-emerald-400 animate-pulse">Loading Training Bank...</div>';
 
-        // Loaded bank + derived structures
-        let BANK = null;
-        let SOURCES_BY_FILENAME = {};
-        let CHAPTERS = []; // dashboard cards
-        let QUESTIONS = {}; // chapterId -> normalized question objects
-        let ALL_QUESTIONS = [];
-        let GLOBAL_TAG_COUNTS = {}; // tag -> count
-        let CHAPTER_TAG_COUNTS = {}; // chapterId -> {tag -> count}
+                const response = await fetch('training_bank_communication_skills_full_package_EN_AR.json');
+                if (!response.ok) throw new Error('Failed to load JSON');
 
-        // ==================== QUIZ STATE ====================
+                const data = await response.json();
+                processData(data);
+
+                init(); // Start app after data is ready
+            } catch (error) {
+                console.error('Error loading data:', error);
+                const grid = document.getElementById('chapters-grid');
+                if (grid) grid.innerHTML = `
+                    <div class="col-span-full text-center text-red-400">
+                        <p class="text-xl font-bold">Error Loading Data</p>
+                        <p class="text-sm mt-2">${error.message}</p>
+                        <p class="text-xs mt-4 text-gray-500">Please ensure you are running this on a web server (localhost).</p>
+                    </div>`;
+            }
+        }
+
+        function processData(data) {
+            // 1. Map Sources to Chapters
+            // Use filename as ID to link questions
+            CHAPTERS = data.sources.map((source, index) => ({
+                id: source.filename,
+                name: source.label,
+                icon: getIconForChapter(index)
+            }));
+
+            // 2. Map Questions
+            QUESTIONS = {};
+
+            // Initialize arrays for each chapter
+            CHAPTERS.forEach(ch => QUESTIONS[ch.id] = []);
+
+            data.questions.forEach(q => {
+                const chapterId = q.source.filename;
+                if (!QUESTIONS[chapterId]) return;
+
+                // Transform to App Format
+                // Defensive coding: Check if question object exists
+                if (!q.question) {
+                    console.warn(`Skipping question ${q.id} due to missing question data.`);
+                    return;
+                }
+
+                const formattedQ = {
+                    id: q.id,
+                    type: q.type === 'TRUE_FALSE' ? 'tf' : 'mcq',
+                    source: q.source, // Capture source info
+                    text: q.question.en || 'Question text missing',
+                    textAr: q.question.ar || '',
+                    explanation: formatExplanation(q.rationale),
+                    answer: resolveAnswer(q.type, q.answerKey, q.answer)
+                };
+
+                if (q.type === 'MCQ') {
+                    // Ensure options exist
+                    if (q.options) {
+                        formattedQ.options = q.options.map(o => o.en || '');
+                        formattedQ.optionsAr = q.options.map(o => o.ar || '');
+                    } else {
+                        formattedQ.options = [];
+                        formattedQ.optionsAr = [];
+                    }
+                }
+
+                QUESTIONS[chapterId].push(formattedQ);
+            });
+        }
+
+        function getIconForChapter(index) {
+            const icons = ['🗣️', '👥', '📊', '🚧', '📢', '💼', '📝', '🧠'];
+            return icons[index % icons.length];
+        }
+
+        function formatExplanation(rationale) {
+            if (!rationale) return 'No explanation available.';
+
+            return `
+                <div class="space-y-2">
+                    <p class="font-medium text-emerald-300">English:</p>
+                    <p>${rationale.en || 'N/A'}</p>
+                    <div class="h-px bg-white/10 my-2"></div>
+                    <p class="font-medium text-emerald-300 text-right" dir="rtl">عربي:</p>
+                    <p class="text-right" dir="rtl">${rationale.ar || 'لا يوجد شرح'}</p>
+                </div>
+            `;
+        }
+
+        function resolveAnswer(type, key, DirectAnswer) {
+            if (type === 'TRUE_FALSE') {
+                return DirectAnswer; // true or false
+            }
+            // For MCQ, map A->0, B->1, etc.
+            if (!key) return 0;
+            const map = { 'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4 };
+            return map[key.toUpperCase()] || 0;
+        }
+    </script>
+    <script>
+        // ==================== STATE MANAGEMENT ====================
         let currentChapter = null;
-        let currentMode = 'practice'; // 'practice' | 'exam'
+        let currentMode = 'practice'; // 'practice' or 'exam'
         let userAnswers = {};
         let timerInterval = null;
         let startTime = 0;
-        let currentQuestionIndex = 0;
-        let quizQuestions = [];
-        let currentQuizSettings = null; // settings used for this quiz
+        let currentQuestionIndex = 0; // Track current question being displayed
+        let quizQuestions = []; // Store current quiz questions
 
-        // ==================== UTILITIES ====================
-        function slugify(str) {
-            return String(str || '')
-                .toLowerCase()
-                .replace(/&/g, 'and')
-                .replace(/[^a-z0-9]+/g, '_')
-                .replace(/^_+|_+$/g, '');
+        // ==================== INITIALIZATION ====================
+        function init() {
+            renderDashboard();
+            setupEventListeners();
+            loadProgress();
         }
 
-        function clamp(n, min, max) {
-            return Math.max(min, Math.min(max, n));
-        }
-
-        function shuffle(arr) {
-            const a = arr.slice();
-            for (let i = a.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [a[i], a[j]] = [a[j], a[i]];
-            }
-            return a;
-        }
-
-        function uniq(arr) {
-            return Array.from(new Set(arr));
-        }
-
-        function getSourceLabel(filename) {
-            return SOURCES_BY_FILENAME[filename]?.label || filename || 'Unknown Source';
-        }
-
-        function escapeHtml(s) {
-            return String(s ?? '')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#039;');
-        }
-
-        function prettyMode(mode) {
-            return mode === 'exam' ? 'Exam Mode' : 'Practice Mode';
-        }
-
-        function badgeForDifficulty(diff) {
-            const d = (diff || '').toLowerCase();
-            if (d === 'easy') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">easy</span>';
-            if (d === 'medium') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-300 border border-amber-500/20">medium</span>';
-            if (d === 'hard') return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/20">hard</span>';
-            return '<span class="px-2 py-1 rounded-full text-xs font-semibold bg-slate-700/40 text-slate-300 border border-slate-600/40">n/a</span>';
-        }
-
-        function iconForSourceLabel(label) {
-            const m = String(label || '').match(/Lecture\s*(\d+)/i);
-            const n = m ? parseInt(m[1], 10) : null;
-            const map = {
-                1: '💬',
-                2: '💬',
-                3: '🧩',
-                4: '📅',
-                5: '🎤',
-                9: '🧠',
-                10: '🧱'
-            };
-            return (n && map[n]) ? map[n] : '📘';
-        }
-
-        function formatPercent(p) {
-            const v = Number.isFinite(p) ? Math.round(p) : 0;
-            return `${v}%`;
-        }
-
-        // ==================== BANK LOADING ====================
-        function setBankStatus(message, tone = 'info') {
-            const el = document.getElementById('bank-status');
-            if (!el) return;
-
-            const base = 'mt-4 text-xs font-mono ';
-            const tones = {
-                info: 'text-slate-400/90',
-                success: 'text-emerald-300',
-                warning: 'text-amber-300',
-                error: 'text-rose-300'
-            };
-            el.className = base + (tones[tone] || tones.info);
-            el.textContent = message || '';
-        }
-
-        async function loadBankFromUrl(url) {
-            const res = await fetch(url, { cache: 'no-store' });
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            return await res.json();
-        }
-
-        function loadBankFromFile(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => {
-                    try {
-                        resolve(JSON.parse(reader.result));
-                    } catch (e) {
-                        reject(e);
-                    }
-                };
-                reader.onerror = () => reject(reader.error || new Error('Failed to read file'));
-                reader.readAsText(file, 'utf-8');
-            });
-        }
-
-        function validateBankShape(bank) {
-            return bank && Array.isArray(bank.questions) && Array.isArray(bank.sources);
-        }
-
-        function normalizeQuestion(raw) {
-            const base = {
-                id: raw.id,
-                difficulty: raw.difficulty || 'medium',
-                tags: Array.isArray(raw.tags) ? raw.tags : [],
-                source: raw.source || { filename: 'Unknown', page: null },
-                type: null
-            };
-
-            if (raw.type === 'MCQ') {
-                const options = (raw.options || []).map(o => o.en);
-                const optionsAr = (raw.options || []).map(o => o.ar);
-                const correctIndex = (raw.options || []).findIndex(o => o.key === raw.answerKey);
-
-                return {
-                    ...base,
-                    type: 'mcq',
-                    text: raw.question?.en || '',
-                    textAr: raw.question?.ar || '',
-                    options,
-                    optionsAr,
-                    answer: correctIndex >= 0 ? correctIndex : 0,
-                    answerKey: raw.answerKey || null,
-                    rationaleEn: raw.rationale?.en || '',
-                    rationaleAr: raw.rationale?.ar || ''
-                };
-            }
-
-            // TRUE_FALSE
-            return {
-                ...base,
-                type: 'tf',
-                text: raw.statement?.en || '',
-                textAr: raw.statement?.ar || '',
-                answer: !!raw.answer,
-                rationaleEn: raw.rationale?.en || '',
-                rationaleAr: raw.rationale?.ar || ''
-            };
-        }
-
-        function buildStructuresFromBank(bank) {
-            SOURCES_BY_FILENAME = {};
-            (bank.sources || []).forEach(s => {
-                SOURCES_BY_FILENAME[s.filename] = s;
-            });
-
-            QUESTIONS = {};
-            ALL_QUESTIONS = [];
-            GLOBAL_TAG_COUNTS = {};
-            CHAPTER_TAG_COUNTS = {};
-
-            (bank.questions || []).forEach(raw => {
-                const q = normalizeQuestion(raw);
-                const chapterId = slugify(q.source?.filename || 'unknown');
-
-                if (!QUESTIONS[chapterId]) QUESTIONS[chapterId] = [];
-                QUESTIONS[chapterId].push(q);
-                ALL_QUESTIONS.push(q);
-
-                // Tag counts
-                if (!CHAPTER_TAG_COUNTS[chapterId]) CHAPTER_TAG_COUNTS[chapterId] = {};
-                (q.tags || []).forEach(t => {
-                    const tag = String(t).trim();
-                    if (!tag) return;
-                    GLOBAL_TAG_COUNTS[tag] = (GLOBAL_TAG_COUNTS[tag] || 0) + 1;
-                    CHAPTER_TAG_COUNTS[chapterId][tag] = (CHAPTER_TAG_COUNTS[chapterId][tag] || 0) + 1;
-                });
-            });
-
-            // Build chapters list from sources
-            const lectureChapters = (bank.sources || []).map(src => {
-                const id = slugify(src.filename);
-                const qs = QUESTIONS[id] || [];
-                const mcq = qs.filter(q => q.type === 'mcq').length;
-                const tf = qs.filter(q => q.type === 'tf').length;
-
-                return {
-                    id,
-                    name: src.label || src.filename,
-                    icon: iconForSourceLabel(src.label || src.filename),
-                    filename: src.filename,
-                    counts: { total: qs.length, mcq, tf }
-                };
-            });
-
-            // Add "All" chapter at start
-            const allCounts = bank.counts || { total: ALL_QUESTIONS.length, mcq: 0, true_false: 0 };
-            const allChapter = {
-                id: 'all',
-                name: 'All Lectures (Full Package)',
-                icon: '📚',
-                filename: '*',
-                counts: {
-                    total: allCounts.total ?? ALL_QUESTIONS.length,
-                    mcq: allCounts.mcq ?? ALL_QUESTIONS.filter(q => q.type === 'mcq').length,
-                    tf: allCounts.true_false ?? ALL_QUESTIONS.filter(q => q.type === 'tf').length
-                }
-            };
-
-            CHAPTERS = [allChapter, ...lectureChapters];
-        }
-
-        async function bootstrapBank() {
-            const subtitleEl = document.getElementById('bank-subtitle');
-            subtitleEl.textContent = 'Loading question bank…';
-            setBankStatus('Trying to load JSON from the same folder…', 'info');
-
-            try {
-                const bank = await loadBankFromUrl(BANK_JSON_URL);
-                if (!validateBankShape(bank)) throw new Error('Invalid JSON structure');
-                BANK = bank;
-                buildStructuresFromBank(BANK);
-
-                const total = BANK.counts?.total ?? ALL_QUESTIONS.length;
-                const mcq = BANK.counts?.mcq ?? ALL_QUESTIONS.filter(q => q.type === 'mcq').length;
-                const tf = BANK.counts?.true_false ?? ALL_QUESTIONS.filter(q => q.type === 'tf').length;
-
-                subtitleEl.textContent = `Complete bilingual (EN/AR) training bank • ${total} questions (MCQ: ${mcq}, T/F: ${tf})`;
-                setBankStatus(`Loaded: ${BANK_JSON_URL}`, 'success');
-                return true;
-            } catch (err) {
-                console.warn(err);
-                subtitleEl.textContent = 'Could not auto-load the JSON (common with file://). Please click “Load JSON” and select the file.';
-                setBankStatus('Auto-load failed. Use “Load JSON” to select the file manually.', 'warning');
-                return false;
-            }
-        }
-
-        // ==================== PROGRESS (LOCALSTORAGE) ====================
-        function loadProgressStore() {
-            try {
-                return JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}') || {};
-            } catch {
-                return {};
-            }
-        }
-
-        function saveProgressStore(store) {
-            localStorage.setItem(PROGRESS_KEY, JSON.stringify(store));
-        }
-
-        function saveAttempt(chapterId, attempt) {
-            const store = loadProgressStore();
-            if (!store[chapterId]) {
-                store[chapterId] = { attempts: 0, history: [], best: null, last: null };
-            }
-
-            store[chapterId].attempts = (store[chapterId].attempts || 0) + 1;
-            store[chapterId].last = attempt;
-
-            const history = Array.isArray(store[chapterId].history) ? store[chapterId].history : [];
-            history.unshift(attempt);
-            store[chapterId].history = history.slice(0, 50);
-
-            const best = store[chapterId].best;
-            if (!best || attempt.percent > best.percent || (attempt.percent === best.percent && attempt.score > best.score)) {
-                store[chapterId].best = attempt;
-            }
-
-            saveProgressStore(store);
-        }
-
-        function getChapterBest(chapterId) {
-            const store = loadProgressStore();
-            return store[chapterId]?.best || null;
-        }
-
-        function getChapterProgressPercent(chapterId) {
-            const best = getChapterBest(chapterId);
-            return best ? best.percent : 0;
-        }
-
-        // ==================== SETTINGS (LAST USED) ====================
-        function loadLastSettings() {
-            try {
-                return JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}') || {};
-            } catch {
-                return {};
-            }
-        }
-
-        function saveLastSettings(settingsByChapter) {
-            localStorage.setItem(SETTINGS_KEY, JSON.stringify(settingsByChapter));
-        }
-
-        function getDefaultSetup(chapterId) {
-            const saved = loadLastSettings();
-            const s = saved[chapterId] || saved['__global'] || {};
-
-            const defaults = {
-                mode: 'practice',
-                numQuestions: 50,
-                includeTypes: { mcq: true, tf: true },
-                includeDifficulties: { easy: true, medium: true, hard: true },
-                language: 'both', // both | en | ar
-                tagQuery: '',
-                selectedTags: [],
-                selectedSources: (chapterId === 'all')
-                    ? (CHAPTERS.filter(c => c.id !== 'all').map(c => c.filename))
-                    : null,
-                shuffleQuestions: true,
-                shuffleOptions: true
-            };
-
-            // Merge shallowly
-            const merged = { ...defaults, ...s };
-            // Merge nested
-            merged.includeTypes = { ...defaults.includeTypes, ...(s.includeTypes || {}) };
-            merged.includeDifficulties = { ...defaults.includeDifficulties, ...(s.includeDifficulties || {}) };
-            if (chapterId !== 'all') merged.selectedSources = null;
-
-            // Clamp
-            merged.numQuestions = clamp(parseInt(merged.numQuestions, 10) || defaults.numQuestions, 1, MAX_QUIZ_SIZE);
-
-            return merged;
-        }
-
-        function persistSetup(chapterId, setup) {
-            const saved = loadLastSettings();
-            saved[chapterId] = setup;
-            saved['__global'] = {
-                ...saved['__global'],
-                language: setup.language,
-                includeTypes: setup.includeTypes,
-                includeDifficulties: setup.includeDifficulties,
-                shuffleQuestions: setup.shuffleQuestions,
-                shuffleOptions: setup.shuffleOptions
-            };
-            saveLastSettings(saved);
-        }
-
-        // ==================== FILTERING ====================
-        function getPoolForSetup(chapterId, setup) {
-            let pool = (chapterId === 'all') ? ALL_QUESTIONS : (QUESTIONS[chapterId] || []);
-            if (chapterId === 'all' && Array.isArray(setup.selectedSources) && setup.selectedSources.length > 0) {
-                const allowed = new Set(setup.selectedSources);
-                pool = pool.filter(q => allowed.has(q.source?.filename));
-            }
-            return pool;
-        }
-
-        function matchesTagQuery(q, query) {
-            const qq = String(query || '').trim().toLowerCase();
-            if (!qq) return true;
-
-            // Search primarily in tags, but also in question text for convenience
-            const hay = [
-                ...(q.tags || []),
-                q.text || '',
-                q.textAr || ''
-            ].join(' ').toLowerCase();
-
-            return hay.includes(qq);
-        }
-
-        function filterQuestions(pool, setup) {
-            const activeTags = Array.isArray(setup.selectedTags) ? setup.selectedTags.map(t => String(t).trim()).filter(Boolean) : [];
-
-            return pool.filter(q => {
-                // type
-                if (q.type === 'mcq' && !setup.includeTypes.mcq) return false;
-                if (q.type === 'tf' && !setup.includeTypes.tf) return false;
-
-                // difficulty
-                const d = String(q.difficulty || 'medium').toLowerCase();
-                if (d === 'easy' && !setup.includeDifficulties.easy) return false;
-                if (d === 'medium' && !setup.includeDifficulties.medium) return false;
-                if (d === 'hard' && !setup.includeDifficulties.hard) return false;
-
-                // tag query / keyword
-                if (!matchesTagQuery(q, setup.tagQuery)) return false;
-
-                // selected tags (ANY match)
-                if (activeTags.length > 0) {
-                    const tagSet = new Set((q.tags || []).map(t => String(t).trim()));
-                    const any = activeTags.some(t => tagSet.has(t));
-                    if (!any) return false;
-                }
-
-                return true;
-            });
-        }
-
-        function getTopTagsForPool(pool, limit = 24) {
-            const counts = {};
-            pool.forEach(q => {
-                (q.tags || []).forEach(t => {
-                    const tag = String(t).trim();
-                    if (!tag) return;
-                    counts[tag] = (counts[tag] || 0) + 1;
-                });
-            });
-
-            return Object.entries(counts)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, limit)
-                .map(([tag]) => tag);
-        }
-
-        // ==================== UI: DASHBOARD ====================
         function renderDashboard() {
             const grid = document.getElementById('chapters-grid');
-            if (!grid) return;
-
-            if (!CHAPTERS.length) {
-                grid.innerHTML = `
-                    <div class="glass-card rounded-xl p-8 col-span-full text-center">
-                        <div class="text-4xl mb-2">⏳</div>
-                        <div class="text-lg font-semibold text-white mb-1">Loading…</div>
-                        <div class="text-slate-400 text-sm">Please wait while the question bank loads.</div>
-                    </div>
-                `;
-                return;
-            }
-
             grid.innerHTML = CHAPTERS.map(chapter => {
-                const best = getChapterBest(chapter.id);
-                const progressPercent = getChapterProgressPercent(chapter.id);
-                const bestLine = best
-                    ? `<p class="text-sm text-emerald-300 mb-3">Best: ${formatPercent(best.percent)} <span class="text-slate-400">(${best.score}/${best.total})</span></p>`
-                    : `<p class="text-sm text-slate-500 mb-3">No attempts yet</p>`;
-
-                const metaLine = `
-                    <div class="text-xs text-slate-400/90 font-medium mt-1">
-                        <span class="font-mono bg-slate-800/50 px-2 py-1 rounded border border-slate-700/50">
-                            ${chapter.counts.total} Q
-                        </span>
-                        <span class="ml-2 text-slate-500">MCQ:</span> ${chapter.counts.mcq}
-                        <span class="ml-2 text-slate-500">T/F:</span> ${chapter.counts.tf}
-                    </div>
-                `;
-
+                const progress = getChapterProgress(chapter.id);
+                const highScore = getHighScore(chapter.id);
                 return `
                     <div class="glass-card rounded-xl p-6 cursor-pointer" data-chapter="${chapter.id}">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="text-5xl mb-3">${chapter.icon}</div>
-                            <div class="text-right text-xs text-slate-500 font-mono">
-                                ${chapter.id === 'all' ? 'FULL' : 'LECTURE'}
+                        <div class="text-5xl mb-4">${chapter.icon}</div>
+                        <h3 class="text-xl font-bold mb-2">${chapter.name}</h3>
+                        <div class="mb-4">
+                            <div class="bg-gray-700 rounded-full h-2 mb-2">
+                                <div class="progress-bar h-2 rounded-full" style="width: ${progress}%"></div>
                             </div>
+                            <p class="text-xs text-gray-400">Progress: ${progress}%</p>
                         </div>
-
-                        <h3 class="text-xl font-bold mb-2 text-white">${escapeHtml(chapter.name)}</h3>
-                        ${metaLine}
-
-                        <div class="mt-4 mb-4">
-                            <div class="bg-gray-700 rounded-full h-2 mb-2 overflow-hidden ring-1 ring-white/5">
-                                <div class="progress-bar h-2 rounded-full" style="width: ${progressPercent}%"></div>
-                            </div>
-                            <p class="text-xs text-gray-400">Best performance: ${progressPercent}%</p>
-                        </div>
-
-                        ${bestLine}
-
+                        ${highScore ? `<p class="text-sm text-emerald-400 mb-3">Best: ${highScore}/50</p>` : ''}
                         <button class="btn-primary w-full py-2 rounded-lg font-semibold start-btn">
                             Start
                         </button>
@@ -927,437 +633,69 @@
             }).join('');
         }
 
-        // ==================== UI: QUIZ SETUP MODAL ====================
-        let quizSetupState = null;
+        function setupEventListeners() {
+            // Chapter card clicks
+            document.getElementById('chapters-grid').addEventListener('click', (e) => {
+                const card = e.target.closest('[data-chapter]');
+                if (card) {
+                    const chapterId = card.dataset.chapter;
+                    if (e.target.classList.contains('start-btn')) {
+                        showModeSelection(chapterId);
+                    }
+                }
+            });
 
-        function renderTagChips(container, tags, selectedSet) {
-            container.innerHTML = tags.map(tag => {
-                const active = selectedSet.has(tag);
-                return `
-                    <button type="button"
-                        class="tag-chip inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold border transition
-                               ${active ? 'bg-emerald-500/15 text-emerald-200 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]' : 'bg-slate-800/40 text-slate-300 border-slate-700/50 hover:border-sky-500/30 hover:text-white'}"
-                        data-tag="${escapeHtml(tag)}">
-                        <span class="w-1.5 h-1.5 rounded-full ${active ? 'bg-emerald-400' : 'bg-slate-500'}"></span>
-                        ${escapeHtml(tag)}
-                    </button>
-                `;
-            }).join('');
+            // Navigation buttons
+            document.getElementById('back-to-dashboard').addEventListener('click', () => showView('dashboard'));
+            document.getElementById('results-to-dashboard').addEventListener('click', () => showView('dashboard'));
+            document.getElementById('retake-quiz').addEventListener('click', () => startQuiz(currentChapter, currentMode));
+            document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
         }
 
-        function buildSetupModalMessage(chapterId, setup) {
-            const chapter = CHAPTERS.find(c => c.id === chapterId);
-            const isAll = chapterId === 'all';
-
-            const sourcesList = CHAPTERS.filter(c => c.id !== 'all');
-            const selectedSources = new Set(Array.isArray(setup.selectedSources) ? setup.selectedSources : []);
-
-            const sourcesHTML = isAll ? `
-                <div class="mt-5 text-left">
-                    <div class="text-sm font-semibold text-slate-200 mb-2">Filter by Lecture / File</div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-auto pr-1">
-                        ${sourcesList.map(s => {
-                            const checked = selectedSources.has(s.filename) ? 'checked' : '';
-                            return `
-                                <label class="flex items-center gap-3 glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition">
-                                    <input type="checkbox" class="setup-source" value="${escapeHtml(s.filename)}" ${checked}>
-                                    <span class="text-xl">${s.icon}</span>
-                                    <span class="text-sm text-slate-200">${escapeHtml(s.name)}</span>
-                                </label>
-                            `;
-                        }).join('')}
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <button type="button" id="setup-select-all-sources" class="text-xs px-3 py-1.5 rounded-full glass-card border border-slate-700/50 hover:border-emerald-500/30">Select all</button>
-                        <button type="button" id="setup-clear-sources" class="text-xs px-3 py-1.5 rounded-full glass-card border border-slate-700/50 hover:border-rose-500/30">Clear</button>
-                    </div>
-                </div>
-            ` : '';
-
-            return `
-                <div class="text-left">
-                    <div class="flex items-start justify-between gap-4 mb-4">
-                        <div>
-                            <div class="text-sm text-slate-400 font-mono">${chapterId === 'all' ? 'FULL PACKAGE' : 'LECTURE'}</div>
-                            <div class="text-xl font-bold text-white">${escapeHtml(chapter?.name || 'Quiz')}</div>
-                            <div class="text-xs text-slate-400 mt-1">Pool: ${chapter?.counts?.total ?? 0} questions</div>
-                        </div>
-                        <div class="text-4xl">${chapter?.icon || '🎓'}</div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Mode</div>
-                            <div class="grid grid-cols-2 gap-2">
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-emerald-500/30 transition cursor-pointer">
-                                    <input type="radio" name="setup-mode" value="practice" ${setup.mode === 'practice' ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">Practice</span>
-                                </label>
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition cursor-pointer">
-                                    <input type="radio" name="setup-mode" value="exam" ${setup.mode === 'exam' ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">Exam</span>
-                                </label>
-                            </div>
-                            <div class="text-xs text-slate-500 mt-1">Practice shows feedback per question.</div>
-                        </div>
-
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Number of Questions</div>
-                            <div class="flex items-center gap-3">
-                                <input id="setup-num-questions" type="number" min="1" max="${MAX_QUIZ_SIZE}" value="${escapeHtml(setup.numQuestions)}"
-                                    class="w-28 bg-slate-900/50 border border-slate-700/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/40">
-                                <div class="text-xs text-slate-500">Max ${MAX_QUIZ_SIZE}</div>
-                            </div>
-                            <div id="setup-available" class="text-xs text-slate-400 mt-2"></div>
-                        </div>
-                    </div>
-
-                    ${sourcesHTML}
-
-                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Question Type</div>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-type-mcq" ${setup.includeTypes.mcq ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">MCQ</span>
-                                </label>
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-type-tf" ${setup.includeTypes.tf ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">True/False</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Difficulty</div>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-emerald-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-diff-easy" ${setup.includeDifficulties.easy ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">easy</span>
-                                </label>
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-amber-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-diff-medium" ${setup.includeDifficulties.medium ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">medium</span>
-                                </label>
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-rose-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-diff-hard" ${setup.includeDifficulties.hard ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">hard</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Language Display</div>
-                            <select id="setup-language" class="w-full bg-slate-900/50 border border-slate-700/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/40">
-                                <option value="both" ${setup.language === 'both' ? 'selected' : ''}>English + Arabic</option>
-                                <option value="en" ${setup.language === 'en' ? 'selected' : ''}>English only</option>
-                                <option value="ar" ${setup.language === 'ar' ? 'selected' : ''}>Arabic only</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <div class="text-sm font-semibold text-slate-200 mb-2">Shuffle</div>
-                            <div class="flex flex-wrap gap-2">
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-shuffle-questions" ${setup.shuffleQuestions ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">Questions</span>
-                                </label>
-                                <label class="glass-card px-3 py-2 rounded-lg border border-slate-700/40 hover:border-sky-500/30 transition cursor-pointer">
-                                    <input type="checkbox" id="setup-shuffle-options" ${setup.shuffleOptions ? 'checked' : ''}>
-                                    <span class="ml-2 text-sm">Options</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-5">
-                        <div class="text-sm font-semibold text-slate-200 mb-2">Tags / Keyword Search</div>
-                        <input id="setup-tag-query" type="text" placeholder="e.g., nonverbal, barriers, meetings…"
-                               value="${escapeHtml(setup.tagQuery || '')}"
-                               class="w-full bg-slate-900/50 border border-slate-700/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:ring-2 focus:ring-sky-500/40">
-                        <div class="text-xs text-slate-500 mt-1">Search matches tags + question text (EN/AR).</div>
-                    </div>
-
-                    <div class="mt-4">
-                        <div class="flex items-center justify-between gap-4 mb-2">
-                            <div class="text-sm font-semibold text-slate-200">Select Tags (optional)</div>
-                            <button type="button" id="setup-clear-tags" class="text-xs text-slate-400 hover:text-white">Clear</button>
-                        </div>
-                        <div id="setup-tags" class="flex flex-wrap gap-2"></div>
-                        <div id="setup-selected-tags" class="mt-3 text-xs text-slate-400"></div>
-                    </div>
-
-                    <div class="mt-5 p-3 rounded-xl bg-slate-900/40 border border-slate-700/40">
-                        <div class="text-xs text-slate-400 leading-relaxed">
-                            Tip: In <span class="text-emerald-300 font-semibold">Practice</span>, use “Check Answer” to see the bilingual rationale and the exact source (file + page).
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showQuizSetup(chapterId) {
-            const setup = getDefaultSetup(chapterId);
-            quizSetupState = {
-                chapterId,
-                setup: JSON.parse(JSON.stringify(setup)), // deep-ish clone
-                selectedTagsSet: new Set(Array.isArray(setup.selectedTags) ? setup.selectedTags : [])
-            };
-
+        function showModeSelection(chapterId) {
             showModal({
-                icon: '🎛️',
-                title: 'Quiz Setup',
-                message: buildSetupModalMessage(chapterId, setup),
+                icon: '🎓',
+                title: 'Select Mode',
+                message: 'Choose how you want to take this quiz.<br><span class="text-sm text-gray-400">Practice gives immediate feedback. Exam simulates real conditions.</span>',
                 actions: [
                     {
-                        text: 'Start Quiz',
-                        class: 'btn-primary px-6 py-3 rounded-lg font-bold text-white',
+                        text: 'Practice Mode',
+                        class: 'btn-primary px-6 py-3 rounded-lg font-bold text-white shadow-lg shadow-emerald-500/20',
                         callback: () => {
-                            const finalSetup = readSetupFromModal();
-                            if (!finalSetup) return;
-                            persistSetup(chapterId, finalSetup);
-                            startQuiz(chapterId, finalSetup);
-                        },
-                        preventClose: false
+                            startQuiz(chapterId, 'practice');
+                        }
+                    },
+                    {
+                        text: 'Exam Mode',
+                        class: 'glass-card px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 hover:text-white',
+                        callback: () => {
+                            startQuiz(chapterId, 'exam');
+                        }
                     },
                     {
                         text: 'Cancel',
-                        class: 'glass-card px-6 py-3 rounded-lg font-semibold hover:bg-slate-700',
-                        callback: () => {}
+                        class: 'text-gray-400 hover:text-white px-4 font-medium',
+                        callback: () => { } // Just closes
                     }
                 ]
             });
-
-            // Bind after modal is on screen
-            setTimeout(() => bindSetupModalInteractions(chapterId), 0);
-        }
-
-        function bindSetupModalInteractions(chapterId) {
-            const setup = quizSetupState?.setup;
-            if (!setup) return;
-
-            const availableEl = document.getElementById('setup-available');
-            const numEl = document.getElementById('setup-num-questions');
-            const tagQueryEl = document.getElementById('setup-tag-query');
-            const tagsContainer = document.getElementById('setup-tags');
-            const selectedTagsEl = document.getElementById('setup-selected-tags');
-
-            const refresh = () => {
-                // Update state from current controls (except tags which are set-based)
-                setup.mode = document.querySelector('input[name="setup-mode"]:checked')?.value || 'practice';
-                setup.numQuestions = clamp(parseInt(numEl.value, 10) || 1, 1, MAX_QUIZ_SIZE);
-                setup.includeTypes = {
-                    mcq: !!document.getElementById('setup-type-mcq')?.checked,
-                    tf: !!document.getElementById('setup-type-tf')?.checked
-                };
-                setup.includeDifficulties = {
-                    easy: !!document.getElementById('setup-diff-easy')?.checked,
-                    medium: !!document.getElementById('setup-diff-medium')?.checked,
-                    hard: !!document.getElementById('setup-diff-hard')?.checked
-                };
-                setup.language = document.getElementById('setup-language')?.value || 'both';
-                setup.shuffleQuestions = !!document.getElementById('setup-shuffle-questions')?.checked;
-                setup.shuffleOptions = !!document.getElementById('setup-shuffle-options')?.checked;
-                setup.tagQuery = tagQueryEl?.value || '';
-
-                if (chapterId === 'all') {
-                    const selected = Array.from(document.querySelectorAll('.setup-source:checked')).map(x => x.value);
-                    setup.selectedSources = selected.length ? selected : [];
-                }
-
-                setup.selectedTags = Array.from(quizSetupState.selectedTagsSet);
-
-                // Compute available
-                const pool = getPoolForSetup(chapterId, setup);
-                const filtered = filterQuestions(pool, setup);
-                const available = filtered.length;
-
-                const maxAllowed = Math.min(MAX_QUIZ_SIZE, Math.max(1, available));
-                numEl.max = String(maxAllowed);
-                if (setup.numQuestions > maxAllowed) {
-                    setup.numQuestions = maxAllowed;
-                    numEl.value = String(maxAllowed);
-                }
-
-                if (availableEl) {
-                    availableEl.innerHTML = available === 0
-                        ? `<span class="text-rose-300">No questions match the current filters.</span>`
-                        : `Available after filters: <span class="text-emerald-300 font-semibold">${available}</span> question(s)`;
-                }
-
-                // Selected tags line
-                const selTags = Array.from(quizSetupState.selectedTagsSet);
-                selectedTagsEl.textContent = selTags.length ? `Selected tags: ${selTags.join(', ')}` : 'Selected tags: (none)';
-
-                // Render tag chips
-                const topTags = getTopTagsForPool(pool, 28);
-                renderTagChips(tagsContainer, topTags, quizSetupState.selectedTagsSet);
-            };
-
-            // Bind controls
-            document.querySelectorAll('input[name="setup-mode"]').forEach(el => el.addEventListener('change', refresh));
-            ['setup-num-questions', 'setup-type-mcq', 'setup-type-tf',
-             'setup-diff-easy', 'setup-diff-medium', 'setup-diff-hard',
-             'setup-language', 'setup-shuffle-questions', 'setup-shuffle-options'
-            ].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.addEventListener('change', refresh);
-                if (el && el.tagName === 'INPUT') el.addEventListener('input', refresh);
-            });
-
-            if (tagQueryEl) tagQueryEl.addEventListener('input', refresh);
-
-            // Source quick buttons
-            const selectAllBtn = document.getElementById('setup-select-all-sources');
-            const clearSourcesBtn = document.getElementById('setup-clear-sources');
-
-            if (selectAllBtn) {
-                selectAllBtn.addEventListener('click', () => {
-                    document.querySelectorAll('.setup-source').forEach(c => c.checked = true);
-                    refresh();
-                });
-            }
-            if (clearSourcesBtn) {
-                clearSourcesBtn.addEventListener('click', () => {
-                    document.querySelectorAll('.setup-source').forEach(c => c.checked = false);
-                    refresh();
-                });
-            }
-
-            // Tags container click
-            if (tagsContainer) {
-                tagsContainer.addEventListener('click', (e) => {
-                    const btn = e.target.closest('[data-tag]');
-                    if (!btn) return;
-                    const tag = btn.getAttribute('data-tag');
-                    if (!tag) return;
-                    if (quizSetupState.selectedTagsSet.has(tag)) {
-                        quizSetupState.selectedTagsSet.delete(tag);
-                    } else {
-                        quizSetupState.selectedTagsSet.add(tag);
-                    }
-                    refresh();
-                });
-            }
-
-            const clearTagsBtn = document.getElementById('setup-clear-tags');
-            if (clearTagsBtn) {
-                clearTagsBtn.addEventListener('click', () => {
-                    quizSetupState.selectedTagsSet.clear();
-                    refresh();
-                });
-            }
-
-            refresh();
-        }
-
-        function readSetupFromModal() {
-            const chapterId = quizSetupState?.chapterId;
-            const setup = quizSetupState?.setup;
-            if (!setup || !chapterId) return null;
-
-            // Force refresh from current modal values
-            try {
-                const numEl = document.getElementById('setup-num-questions');
-                setup.mode = document.querySelector('input[name="setup-mode"]:checked')?.value || 'practice';
-                setup.numQuestions = clamp(parseInt(numEl.value, 10) || 1, 1, MAX_QUIZ_SIZE);
-                setup.includeTypes = {
-                    mcq: !!document.getElementById('setup-type-mcq')?.checked,
-                    tf: !!document.getElementById('setup-type-tf')?.checked
-                };
-                setup.includeDifficulties = {
-                    easy: !!document.getElementById('setup-diff-easy')?.checked,
-                    medium: !!document.getElementById('setup-diff-medium')?.checked,
-                    hard: !!document.getElementById('setup-diff-hard')?.checked
-                };
-                setup.language = document.getElementById('setup-language')?.value || 'both';
-                setup.shuffleQuestions = !!document.getElementById('setup-shuffle-questions')?.checked;
-                setup.shuffleOptions = !!document.getElementById('setup-shuffle-options')?.checked;
-                setup.tagQuery = document.getElementById('setup-tag-query')?.value || '';
-                setup.selectedTags = Array.from(quizSetupState.selectedTagsSet);
-
-                if (chapterId === 'all') {
-                    const selected = Array.from(document.querySelectorAll('.setup-source:checked')).map(x => x.value);
-                    setup.selectedSources = selected.length ? selected : [];
-                } else {
-                    setup.selectedSources = null;
-                }
-
-                // Validate availability
-                const pool = getPoolForSetup(chapterId, setup);
-                const filtered = filterQuestions(pool, setup);
-
-                if (filtered.length === 0) {
-                    showModal({
-                        icon: '🚫',
-                        title: 'No Questions Found',
-                        message: 'The current filters return <b>0</b> questions. Please adjust your filters and try again.',
-                        actions: [{ text: 'OK', class: 'btn-primary px-6 py-3 rounded-lg font-bold text-white', callback: () => {} }]
-                    });
-                    return null;
-                }
-
-                const maxAllowed = Math.min(MAX_QUIZ_SIZE, filtered.length);
-                if (setup.numQuestions > maxAllowed) setup.numQuestions = maxAllowed;
-
-                return setup;
-            } catch (e) {
-                console.error(e);
-                alert('Could not read quiz settings. Please try again.');
-                return null;
-            }
         }
 
         // ==================== QUIZ ENGINE ====================
-        function startQuiz(chapterId, setup) {
+        function startQuiz(chapterId, mode) {
             currentChapter = chapterId;
-            currentMode = setup.mode;
-            currentQuizSettings = JSON.parse(JSON.stringify(setup)); // clone
+            currentMode = mode;
             userAnswers = {};
             currentQuestionIndex = 0;
 
-            const chapter = CHAPTERS.find(c => c.id === chapterId);
-            const pool = getPoolForSetup(chapterId, setup);
-            const filtered = filterQuestions(pool, setup);
-
-            let chosen = setup.shuffleQuestions ? shuffle(filtered) : filtered.slice();
-            chosen = chosen.slice(0, Math.min(setup.numQuestions, chosen.length));
-
-            // Shuffle options per question (MCQ) if enabled
-            if (setup.shuffleOptions) {
-                chosen = chosen.map(q => {
-                    if (q.type !== 'mcq') return q;
-
-                    const zipped = q.options.map((en, i) => ({
-                        en,
-                        ar: q.optionsAr?.[i] ?? '',
-                        isCorrect: i === q.answer
-                    }));
-
-                    const shuffled = shuffle(zipped);
-                    const newAnswerIndex = shuffled.findIndex(x => x.isCorrect);
-
-                    return {
-                        ...q,
-                        options: shuffled.map(x => x.en),
-                        optionsAr: shuffled.map(x => x.ar),
-                        answer: newAnswerIndex >= 0 ? newAnswerIndex : 0
-                    };
-                });
+            quizQuestions = QUESTIONS[chapterId];
+            if (!quizQuestions || quizQuestions.length === 0) {
+                alert('Questions for this chapter are not yet available. Please add questions to the QUESTIONS object.');
+                return;
             }
 
-            quizQuestions = chosen;
-
-            // Title
-            const titleBits = [chapter?.name || 'Quiz'];
-            if (chapterId === 'all' && Array.isArray(setup.selectedSources) && setup.selectedSources.length > 0 && setup.selectedSources.length !== CHAPTERS.filter(c => c.id !== 'all').length) {
-                titleBits.push(`(${setup.selectedSources.length} selected)`);
-            }
-            document.getElementById('quiz-title').textContent = titleBits.join(' ');
-            document.getElementById('quiz-mode-display').textContent = prettyMode(currentMode);
+            document.getElementById('quiz-title').textContent = CHAPTERS.find(c => c.id === chapterId).name;
+            document.getElementById('quiz-mode-display').textContent = mode === 'practice' ? 'Practice Mode' : 'Exam Mode';
 
             renderQuestionNav(quizQuestions);
             renderCurrentQuestion();
@@ -1366,140 +704,209 @@
             showView('quiz');
         }
 
-        function shouldShowEn() {
-            const lang = currentQuizSettings?.language || 'both';
-            return lang === 'both' || lang === 'en';
-        }
-        function shouldShowAr() {
-            const lang = currentQuizSettings?.language || 'both';
-            return lang === 'both' || lang === 'ar';
-        }
+
+        // ==================== UI RENDERING ====================
+        let showTranslation = true;
+        let showSource = false;
+        let showRationale = false; // User preference for auto-showing
+
+        function toggleTranslation() { showTranslation = !showTranslation; renderCurrentQuestion(); }
+        function toggleSource() { showSource = !showSource; renderCurrentQuestion(); }
 
         function renderCurrentQuestion() {
             const container = document.getElementById('current-question');
             const q = quizQuestions[currentQuestionIndex];
             const idx = currentQuestionIndex;
 
-            const metaHTML = `
-                <div class="flex flex-wrap items-center justify-between gap-3 mb-6 border-b border-slate-700/60 pb-4">
-                    <div class="font-bold text-2xl">
-                        <span class="text-emerald-400">Question ${idx + 1}</span> 
-                        <span class="text-gray-500 text-lg">/ ${quizQuestions.length}</span>
+            // Header: Question Number + Toggles
+            let html = `
+                <div class="flex flex-wrap justify-between items-center mb-6 gap-4 border-b border-gray-700/50 pb-4">
+                    <div class="flex items-center gap-4">
+                        <span class="text-emerald-400 font-bold text-lg">Q${idx + 1}</span>
+                        <span class="text-xs text-gray-500 uppercase tracking-widest font-semibold">${q.type.toUpperCase()}</span>
                     </div>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                        ${badgeForDifficulty(q.difficulty)}
-                        <span class="px-2 py-1 rounded-full text-xs font-semibold bg-slate-700/40 text-slate-200 border border-slate-600/40">${q.type === 'tf' ? 'TRUE/FALSE' : 'MULTIPLE CHOICE'}</span>
-                        <span class="px-2 py-1 rounded-full text-xs font-semibold bg-slate-700/40 text-slate-300 border border-slate-600/40 font-mono">
-                            ${escapeHtml(getSourceLabel(q.source?.filename))} • p.${escapeHtml(q.source?.page ?? '?')}
-                        </span>
+                    <div class="flex gap-4 items-center">
+                        <!-- Source Toggle -->
+                        <button onclick="toggleSource()" class="text-xs px-3 py-1.5 rounded-full border border-gray-600 hover:bg-slate-700 transition ${showSource ? 'bg-sky-500/20 border-sky-500/50 text-sky-300' : 'text-gray-400'}">
+                            ${showSource ? 'Hide Source' : 'Show Source'}
+                        </button>
+                        
+                        <!-- Translation Toggle -->
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 font-medium">عربي</span>
+                            <label class="toggle-switch scale-75">
+                                <input type="checkbox" ${showTranslation ? 'checked' : ''} onchange="toggleTranslation()">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             `;
 
-            const enQ = shouldShowEn() ? `<p class="text-xl font-medium text-gray-100 mb-4 leading-relaxed">${escapeHtml(q.text)}</p>` : '';
-            const arQ = shouldShowAr() && q.textAr ? `
-                <p class="text-xl font-medium text-emerald-300 text-right leading-relaxed" dir="rtl" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
-                    ${escapeHtml(q.textAr)}
-                </p>
-            ` : '';
-
-            const questionTextHTML = `
-                <div class="mb-8">
-                    ${enQ}
-                    ${arQ}
-                </div>
-            `;
-
-            let questionHTML = '';
-
-            if (q.type === 'tf') {
-                questionHTML = `
-                    <div>
-                        ${metaHTML}
-                        ${questionTextHTML}
-
-                        <div class="flex gap-4 mb-6">
-                            <button class="toggle-btn glass-card flex-1 py-6 rounded-xl text-xl font-bold transition-all hover:scale-105 ${userAnswers[q.id] === true ? 'active ring-2 ring-emerald-500' : ''}" 
-                                    data-qid="${escapeHtml(q.id)}" data-answer="true" onclick="handleTFAnswer(this)">
-                                <div class="flex flex-col items-center">
-                                    <span>True</span>
-                                    ${shouldShowAr() ? '<span class="text-sm font-normal text-emerald-300 mt-1">صحيح</span>' : ''}
-                                </div>
-                            </button>
-                            <button class="toggle-btn glass-card flex-1 py-6 rounded-xl text-xl font-bold transition-all hover:scale-105 ${userAnswers[q.id] === false ? 'active ring-2 ring-emerald-500' : ''}" 
-                                    data-qid="${escapeHtml(q.id)}" data-answer="false" onclick="handleTFAnswer(this)">
-                                <div class="flex flex-col items-center">
-                                    <span>False</span>
-                                    ${shouldShowAr() ? '<span class="text-sm font-normal text-rose-300 mt-1">خطأ</span>' : ''}
-                                </div>
-                            </button>
-                        </div>
-
-                        <div id="current-explanation" class="explanation hidden p-4 rounded-lg mt-4"></div>
-                    </div>
-                `;
-            } else {
-                questionHTML = `
-                    <div>
-                        ${metaHTML}
-                        ${questionTextHTML}
-
-                        <div class="space-y-4">
-                            ${q.options.map((opt, i) => `
-                                <label class="flex items-start gap-4 p-5 glass-card rounded-xl cursor-pointer hover:bg-slate-700/50 transition border border-transparent hover:border-slate-500 relative overflow-hidden group">
-                                    <div class="mt-1">
-                                        <input type="radio" name="current_q" value="${i}" class="radio-custom" 
-                                            ${userAnswers[q.id] === i ? 'checked' : ''}
-                                            data-qid="${escapeHtml(q.id)}" onchange="handleMCQAnswer(this)">
-                                    </div>
-                                    <div class="flex-1">
-                                        ${shouldShowEn() ? `<div class="text-lg text-gray-200 font-medium">${escapeHtml(opt)}</div>` : ''}
-                                        ${shouldShowAr() && q.optionsAr && q.optionsAr[i] ? `
-                                            <div class="text-right text-sky-300 mt-1 text-lg" dir="rtl" style="font-family: 'Segoe UI', serif;">
-                                                ${escapeHtml(q.optionsAr[i])}
-                                            </div>
-                                        ` : ''}
-                                    </div>
-                                    <div class="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                                </label>
-                            `).join('')}
-                        </div>
-
-                        <div id="current-explanation" class="explanation hidden p-4 rounded-lg mt-6"></div>
+            // Source Info
+            if (showSource && q.source) {
+                html += `
+                    <div class="mb-4 text-xs text-sky-400 bg-sky-900/10 border border-sky-500/20 p-2 rounded flex items-center gap-2">
+                        <span>📄 File: ${q.source.filename}</span>
+                        ${q.source.page ? `<span>| Page: ${q.source.page}</span>` : ''}
                     </div>
                 `;
             }
 
-            container.innerHTML = questionHTML;
+            // Question Text
+            html += `
+                <div class="mb-6">
+                    <p class="text-lg text-slate-200 font-medium leading-relaxed mb-3">${q.text}</p>
+                    ${showTranslation && q.textAr ? `
+                        <p class="text-lg text-slate-300 font-arabic text-right leading-relaxed border-t border-slate-700/50 pt-3" dir="rtl">${q.textAr}</p>
+                    ` : ''}
+                </div>
+            `;
+
+            // Options
+            html += `<div class="space-y-3">`;
+
+            const isAnswered = userAnswers[q.id] !== undefined;
+            const userAns = userAnswers[q.id];
+            const correctAns = q.answer;
+            const isExam = currentMode === 'exam';
+
+            if (q.type === 'tf') {
+                // True/False Logic
+                [true, false].forEach(optVal => {
+                    const isSelected = userAns === optVal;
+                    let btnClass = "border-slate-700 hover:border-slate-500";
+                    let icon = "";
+
+                    if (isExam) {
+                        // Exam Mode: Simple Selection
+                        if (isSelected) {
+                            btnClass = "bg-sky-500/20 border-sky-500 text-sky-300 ring-1 ring-sky-500/50";
+                            icon = "●";
+                        } else {
+                            btnClass = "hover:bg-slate-800";
+                        }
+                    } else {
+                        // Practice Mode: Immediate Feedback
+                        if (isAnswered) {
+                            if (optVal === correctAns) {
+                                btnClass = "bg-emerald-500/10 border-emerald-500 text-emerald-400"; // Correct
+                                icon = "✓";
+                            } else if (isSelected && optVal !== correctAns) {
+                                btnClass = "bg-red-500/10 border-red-500 text-red-400"; // Wrong
+                                icon = "✗";
+                            } else {
+                                btnClass = "opacity-50 border-transparent";
+                            }
+                        } else {
+                            btnClass = "hover:bg-slate-800";
+                        }
+                    }
+
+                    html += `
+                        <button onclick="handleTFAnswer(this)" 
+                            data-qid="${q.id}" data-answer="${optVal}" 
+                            ${!isExam && isAnswered ? 'disabled' : ''} 
+                            class="w-full text-left p-4 rounded-lg border transition-all flex items-center justify-between group ${btnClass}">
+                            <div class="flex-1">
+                                <span class="font-bold text-sm uppercase tracking-wider">${optVal}</span>
+                                ${showTranslation ? `<span class="block text-right font-arabic text-sm mt-1 opacity-80" dir="rtl">${optVal ? 'صحيح' : 'خطأ'}</span>` : ''}
+                            </div>
+                            <span class="text-lg font-bold">${icon}</span>
+                        </button>
+                     `;
+                });
+            } else {
+                // MCQ Logic
+                q.options.forEach((opt, i) => {
+                    const isSelected = userAns === i;
+                    let itemClass = "border-slate-700 hover:border-slate-500";
+                    let icon = "";
+
+                    if (isExam) {
+                        // Exam Mode: Simple Selection
+                        if (isSelected) {
+                            itemClass = "bg-sky-500/20 border-sky-500 text-sky-300 ring-1 ring-sky-500/50"; // Selected
+                            icon = "●";
+                        } else {
+                            itemClass = "hover:bg-slate-800";
+                        }
+                    } else {
+                        // Practice Mode: Immediate Feedback
+                        if (isAnswered) {
+                            if (i === correctAns) {
+                                itemClass = "bg-emerald-500/10 border-emerald-500 text-emerald-400 ring-1 ring-emerald-500/50"; // Correct
+                                icon = "✓";
+                            } else if (isSelected && i !== correctAns) {
+                                itemClass = "bg-red-500/10 border-red-500 text-red-400"; // Wrong
+                                icon = "✗";
+                            } else {
+                                itemClass = "opacity-50 border-transparent";
+                            }
+                        } else {
+                            itemClass = "hover:bg-slate-800";
+                        }
+                    }
+
+                    html += `
+                        <button onclick="handleMCQAnswer(this)"
+                             data-qid="${q.id}" value="${i}"
+                             ${!isExam && isAnswered ? 'disabled' : ''}
+                             class="w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between group ${itemClass}">
+                             <div class="flex-1">
+                                 <div class="text-sm font-medium">${opt}</div>
+                                 ${showTranslation && q.optionsAr[i] ? `
+                                     <div class="text-right text-sm font-arabic mt-1 pt-1 border-t border-dashed border-white/10 opacity-80" dir="rtl">${q.optionsAr[i]}</div>
+                                 ` : ''}
+                             </div>
+                             <span class="text-lg font-bold ml-3">${icon}</span>
+                        </button>
+                    `;
+                });
+            }
+            html += `</div>`;
+
+            // Rationale: Only Show in Practice Mode
+            if (!isExam && isAnswered) {
+                html += `
+                    <div class="mt-6 animate-fade-in">
+                        <button onclick="document.getElementById('rationale-${q.id}').classList.toggle('hidden')" 
+                            class="flex items-center gap-2 text-xs text-slate-400 hover:text-white mb-2 ml-auto">
+                            <span>💡 Show/Hide Rationale</span>
+                        </button>
+                        <div id="rationale-${q.id}" class="bg-slate-800/50 rounded-lg p-5 border border-slate-700/50">
+                            <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">Explanation / التعليل</h4>
+                            <div class="space-y-3 text-sm">
+                                ${q.explanation}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = html;
             updateNavigationButtons();
             updateProgressDisplay();
             updateQuestionNav();
         }
 
-        // Expose for inline handlers
+        // Updated Handlers for Immediate Feedback
         function handleTFAnswer(btn) {
             const qid = btn.dataset.qid;
             const answer = btn.dataset.answer === 'true';
 
-            // Clear other toggle in this question
-            document.querySelectorAll(`[data-qid="${CSS.escape(qid)}"]`).forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
             userAnswers[qid] = answer;
-            updateQuestionNav();
-            updateProgressDisplay();
+            renderCurrentQuestion();
         }
-        window.handleTFAnswer = handleTFAnswer;
 
-        function handleMCQAnswer(radio) {
-            const qid = radio.dataset.qid;
-            userAnswers[qid] = parseInt(radio.value, 10);
-            updateQuestionNav();
-            updateProgressDisplay();
+        function handleMCQAnswer(btn) {
+            const qid = btn.dataset.qid;
+            userAnswers[qid] = parseInt(btn.value);
+            renderCurrentQuestion();
         }
-        window.handleMCQAnswer = handleMCQAnswer;
 
+
+        // Navigation Functions
         function navigateQuestion(direction) {
             const newIndex = currentQuestionIndex + direction;
             if (newIndex >= 0 && newIndex < quizQuestions.length) {
@@ -1508,89 +915,27 @@
             }
         }
 
-        function formatAnswerForDisplay(q) {
-            if (q.type === 'tf') {
-                const en = q.answer ? 'True' : 'False';
-                const ar = q.answer ? 'صحيح' : 'خطأ';
-                return { en, ar };
-            }
-            const en = q.options?.[q.answer] ?? '';
-            const ar = q.optionsAr?.[q.answer] ?? '';
-            return { en, ar };
-        }
-
-        function checkCurrentAnswer() {
-            const q = quizQuestions[currentQuestionIndex];
-            const userAnswer = userAnswers[q.id];
-
-            if (userAnswer === undefined) {
-                alert('Please select an answer first!');
-                return;
-            }
-
-            const correct = userAnswer === q.answer;
-            const explanationDiv = document.getElementById('current-explanation');
-            const questionCard = document.getElementById('current-question');
-
-            questionCard.classList.remove('correct', 'incorrect');
-            questionCard.classList.add(correct ? 'correct' : 'incorrect');
-
-            const correctAnswer = formatAnswerForDisplay(q);
-            const userAnswerDisplay = (() => {
-                if (q.type === 'tf') {
-                    const en = userAnswer ? 'True' : 'False';
-                    const ar = userAnswer ? 'صحيح' : 'خطأ';
-                    return { en, ar };
-                }
-                const en = q.options?.[userAnswer] ?? '';
-                const ar = q.optionsAr?.[userAnswer] ?? '';
-                return { en, ar };
-            })();
-
-            explanationDiv.className = 'explanation p-4 rounded-lg mt-4';
-            explanationDiv.classList.add(correct ? 'bg-emerald-900/50' : 'bg-rose-900/40', 'border', correct ? 'border-emerald-500/20' : 'border-rose-500/20');
-            explanationDiv.classList.remove('hidden');
-
-            explanationDiv.innerHTML = `
-                <div class="flex items-center justify-between gap-4">
-                    <p class="font-semibold text-lg">${correct ? '✓ Correct!' : '✗ Incorrect'}</p>
-                    <span class="text-xs font-mono text-slate-300">${escapeHtml(getSourceLabel(q.source?.filename))} • page ${escapeHtml(q.source?.page ?? '?')}</span>
-                </div>
-
-                <div class="mt-3 text-sm text-slate-200">
-                    <div class="text-slate-400 mb-1">Your answer:</div>
-                    ${shouldShowEn() ? `<div class="mb-1"><span class="text-slate-300">EN:</span> ${escapeHtml(userAnswerDisplay.en || '(blank)')}</div>` : ''}
-                    ${shouldShowAr() ? `<div dir="rtl" class="text-right"><span class="text-slate-300">AR:</span> ${escapeHtml(userAnswerDisplay.ar || '(فارغ)')}</div>` : ''}
-                </div>
-
-                <div class="mt-3 text-sm text-slate-200">
-                    <div class="text-slate-400 mb-1">Correct answer:</div>
-                    ${shouldShowEn() ? `<div class="mb-1"><span class="text-slate-300">EN:</span> ${escapeHtml(correctAnswer.en)}</div>` : ''}
-                    ${shouldShowAr() ? `<div dir="rtl" class="text-right"><span class="text-slate-300">AR:</span> ${escapeHtml(correctAnswer.ar)}</div>` : ''}
-                </div>
-
-                ${(q.rationaleEn || q.rationaleAr) ? `
-                <div class="mt-4 pt-4 border-t border-white/10 text-sm text-slate-200">
-                    <div class="text-slate-400 mb-1">Rationale:</div>
-                    ${shouldShowEn() && q.rationaleEn ? `<div class="mb-2">${escapeHtml(q.rationaleEn)}</div>` : ''}
-                    ${shouldShowAr() && q.rationaleAr ? `<div dir="rtl" class="text-right text-sky-200">${escapeHtml(q.rationaleAr)}</div>` : ''}
-                </div>` : ''}
-
-                ${(q.tags && q.tags.length) ? `
-                <div class="mt-4 flex flex-wrap gap-2">
-                    ${(q.tags.slice(0, 8)).map(t => `<span class="px-2 py-1 rounded-full text-xs bg-slate-800/50 border border-slate-700/50 text-slate-300">${escapeHtml(t)}</span>`).join('')}
-                </div>` : ''}
-            `;
-        }
-
         function updateNavigationButtons() {
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
+            const submitBtn = document.getElementById('submit-quiz');
 
             prevBtn.disabled = currentQuestionIndex === 0;
-            nextBtn.disabled = currentQuestionIndex === quizQuestions.length - 1;
 
-            nextBtn.textContent = (currentQuestionIndex === quizQuestions.length - 1) ? 'Last Question' : 'Next →';
+            // Logic for Submit vs Next
+            // In Exam Mode: Last Question = Submit Button Visible
+            // In Practice: Next is disabled on last, NO Submit button (immediate feedback used)
+
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.classList.add('hidden');
+                // Show Submit if Exam mode OR if we want to allow submission in Practice too
+                submitBtn.classList.remove('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+                nextBtn.disabled = false;
+                nextBtn.textContent = 'Next →';
+                submitBtn.classList.add('hidden');
+            }
         }
 
         function updateProgressDisplay() {
@@ -1603,28 +948,21 @@
             // Remove old listeners by cloning and replacing
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const checkBtn = document.getElementById('check-btn');
 
             const newPrevBtn = prevBtn.cloneNode(true);
             const newNextBtn = nextBtn.cloneNode(true);
-            const newCheckBtn = checkBtn.cloneNode(true);
 
             prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
             nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
-            checkBtn.parentNode.replaceChild(newCheckBtn, checkBtn);
 
             newPrevBtn.addEventListener('click', () => navigateQuestion(-1));
             newNextBtn.addEventListener('click', () => navigateQuestion(1));
-            newCheckBtn.addEventListener('click', checkCurrentAnswer);
-
-            // Show/Hide check button based on mode
-            newCheckBtn.style.display = (currentMode === 'exam') ? 'none' : 'block';
         }
 
         function renderQuestionNav(questions) {
             const nav = document.getElementById('question-nav');
             nav.innerHTML = questions.map((q, i) => `
-                <button class="nav-btn glass-card w-10 h-10 rounded flex items-center justify-center text-sm font-semibold transition hover:scale-110 border border-transparent" 
+                <button class="nav-btn glass-card w-10 h-10 rounded flex items-center justify-center text-sm font-semibold transition hover:scale-110" 
                         data-index="${i}">${i + 1}</button>
             `).join('');
 
@@ -1635,7 +973,7 @@
             newNav.addEventListener('click', (e) => {
                 const btn = e.target.closest('[data-index]');
                 if (btn) {
-                    const index = parseInt(btn.dataset.index, 10);
+                    const index = parseInt(btn.dataset.index);
                     currentQuestionIndex = index;
                     renderCurrentQuestion();
                 }
@@ -1645,27 +983,44 @@
         }
 
         function updateQuestionNav() {
-            document.querySelectorAll('.nav-btn').forEach((btn, index) => {
-                const qid = quizQuestions[index]?.id;
-                btn.classList.remove('neon-glow');
-                btn.style.background = '';
-                btn.style.border = '1px solid rgba(255,255,255,0.06)';
+            const isExam = currentMode === 'exam';
 
-                if (qid && userAnswers[qid] !== undefined) {
-                    btn.classList.add('neon-glow');
-                    btn.style.background = '#10b981'; // emerald
-                    btn.style.border = '1px solid rgba(16,185,129,0.6)';
+            document.querySelectorAll('.nav-btn').forEach((btn, index) => {
+                const qid = quizQuestions[index].id;
+                const userAns = userAnswers[qid];
+                const correctAns = quizQuestions[index].answer;
+
+                btn.style.background = '';
+                btn.classList.remove('bg-emerald-500', 'bg-red-500', 'bg-slate-700', 'bg-sky-600');
+
+                if (userAns !== undefined) {
+                    if (isExam) {
+                        // Exam: Just show answered state (Blue)
+                        btn.style.background = '#0284c7'; // Sky Blue
+                    } else {
+                        // Practice: Green/Red
+                        if (userAns === correctAns) {
+                            btn.style.background = '#10b981'; // Green
+                        } else {
+                            btn.style.background = '#ef4444'; // Red
+                        }
+                    }
+                    btn.style.color = 'white';
+                } else {
+                    btn.classList.add('bg-slate-800');
+                    btn.style.color = '#94a3b8';
                 }
 
-                // Highlight current question
+                // Highlight current
                 if (index === currentQuestionIndex) {
-                    btn.style.border = '2px solid #38bdf8'; // sky
+                    btn.style.border = '2px solid white';
+                } else {
+                    btn.style.border = '1px solid transparent';
                 }
             });
         }
 
         function startTimer() {
-            stopTimer();
             startTime = Date.now();
             timerInterval = setInterval(() => {
                 const elapsed = Math.floor((Date.now() - startTime) / 1000);
@@ -1677,32 +1032,33 @@
         }
 
         function stopTimer() {
-            if (timerInterval) clearInterval(timerInterval);
-            timerInterval = null;
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
         }
 
         function submitQuiz() {
-            const total = quizQuestions.length;
+            const questions = QUESTIONS[currentChapter];
             const answered = Object.keys(userAnswers).length;
-            const unanswered = total - answered;
-
-            const proceed = () => finalizeSubmission();
+            const unanswered = questions.length - answered;
 
             if (unanswered > 0) {
                 showModal({
                     icon: '⚠️',
                     title: 'Unanswered Questions',
-                    message: `You have <span class="text-amber-300 font-bold">${unanswered}</span> unanswered question(s).<br>Submit anyway?`,
+                    message: `You have <span class="text-amber-400 font-bold">${unanswered}</span> unanswered questions.<br>Are you sure you want to submit?`,
                     actions: [
                         {
                             text: 'Submit Anyway',
-                            class: 'bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-rose-500/20',
-                            callback: proceed
+                            class: 'bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-lg font-bold shadow-lg shadow-red-500/20',
+                            callback: () => {
+                                finalizeSubmission();
+                            }
                         },
                         {
                             text: 'Keep Working',
                             class: 'glass-card px-6 py-3 rounded-lg font-semibold hover:bg-slate-700',
-                            callback: () => {}
+                            callback: () => { } // Close modal
                         }
                     ]
                 });
@@ -1712,8 +1068,18 @@
                     title: 'Submit Quiz?',
                     message: 'You have answered all questions. Ready to see your results?',
                     actions: [
-                        { text: 'Yes, Submit', class: 'btn-primary px-6 py-3 rounded-lg font-bold text-white', callback: proceed },
-                        { text: 'Cancel', class: 'glass-card px-6 py-3 rounded-lg font-semibold', callback: () => {} }
+                        {
+                            text: 'Yes, Submit',
+                            class: 'btn-primary px-6 py-3 rounded-lg font-bold text-white',
+                            callback: () => {
+                                finalizeSubmission();
+                            }
+                        },
+                        {
+                            text: 'Cancel',
+                            class: 'glass-card px-6 py-3 rounded-lg font-semibold',
+                            callback: () => { }
+                        }
                     ]
                 });
             }
@@ -1725,127 +1091,75 @@
         }
 
         function calculateResults() {
-            const total = quizQuestions.length;
+            const questions = QUESTIONS[currentChapter];
             let correct = 0;
-            let answered = 0;
 
-            quizQuestions.forEach(q => {
-                if (userAnswers[q.id] !== undefined) answered++;
-                if (userAnswers[q.id] === q.answer) correct++;
+            questions.forEach(q => {
+                if (userAnswers[q.id] === q.answer) {
+                    correct++;
+                }
             });
 
-            const percent = total > 0 ? Math.round((correct / total) * 100) : 0;
-            const timeTaken = document.getElementById('timer').textContent;
+            const score = correct;
+            const percentage = Math.round((correct / questions.length) * 100);
 
-            // Breakdown by type
-            const stats = {
-                mcq: { total: 0, correct: 0 },
-                tf: { total: 0, correct: 0 }
-            };
-            quizQuestions.forEach(q => {
-                stats[q.type].total++;
-                if (userAnswers[q.id] === q.answer) stats[q.type].correct++;
-            });
+            // Save to localStorage
+            saveProgress(currentChapter, score, questions.length);
 
-            // Save attempt
-            saveAttempt(currentChapter, {
-                timestamp: new Date().toISOString(),
-                chapterId: currentChapter,
-                chapterName: CHAPTERS.find(c => c.id === currentChapter)?.name || currentChapter,
-                mode: currentMode,
-                score: correct,
-                total,
-                percent,
-                timeTaken,
-                settings: currentQuizSettings
-            });
-
-            // Show score
-            document.getElementById('score-display').textContent = `${correct}/${total}`;
+            // Show results
+            document.getElementById('score-display').textContent = `${score}/${questions.length}`;
 
             const breakdown = document.getElementById('performance-breakdown');
             breakdown.innerHTML = `
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div class="glass-card p-4 rounded-lg">
                         <p class="text-gray-400 text-sm">Percentage</p>
-                        <p class="text-3xl font-bold text-emerald-300">${percent}%</p>
+                        <p class="text-3xl font-bold text-emerald-400">${percentage}%</p>
                     </div>
                     <div class="glass-card p-4 rounded-lg">
                         <p class="text-gray-400 text-sm">Time Taken</p>
-                        <p class="text-3xl font-bold text-sky-300">${escapeHtml(timeTaken)}</p>
+                        <p class="text-3xl font-bold text-sky-400">${document.getElementById('timer').textContent}</p>
                     </div>
                 </div>
-
-                <div class="mt-4 text-center text-slate-300">
-                    <p class="text-gray-400">Answered: ${answered}/${total} • Correct: ${correct} • Incorrect: ${answered - correct} • Unanswered: ${total - answered}</p>
-                    <p class="text-xs text-slate-500 mt-1">MCQ: ${stats.mcq.correct}/${stats.mcq.total} • T/F: ${stats.tf.correct}/${stats.tf.total}</p>
+                <div class="mt-4 text-center">
+                    <p class="text-gray-400">Correct: ${correct} | Incorrect: ${questions.length - correct}</p>
                 </div>
-
-                <details class="mt-6 glass-card p-4 rounded-xl border border-slate-700/40">
-                    <summary class="cursor-pointer font-semibold text-white">Review Answers</summary>
-                    <div class="mt-4 space-y-4">
-                        ${buildReviewHTML()}
-                    </div>
-                </details>
             `;
 
-            if (percent === 100) triggerConfetti();
+            if (percentage === 100) {
+                triggerConfetti();
+            }
 
             showView('results');
         }
 
-        function buildReviewHTML() {
-            const rows = quizQuestions.map((q, i) => {
-                const userAnswer = userAnswers[q.id];
-                const isAnswered = userAnswer !== undefined;
-                const isCorrect = isAnswered && userAnswer === q.answer;
+        // ==================== LOCALSTORAGE ====================
+        function saveProgress(chapterId, score, total) {
+            const progress = JSON.parse(localStorage.getItem('quiz_progress') || '{}');
+            if (!progress[chapterId]) {
+                progress[chapterId] = { scores: [], completed: 0 };
+            }
+            progress[chapterId].scores.push(score);
+            progress[chapterId].completed++;
+            progress[chapterId].lastScore = score;
+            progress[chapterId].highScore = Math.max(progress[chapterId].highScore || 0, score);
+            localStorage.setItem('quiz_progress', JSON.stringify(progress));
+        }
 
-                const correctA = formatAnswerForDisplay(q);
-                const userA = (() => {
-                    if (!isAnswered) return { en: '(unanswered)', ar: '(غير مجاب)' };
-                    if (q.type === 'tf') return { en: userAnswer ? 'True' : 'False', ar: userAnswer ? 'صحيح' : 'خطأ' };
-                    return {
-                        en: q.options?.[userAnswer] ?? '',
-                        ar: q.optionsAr?.[userAnswer] ?? ''
-                    };
-                })();
+        function loadProgress() {
+            // Progress is loaded when rendering dashboard
+        }
 
-                return `
-                    <div class="p-4 rounded-xl border ${isCorrect ? 'border-emerald-500/20 bg-emerald-500/5' : 'border-rose-500/20 bg-rose-500/5'}">
-                        <div class="flex items-start justify-between gap-4">
-                            <div class="font-semibold text-white">Q${i + 1}</div>
-                            <div class="text-xs font-mono text-slate-400">${escapeHtml(getSourceLabel(q.source?.filename))} • p.${escapeHtml(q.source?.page ?? '?')}</div>
-                        </div>
+        function getChapterProgress(chapterId) {
+            const progress = JSON.parse(localStorage.getItem('quiz_progress') || '{}');
+            if (!progress[chapterId]) return 0;
+            const avgScore = progress[chapterId].scores.reduce((a, b) => a + b, 0) / progress[chapterId].scores.length;
+            return Math.round((avgScore / 50) * 100);
+        }
 
-                        <div class="mt-2 text-sm">
-                            ${shouldShowEn() ? `<div class="text-slate-100">${escapeHtml(q.text)}</div>` : ''}
-                            ${shouldShowAr() && q.textAr ? `<div dir="rtl" class="text-right text-slate-200 mt-1">${escapeHtml(q.textAr)}</div>` : ''}
-                        </div>
-
-                        <div class="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
-                            <div class="glass-card p-3 rounded-lg border border-slate-700/40">
-                                <div class="text-xs text-slate-400 mb-1">Your answer</div>
-                                ${shouldShowEn() ? `<div class="text-slate-200">${escapeHtml(userA.en)}</div>` : ''}
-                                ${shouldShowAr() ? `<div dir="rtl" class="text-right text-slate-300 mt-1">${escapeHtml(userA.ar)}</div>` : ''}
-                            </div>
-                            <div class="glass-card p-3 rounded-lg border border-slate-700/40">
-                                <div class="text-xs text-slate-400 mb-1">Correct answer</div>
-                                ${shouldShowEn() ? `<div class="text-emerald-200">${escapeHtml(correctA.en)}</div>` : ''}
-                                ${shouldShowAr() ? `<div dir="rtl" class="text-right text-emerald-200 mt-1">${escapeHtml(correctA.ar)}</div>` : ''}
-                            </div>
-                        </div>
-
-                        ${(q.rationaleEn || q.rationaleAr) ? `
-                        <div class="mt-3 text-sm border-t border-white/10 pt-3">
-                            <div class="text-xs text-slate-400 mb-1">Rationale</div>
-                            ${shouldShowEn() && q.rationaleEn ? `<div class="text-slate-200 mb-2">${escapeHtml(q.rationaleEn)}</div>` : ''}
-                            ${shouldShowAr() && q.rationaleAr ? `<div dir="rtl" class="text-right text-sky-200">${escapeHtml(q.rationaleAr)}</div>` : ''}
-                        </div>` : ''}
-                    </div>
-                `;
-            });
-
-            return rows.join('');
+        function getHighScore(chapterId) {
+            const progress = JSON.parse(localStorage.getItem('quiz_progress') || '{}');
+            return progress[chapterId]?.highScore || null;
         }
 
         // ==================== VIEW MANAGEMENT ====================
@@ -1856,7 +1170,7 @@
 
             if (view === 'dashboard') {
                 document.getElementById('dashboard-view').classList.remove('hidden');
-                renderDashboard();
+                renderDashboard(); // Refresh to show updated progress
                 stopTimer();
             } else if (view === 'quiz') {
                 document.getElementById('quiz-view').classList.remove('hidden');
@@ -1883,6 +1197,7 @@
             }
         }
 
+        // ==================== START APP ====================
         // ==================== MODAL SYSTEM ====================
         function showModal({ icon, title, message, actions }) {
             const modal = document.getElementById('custom-modal');
@@ -1895,6 +1210,7 @@
 
             actions.forEach(action => {
                 const btn = document.createElement('button');
+                // Allow custom classes or default to a nice glass button
                 btn.className = action.class || 'glass-card px-6 py-3 rounded-lg font-semibold hover:bg-slate-700 transition active:scale-95';
                 btn.textContent = action.text;
                 btn.onclick = () => {
@@ -1925,87 +1241,23 @@
                 } else if (e.key === 'ArrowLeft') {
                     document.getElementById('prev-btn').click();
                 } else if (e.key === 'Enter') {
+                    // Tricky: Enter might submit or check
                     const checkBtn = document.getElementById('check-btn');
-                    if (checkBtn && checkBtn.style.display !== 'none') checkBtn.click();
-                }
-            });
-        }
-
-        // ==================== EVENT LISTENERS ====================
-        function setupEventListeners() {
-            // Dashboard: Start buttons
-            document.getElementById('chapters-grid').addEventListener('click', (e) => {
-                const card = e.target.closest('[data-chapter]');
-                if (!card) return;
-
-                const chapterId = card.dataset.chapter;
-                if (e.target.classList.contains('start-btn')) {
-                    showQuizSetup(chapterId);
-                }
-            });
-
-            // View navigation
-            document.getElementById('back-to-dashboard').addEventListener('click', () => showView('dashboard'));
-            document.getElementById('results-to-dashboard').addEventListener('click', () => showView('dashboard'));
-
-            document.getElementById('retake-quiz').addEventListener('click', () => {
-                if (!currentChapter || !currentQuizSettings) return;
-                startQuiz(currentChapter, currentQuizSettings);
-            });
-
-            document.getElementById('submit-quiz').addEventListener('click', submitQuiz);
-
-            // Manual JSON loader
-            const loadBtn = document.getElementById('load-json-btn');
-            const fileInput = document.getElementById('bank-file-input');
-
-            loadBtn.addEventListener('click', () => fileInput.click());
-
-            fileInput.addEventListener('change', async (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-
-                try {
-                    setBankStatus('Loading JSON file…', 'info');
-                    const bank = await loadBankFromFile(file);
-                    if (!validateBankShape(bank)) throw new Error('Invalid JSON structure');
-
-                    BANK = bank;
-                    buildStructuresFromBank(BANK);
-
-                    const total = BANK.counts?.total ?? ALL_QUESTIONS.length;
-                    const mcq = BANK.counts?.mcq ?? ALL_QUESTIONS.filter(q => q.type === 'mcq').length;
-                    const tf = BANK.counts?.true_false ?? ALL_QUESTIONS.filter(q => q.type === 'tf').length;
-
-                    document.getElementById('bank-subtitle').textContent = `Complete bilingual (EN/AR) training bank • ${total} questions (MCQ: ${mcq}, T/F: ${tf})`;
-                    setBankStatus(`Loaded from file: ${file.name}`, 'success');
-                    renderDashboard();
-                } catch (err) {
-                    console.error(err);
-                    setBankStatus('Failed to load this JSON file. Please make sure you selected the correct question bank file.', 'error');
-                    alert('Failed to load JSON. Please select the correct file.');
-                } finally {
-                    // allow selecting same file again
-                    e.target.value = '';
+                    if (checkBtn && checkBtn.style.display !== 'none') {
+                        checkBtn.click();
+                    }
                 }
             });
         }
 
         // ==================== START APP ====================
-        async function init() {
-            setupKeyboardShortcuts();
-            setupEventListeners();
-
-            renderDashboard(); // skeleton
-
-            const ok = await bootstrapBank();
-            if (ok) renderDashboard();
-        }
-
-        init();
+        setupKeyboardShortcuts();
+        fetchData();
+        // init(); // Called by fetchData
     </script>
 </body>
 
 
 <!-- Mirrored from saud-aqel.github.io/Exam/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 25 Jan 2026 13:31:16 GMT -->
+
 </html>
