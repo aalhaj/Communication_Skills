@@ -148,6 +148,7 @@
 
         /* --- STUDY LIST ITEMS --- */
         .study-item { background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .study-header { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
         .study-option { 
             padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); 
             margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7;
@@ -158,13 +159,11 @@
             opacity: 1; font-weight: 700;
         }
 
+        .rationale-box { margin-top: 15px; padding: 15px; background: var(--primary-light); border-radius: 8px; font-size: 14px; color: var(--text); border: 1px solid var(--border); }
         .feedback-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; animation: slideIn 0.3s; }
         .feedback-box.correct-ref { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success); }
         .feedback-box.wrong-exp { background: var(--danger-bg); color: #991b1b; border: 1px solid var(--danger); }
         
-        .upload-area { background: var(--card); border: 2px dashed var(--border); border-radius: 16px; padding: 50px; text-align: center; cursor: pointer; transition: 0.2s; }
-        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
-
         @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         
@@ -174,8 +173,11 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* Layout Adjustments */
-        body.lang-ar .option-btn { text-align: right; }
+        body.lang-ar .rationale-box, body.lang-both .rationale-box { border-right: 3px solid var(--primary); }
+        body.lang-en .rationale-box { border-left: 3px solid var(--primary); }
+        body.lang-ar .option-btn, body.lang-both .option-btn { text-align: right; }
         body.lang-en .option-btn { text-align: left; }
+        body.lang-ar .study-option, body.lang-both .study-option { flex-direction: row; } 
     </style>
 </head>
 <body class="lang-both">
@@ -481,6 +483,20 @@
         document.getElementById('heroSection').classList.remove('hidden');
     }
 
+    /* --- DATA UTILS (SAFE GETTERS) --- */
+    function getQText(q, lang) {
+        // Robust getter for Question text (handles 'statement' vs 'question')
+        const ar = q.statement ? q.statement.ar : (q.question ? q.question.ar : "No text (AR)");
+        const en = q.statement ? q.statement.en : (q.question ? q.question.en : "No text (EN)");
+        return { ar, en };
+    }
+
+    function isTF(q) {
+        // Robust check for T/F type
+        const t = (q.type || "").toUpperCase();
+        return t === 'TRUE_FALSE' || t === 'TF' || t === 'TRUE/FALSE';
+    }
+
     /* --- QUIZ LOGIC --- */
     function startQuizMode() {
         const src = document.getElementById('quizSource').value;
@@ -498,45 +514,59 @@
     }
 
     function renderQuestion() {
-        const q = APP.quiz.set[APP.quiz.idx];
-        const lang = APP.lang;
-        document.getElementById('qCurr').innerText = APP.quiz.idx + 1;
-        document.getElementById('qTotal').innerText = APP.quiz.set.length;
-        document.getElementById('qProgress').style.width = `${((APP.quiz.idx)/APP.quiz.set.length)*100}%`;
-        document.getElementById('qDifficultyBadge').innerText = (q.difficulty||'Gen').toUpperCase();
-        document.getElementById('qTypeBadge').innerText = q.type;
-        const elAr = document.getElementById('qTextAr');
-        const elEn = document.getElementById('qTextEn');
-        elAr.innerHTML = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
-        elEn.innerHTML = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
-        elAr.style.display = lang==='en'?'none':'block';
-        elEn.style.display = lang==='ar'?'none':'block';
-        
-        const cont = document.getElementById('qOptions'); cont.innerHTML = '';
-        const opts = q.type==='TRUE_FALSE' 
-            ? [{key:true, ar:'صح', en:'True'}, {key:false, ar:'خطأ', en:'False'}]
-            : q.options.map(o => ({key:o.key, ar:o.ar, en:o.en}));
+        try {
+            const q = APP.quiz.set[APP.quiz.idx];
+            if(!q) return; // Safety
+
+            const lang = APP.lang;
+            document.getElementById('qCurr').innerText = APP.quiz.idx + 1;
+            document.getElementById('qTotal').innerText = APP.quiz.set.length;
+            document.getElementById('qProgress').style.width = `${((APP.quiz.idx)/APP.quiz.set.length)*100}%`;
+            document.getElementById('qDifficultyBadge').innerText = (q.difficulty||'Gen').toUpperCase();
+            document.getElementById('qTypeBadge').innerText = q.type;
             
-        opts.forEach(o => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.dataset.key = String(o.key);
-            let txt = '';
-            if(lang==='ar') txt = o.ar;
-            else if(lang==='en') txt = o.en;
-            else txt = `<span class="ar-text">${o.ar}</span><span class="en-text" style="color:var(--muted)">${o.en}</span>`;
-            btn.innerHTML = txt;
-            btn.onclick = () => handleAnswer(o.key, btn, q);
-            cont.appendChild(btn);
-        });
-        document.getElementById('qFeedback').className = 'hidden';
-        document.getElementById('btnNext').disabled = true;
-        document.getElementById('btnHint').disabled = false;
+            const texts = getQText(q);
+            const elAr = document.getElementById('qTextAr');
+            const elEn = document.getElementById('qTextEn');
+            elAr.innerHTML = texts.ar; 
+            elEn.innerHTML = texts.en;
+            elAr.style.display = lang==='en'?'none':'block';
+            elEn.style.display = lang==='ar'?'none':'block';
+            
+            const cont = document.getElementById('qOptions'); cont.innerHTML = '';
+            
+            // Normalize Options
+            let opts = [];
+            if(isTF(q)) {
+                opts = [{key:true, ar:'صح', en:'True'}, {key:false, ar:'خطأ', en:'False'}];
+            } else {
+                opts = (q.options || []).map(o => ({key:o.key, ar:o.ar, en:o.en}));
+            }
+                
+            opts.forEach(o => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.dataset.key = String(o.key);
+                let txt = '';
+                if(lang==='ar') txt = o.ar;
+                else if(lang==='en') txt = o.en;
+                else txt = `<span class="ar-text">${o.ar}</span><span class="en-text" style="color:var(--muted)">${o.en}</span>`;
+                btn.innerHTML = txt;
+                btn.onclick = () => handleAnswer(o.key, btn, q);
+                cont.appendChild(btn);
+            });
+            document.getElementById('qFeedback').className = 'hidden';
+            document.getElementById('btnNext').disabled = true;
+            document.getElementById('btnHint').disabled = false;
+        } catch(e) {
+            console.error("Render Error:", e);
+            alert("Error displaying question. Check console.");
+        }
     }
 
     function handleAnswer(key, btn, q) {
         if(!document.getElementById('btnNext').disabled) return;
-        const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
+        const correctKey = String(isTF(q) ? q.answer : q.answerKey);
         const isCorrect = String(key) === correctKey;
         
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
@@ -561,7 +591,7 @@
 
     function revealAnswer() {
         const q = APP.quiz.set[APP.quiz.idx];
-        const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
+        const correctKey = String(isTF(q) ? q.answer : q.answerKey);
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
             if(b.dataset.key === correctKey) { 
@@ -583,10 +613,15 @@
             ${isCorrect ? `<i class="fas fa-check-circle"></i> ${dict.refTitle}` : `<i class="fas fa-exclamation-circle"></i> ${dict.expTitle}`}
         </div>`;
         if(!isCorrect) {
-            if(APP.lang!=='en') html += `<div class="ar-text">${q.rationale.ar}</div>`;
-            if(APP.lang!=='ar') html += `<div class="en-text" style="margin-top:5px">${q.rationale.en}</div>`;
+            // Safe Access to Rationale
+            const rAr = q.rationale ? q.rationale.ar : "";
+            const rEn = q.rationale ? q.rationale.en : "";
+            if(APP.lang!=='en') html += `<div class="ar-text">${rAr}</div>`;
+            if(APP.lang!=='ar') html += `<div class="en-text" style="margin-top:5px">${rEn}</div>`;
         }
-        html += `<div style="margin-top:8px; font-size:12px; opacity:0.8"><i class="fas fa-book"></i> ${q.source.filename} (p. ${q.source.page})</div>`;
+        const fName = q.source ? q.source.filename : "Unknown";
+        const fPage = q.source ? q.source.page : "?";
+        html += `<div style="margin-top:8px; font-size:12px; opacity:0.8"><i class="fas fa-book"></i> ${fName} (p. ${fPage})</div>`;
         fb.innerHTML = html; fb.classList.remove('hidden');
     }
 
@@ -624,19 +659,23 @@
         
         APP.study.set.forEach((q, idx) => {
             const item = document.createElement('div'); item.className = 'study-item';
-            const refHtml = sRef ? `<span><i class="fas fa-book"></i> ${q.source.filename} : ${q.source.page}</span>` : '';
+            
+            const fName = q.source ? q.source.filename : "";
+            const fPage = q.source ? q.source.page : "";
+            const refHtml = sRef ? `<span><i class="fas fa-book"></i> ${fName} : ${fPage}</span>` : '';
             item.innerHTML = `<div class="study-header"><span>#${idx+1} [${q.type}]</span>${refHtml}</div>`;
             
+            const texts = getQText(q);
             let qHtml = '';
-            const arQ = q.type==='TRUE_FALSE'?q.statement.ar:q.question.ar;
-            const enQ = q.type==='TRUE_FALSE'?q.statement.en:q.question.en;
-            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px;font-size:16px">${arQ}</div>`;
-            if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${enQ}</div>`;
-            if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${enQ}</div>`;
+            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px;font-size:16px">${texts.ar}</div>`;
+            if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${texts.en}</div>`;
+            if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${texts.en}</div>`;
             item.innerHTML += `<div style="margin-bottom:15px">${qHtml}</div>`;
             
-            const correctKey = String(q.type==='TRUE_FALSE'?q.answer:q.answerKey);
-            let opts = q.type==='TRUE_FALSE'?[{key:'true',ar:'صح',en:'True'},{key:'false',ar:'خطأ',en:'False'}]:q.options.map(o=>({key:o.key,ar:o.ar,en:o.en}));
+            const correctKey = String(isTF(q) ? q.answer : q.answerKey);
+            let opts = [];
+            if(isTF(q)) opts = [{key:'true',ar:'صح',en:'True'},{key:'false',ar:'خطأ',en:'False'}];
+            else opts = (q.options||[]).map(o=>({key:o.key,ar:o.ar,en:o.en}));
             
             opts.forEach(o => {
                 const isAns = String(o.key)===correctKey;
@@ -646,15 +685,17 @@
                 if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em; margin-right:10px">(${o.en})</span>`;
                 if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
                 
-                const icon = isAns ? '<i class="fas fa-check-circle"></i> ' : '<i class="far fa-circle"></i> ';
+                const icon = isAns ? '<i class="fas fa-check-circle" style="color:var(--success-text)"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
                 item.innerHTML += `<div class="${cls}">${icon}${txt}</div>`;
             });
             
             if(sRat) {
+                const rAr = q.rationale ? q.rationale.ar : "";
+                const rEn = q.rationale ? q.rationale.en : "";
                 let rHtml = '';
-                if(lang!=='en') rHtml += `<div class="ar-text">${q.rationale.ar}</div>`;
-                if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${q.rationale.en}</div>`;
-                if(lang==='en') rHtml = `<div class="en-text">${q.rationale.en}</div>`;
+                if(lang!=='en') rHtml += `<div class="ar-text">${rAr}</div>`;
+                if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${rEn}</div>`;
+                if(lang==='en') rHtml = `<div class="en-text">${rEn}</div>`;
                 item.innerHTML += `<div class="rationale-box"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
             }
             container.appendChild(item);
