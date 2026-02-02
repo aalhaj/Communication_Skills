@@ -162,6 +162,9 @@
         .feedback-box.correct-ref { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success); }
         .feedback-box.wrong-exp { background: var(--danger-bg); color: #991b1b; border: 1px solid var(--danger); }
         
+        .upload-area { background: var(--card); border: 2px dashed var(--border); border-radius: 16px; padding: 50px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
+
         @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
         
@@ -212,9 +215,18 @@
         <div id="loadingView" class="loading-screen">
             <div class="spinner"></div>
             <h3 style="color:var(--primary)">Loading Database...</h3>
-            <p style="color:var(--muted)">جاري تحميل الأسئلة تلقائياً...</p>
-            <div id="errorMsg" class="hidden" style="color:var(--danger); margin-top:20px; font-weight:bold;">
-                Error: JSON file not found.<br>Make sure the file is in the same folder.
+            <p style="color:var(--muted)">جاري محاولة تحميل الملف تلقائياً...</p>
+        </div>
+
+        <div id="uploadView" class="hidden">
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <div style="width:60px; height:60px; background:var(--primary-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:var(--primary)">
+                    <i class="fas fa-cloud-upload-alt fa-2x"></i>
+                </div>
+                <h3 style="margin:0 0 10px 0; font-size:18px" data-i18n="uploadTitle">تعذر التحميل التلقائي</h3>
+                <p style="color:var(--danger); font-weight:bold; margin-bottom:10px">المتصفح يمنع قراءة الملفات المحلية تلقائياً.</p>
+                <p style="color:var(--muted); margin:0" data-i18n="uploadDesc">اضغط هنا لاختيار ملف JSON يدوياً</p>
+                <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFile(this)">
             </div>
         </div>
 
@@ -338,7 +350,7 @@
     /* --- CONFIG --- */
     const I18N = {
         en: {
-            uploadTitle: "Upload Question Bank", uploadDesc: "Click to select the JSON file",
+            uploadTitle: "Auto-load failed", uploadDesc: "Click here to select the JSON file manually",
             welcome: "Welcome! Choose your mode:",
             modeQuiz: "Test Yourself", modeQuizDesc: "Interactive Quiz Mode",
             modeStudy: "Study & Review", modeStudyDesc: "View All Questions with Answers",
@@ -355,7 +367,7 @@
             refTitle: "Reference", expTitle: "Explanation"
         },
         ar: {
-            uploadTitle: "رفع بنك الأسئلة", uploadDesc: "اضغط لاختيار ملف JSON",
+            uploadTitle: "فشل التحميل التلقائي", uploadDesc: "اضغط لاختيار ملف JSON يدوياً",
             welcome: "مرحباً! اختر الوضع المناسب:",
             modeQuiz: "اختبر نفسك", modeQuizDesc: "نظام الاختبار التفاعلي",
             modeStudy: "المذاكرة والمراجعة", modeStudyDesc: "عرض كل الأسئلة مع الحلول",
@@ -375,7 +387,7 @@
     const APP = { data: [], sources: [], lang: 'both', quiz: { set: [], idx: 0, score: 0, correct: 0 }, study: { set: [] } };
     const JSON_FILENAME = 'training_bank_communication_skills_full_package_EN_AR.json';
 
-    /* --- INITIALIZATION --- */
+    /* --- INIT --- */
     function init() {
         initTheme();
         setLang('both');
@@ -399,7 +411,8 @@
             })
             .catch(err => {
                 console.error(err);
-                document.getElementById('errorMsg').classList.remove('hidden');
+                document.getElementById('loadingView').classList.add('hidden');
+                document.getElementById('uploadView').classList.remove('hidden');
             });
     }
 
@@ -421,6 +434,21 @@
     }
 
     /* --- HELPERS --- */
+    function loadFile(input) {
+        const file = input.files[0];
+        if(!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                APP.data = JSON.parse(e.target.result).questions;
+                extractSources();
+                document.getElementById('uploadView').classList.add('hidden');
+                document.getElementById('dashboardView').classList.remove('hidden');
+            } catch(err) { alert("Invalid JSON"); }
+        };
+        reader.readAsText(file);
+    }
+
     function extractSources() {
         const unique = [...new Set(APP.data.map(q => q.source.filename))].sort();
         APP.sources = unique;
@@ -448,7 +476,7 @@
     }
 
     function goHome() {
-        ['loadingView','dashboardView','quizView','studyView','resultView'].forEach(id => document.getElementById(id).classList.add('hidden'));
+        ['loadingView','uploadView','dashboardView','quizView','studyView','resultView'].forEach(id => document.getElementById(id).classList.add('hidden'));
         document.getElementById('dashboardView').classList.remove('hidden');
         document.getElementById('heroSection').classList.remove('hidden');
     }
@@ -511,7 +539,6 @@
         const correctKey = String(q.type==='TRUE_FALSE' ? q.answer : q.answerKey);
         const isCorrect = String(key) === correctKey;
         
-        // Highlight logic for Quiz Mode
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
             if(b.dataset.key === correctKey) { 
@@ -542,7 +569,7 @@
                 b.innerHTML += ' <i class="fas fa-check"></i>'; 
             }
         });
-        showFeedback(q, false); // Treated as wrong for feedback
+        showFeedback(q, false); 
         document.getElementById('btnNext').disabled = false;
         document.getElementById('btnHint').disabled = true;
     }
@@ -613,15 +640,13 @@
             
             opts.forEach(o => {
                 const isAns = String(o.key)===correctKey;
-                // Use distinct class for correct answer in Study Mode
                 const cls = isAns ? 'study-option is-answer' : 'study-option';
                 let txt = '';
                 if(lang!=='en') txt += `<span class="ar-text">${o.ar}</span>`;
                 if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em; margin-right:10px">(${o.en})</span>`;
                 if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
                 
-                // Add Check Icon for Answer
-                const icon = isAns ? '<i class="fas fa-check-circle" style="color:var(--success-text)"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
+                const icon = isAns ? '<i class="fas fa-check-circle"></i> ' : '<i class="far fa-circle"></i> ';
                 item.innerHTML += `<div class="${cls}">${icon}${txt}</div>`;
             });
             
@@ -630,7 +655,7 @@
                 if(lang!=='en') rHtml += `<div class="ar-text">${q.rationale.ar}</div>`;
                 if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${q.rationale.en}</div>`;
                 if(lang==='en') rHtml = `<div class="en-text">${q.rationale.en}</div>`;
-                item.innerHTML += `<div class="rationale-box" style="background:var(--primary-light); color:var(--text); border:1px solid var(--border)"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
+                item.innerHTML += `<div class="rationale-box"><i class="fas fa-info-circle"></i> ${rHtml}</div>`;
             }
             container.appendChild(item);
         });
