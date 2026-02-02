@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Communication Skills Practice Quiz</title>
+    <title>Communication Skills Practice Quiz v12</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -57,7 +57,7 @@
         
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
 
-        /* --- NAVBAR --- */
+        /* NAVBAR */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0; height: 65px;
             background: var(--nav-bg); backdrop-filter: blur(10px);
@@ -68,19 +68,13 @@
         .nav-content { width: 100%; max-width: 900px; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
         .nav-logo { font-weight: 800; font-size: 18px; color: var(--primary); display: flex; align-items: center; gap: 8px; }
         
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { filter: brightness(1.1); }
-        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--muted); }
-        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-
         .theme-btn { background: var(--input-bg); border: 1px solid var(--border); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; margin-left: 10px; margin-right: 10px;}
         
         .lang-pills { display: flex; background: var(--input-bg); padding: 4px; border-radius: 20px; border: 1px solid var(--border); }
         .lang-btn { border: none; background: transparent; padding: 5px 12px; border-radius: 16px; font-size: 13px; font-weight: 700; color: var(--muted); cursor: pointer; transition: 0.2s; }
         .lang-btn.active { background: var(--card); color: var(--primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
 
-        /* Hero */
+        /* HERO */
         .hero-header {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             color: white; border-radius: 20px; padding: 30px; margin-bottom: 30px;
@@ -92,7 +86,7 @@
         .badge-prof { background: rgba(59, 130, 246, 0.2); color: #93c5fd; border: 1px solid rgba(59, 130, 246, 0.3); }
         .badge-dev { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-        /* Dashboard */
+        /* DASHBOARD */
         .card-box { background: var(--card); border-radius: 16px; padding: 25px; border: 1px solid var(--border); box-shadow: var(--shadow); transition: transform 0.2s; }
         .card-box:hover { border-color: var(--primary); }
         .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -100,84 +94,58 @@
 
         .form-select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 10px; background: var(--input-bg); color: var(--text); margin-bottom: 15px; font-size: 14px; }
         .form-label { display: block; font-size: 13px; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+        
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s; font-size: 15px; display: flex; justify-content: center; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-outline { background: transparent; border: 2px solid var(--border); color: var(--muted); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* --- FIXED QUIZ BUTTONS --- */
+        /* QUIZ CARD */
         .q-card { background: var(--card); padding: 30px; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--border); }
-        
+        .progress-bar { height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; margin: 20px 0; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0; transition: width 0.3s; }
+
         .option-btn { 
-            width: 100%; 
-            text-align: inherit; 
-            padding: 18px 20px; 
-            border: 2px solid var(--border); 
-            border-radius: 12px; 
-            margin-bottom: 12px; 
-            background: var(--card); 
-            color: var(--text);
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            font-size: 16px;
-            font-weight: 500;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            line-height: 1.5;
+            width: 100%; text-align: inherit; padding: 18px 20px; 
+            border: 2px solid var(--border); border-radius: 12px; margin-bottom: 12px; 
+            background: var(--card); color: var(--text);
+            cursor: pointer; transition: all 0.2s ease; 
+            font-size: 16px; font-weight: 500;
+            display: flex; justify-content: space-between; align-items: center; line-height: 1.5;
         }
-        
-        .option-btn:hover:not(:disabled) { 
-            border-color: var(--primary); 
-            background: var(--primary-light); 
-            transform: translateY(-2px);
-        }
-        
+        .option-btn:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); transform: translateY(-2px); }
         .option-btn:disabled { cursor: default; opacity: 0.9; }
-
-        /* Correct Answer Style (Green) */
-        .option-btn.correct { 
-            background-color: var(--success-bg) !important; 
-            border-color: var(--success) !important; 
-            color: var(--success-text) !important; 
-            font-weight: 800;
-        }
         
-        /* Wrong Answer Style (Red) */
-        .option-btn.wrong { 
-            background-color: var(--danger-bg) !important; 
-            border-color: var(--danger) !important; 
-            color: #b91c1c !important; 
-        }
+        .option-btn.correct { background-color: var(--success-bg) !important; border-color: var(--success) !important; color: var(--success-text) !important; font-weight: 800; }
+        .option-btn.wrong { background-color: var(--danger-bg) !important; border-color: var(--danger) !important; color: #b91c1c !important; }
 
-        /* --- STUDY LIST ITEMS --- */
+        /* STUDY LIST */
         .study-item { background: var(--card); padding: 25px; border-radius: 16px; margin-bottom: 20px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-        .study-header { display: flex; justify-content: space-between; color: var(--muted); font-size: 12px; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .study-option { 
-            padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); 
-            margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7;
-            display: flex; align-items: center; gap: 10px;
-        }
-        .study-option.is-answer { 
-            background: var(--success-bg); border-color: var(--success); color: var(--success-text); 
-            opacity: 1; font-weight: 700;
-        }
+        .study-option { padding: 12px 16px; border-radius: 10px; border: 1px solid var(--border); margin-bottom: 8px; font-size: 15px; background: var(--input-bg); opacity: 0.7; display: flex; align-items: center; gap: 10px; }
+        .study-option.is-answer { background: var(--success-bg); border-color: var(--success); color: var(--success-text); opacity: 1; font-weight: 700; }
 
         .rationale-box { margin-top: 15px; padding: 15px; background: var(--primary-light); border-radius: 8px; font-size: 14px; color: var(--text); border: 1px solid var(--border); }
         .feedback-box { margin-top: 20px; padding: 15px; border-radius: 8px; font-size: 14px; animation: slideIn 0.3s; }
         .feedback-box.correct-ref { background: var(--success-bg); color: var(--success-text); border: 1px solid var(--success); }
         .feedback-box.wrong-exp { background: var(--danger-bg); color: #991b1b; border: 1px solid var(--danger); }
         
+        .upload-area { background: var(--card); border: 2px dashed var(--border); border-radius: 16px; padding: 50px; text-align: center; cursor: pointer; transition: 0.2s; }
+        .upload-area:hover { border-color: var(--primary); background: var(--primary-light); }
+
         @keyframes slideIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
         .hidden { display: none !important; }
-        
-        /* Loading */
-        .loading-screen { text-align: center; padding: 50px; }
-        .spinner { width: 40px; height: 40px; border: 4px solid var(--primary-light); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Layout Adjustments */
-        body.lang-ar .rationale-box, body.lang-both .rationale-box { border-right: 3px solid var(--primary); }
-        body.lang-en .rationale-box { border-left: 3px solid var(--primary); }
-        body.lang-ar .option-btn, body.lang-both .option-btn { text-align: right; }
+        .ar-text { font-family: 'Cairo', sans-serif; direction: rtl; }
+        .en-text { font-family: 'Inter', sans-serif; direction: ltr; }
+        body.lang-ar .option-btn { text-align: right; }
         body.lang-en .option-btn { text-align: left; }
-        body.lang-ar .study-option, body.lang-both .study-option { flex-direction: row; } 
+        
+        .error-log {
+            background: #fef2f2; color: #991b1b; padding: 10px; 
+            border: 1px solid #f87171; border-radius: 8px; 
+            font-size: 12px; margin-bottom: 10px;
+            text-align: left; direction: ltr;
+        }
     </style>
 </head>
 <body class="lang-both">
@@ -214,20 +182,21 @@
             </div>
         </div>
 
-        <div id="loadingView" class="loading-screen">
-            <div class="spinner"></div>
-            <h3 style="color:var(--primary)">Loading Database...</h3>
-            <p style="color:var(--muted)">جاري محاولة تحميل الملف تلقائياً...</p>
+        <div id="loadingView" class="hidden" style="text-align:center; padding:50px">
+            <div style="width:40px; height:40px; border:4px solid var(--primary-light); border-top:4px solid var(--primary); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 20px auto"></div>
+            <h3 style="color:var(--primary)">Loading...</h3>
         </div>
 
-        <div id="uploadView" class="hidden">
+        <div id="uploadView">
             <div class="upload-area" onclick="document.getElementById('fileInput').click()">
                 <div style="width:60px; height:60px; background:var(--primary-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; color:var(--primary)">
                     <i class="fas fa-cloud-upload-alt fa-2x"></i>
                 </div>
-                <h3 style="margin:0 0 10px 0; font-size:18px" data-i18n="uploadTitle">تعذر التحميل التلقائي</h3>
-                <p style="color:var(--danger); font-weight:bold; margin-bottom:10px">المتصفح يمنع قراءة الملفات المحلية تلقائياً.</p>
-                <p style="color:var(--muted); margin:0" data-i18n="uploadDesc">اضغط هنا لاختيار ملف JSON يدوياً</p>
+                <h3 style="margin:0 0 10px 0; font-size:18px" data-i18n="uploadTitle">رفع بنك الأسئلة</h3>
+                <p style="color:var(--muted); margin:0" data-i18n="uploadDesc">اضغط لاختيار ملف JSON</p>
+                <div id="manualLoadHint" style="margin-top:15px; font-size:12px; color:var(--danger)">
+                    (ملاحظة: إذا لم يعمل التحميل التلقائي، يرجى اختيار الملف يدوياً)
+                </div>
                 <input type="file" id="fileInput" accept=".json" style="display:none" onchange="loadFile(this)">
             </div>
         </div>
@@ -292,17 +261,22 @@
                 </button>
                 <div style="font-weight:700; color:var(--muted)"><span data-i18n="qLabel">سؤال</span> <span id="qCurr">1</span> / <span id="qTotal">10</span></div>
             </div>
+            <div class="progress-bar"><div id="qProgress" class="progress-fill"></div></div>
+            
             <div class="q-card">
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px">
-                    <span id="qDifficultyBadge" class="badge badge-info">Easy</span>
-                    <span id="qTypeBadge" class="badge badge-prof">MCQ</span>
+                <div id="qContentArea">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:15px">
+                        <span id="qDifficultyBadge" class="badge badge-info">Easy</span>
+                        <span id="qTypeBadge" class="badge badge-prof">MCQ</span>
+                    </div>
+                    <div style="margin-bottom:25px">
+                        <h2 id="qTextAr" class="ar-text" style="margin:0 0 10px 0; line-height:1.6"></h2>
+                        <div id="qTextEn" class="en-text" style="color:var(--muted); font-size:0.95em"></div>
+                    </div>
+                    <div id="qOptions"></div>
+                    <div id="qFeedback" class="hidden"></div>
                 </div>
-                <div style="margin-bottom:25px">
-                    <h2 id="qTextAr" class="ar-text" style="margin:0 0 10px 0; line-height:1.6"></h2>
-                    <div id="qTextEn" class="en-text" style="color:var(--muted); font-size:0.95em"></div>
-                </div>
-                <div id="qOptions"></div>
-                <div id="qFeedback" class="hidden"></div>
+                
                 <div style="display:flex; gap:10px; margin-top:25px">
                     <button id="btnHint" class="btn btn-outline" onclick="revealAnswer()" data-i18n="btnShowAns">إظهار الإجابة</button>
                     <button id="btnNext" class="btn btn-primary" onclick="nextQuestion()" disabled data-i18n="btnNext">السؤال التالي</button>
@@ -349,10 +323,10 @@
     </div>
 
 <script>
-    /* --- CONFIG --- */
+    /* --- CONFIG & TRANSLATIONS --- */
     const I18N = {
         en: {
-            uploadTitle: "Auto-load failed", uploadDesc: "Click here to select the JSON file manually",
+            uploadTitle: "Upload Question Bank", uploadDesc: "Click to select the JSON file",
             welcome: "Welcome! Choose your mode:",
             modeQuiz: "Test Yourself", modeQuizDesc: "Interactive Quiz Mode",
             modeStudy: "Study & Review", modeStudyDesc: "View All Questions with Answers",
@@ -369,7 +343,7 @@
             refTitle: "Reference", expTitle: "Explanation"
         },
         ar: {
-            uploadTitle: "فشل التحميل التلقائي", uploadDesc: "اضغط لاختيار ملف JSON يدوياً",
+            uploadTitle: "رفع بنك الأسئلة", uploadDesc: "اضغط لاختيار ملف JSON",
             welcome: "مرحباً! اختر الوضع المناسب:",
             modeQuiz: "اختبر نفسك", modeQuizDesc: "نظام الاختبار التفاعلي",
             modeStudy: "المذاكرة والمراجعة", modeStudyDesc: "عرض كل الأسئلة مع الحلول",
@@ -396,15 +370,18 @@
         autoConnect();
     }
 
-    /* --- AUTO CONNECT --- */
+    /* --- AUTO CONNECT (Safe) --- */
     function autoConnect() {
+        document.getElementById('loadingView').classList.remove('hidden');
+        document.getElementById('uploadView').classList.add('hidden');
+        
         fetch(JSON_FILENAME)
             .then(res => {
                 if(!res.ok) throw new Error("File not found");
                 return res.json();
             })
             .then(json => {
-                APP.data = json.questions;
+                APP.data = json.questions || [];
                 extractSources();
                 setTimeout(() => {
                     document.getElementById('loadingView').classList.add('hidden');
@@ -412,13 +389,13 @@
                 }, 800);
             })
             .catch(err => {
-                console.error(err);
+                console.log("Auto-load failed: " + err.message);
                 document.getElementById('loadingView').classList.add('hidden');
                 document.getElementById('uploadView').classList.remove('hidden');
             });
     }
 
-    /* --- THEME --- */
+    /* --- HELPER FUNCTIONS --- */
     function initTheme() {
         const pref = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', pref);
@@ -435,24 +412,24 @@
         document.getElementById('themeBtn').innerHTML = theme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
 
-    /* --- HELPERS --- */
     function loadFile(input) {
         const file = input.files[0];
         if(!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
             try {
-                APP.data = JSON.parse(e.target.result).questions;
+                APP.data = JSON.parse(e.target.result).questions || [];
                 extractSources();
                 document.getElementById('uploadView').classList.add('hidden');
                 document.getElementById('dashboardView').classList.remove('hidden');
-            } catch(err) { alert("Invalid JSON"); }
+            } catch(err) { alert("Invalid JSON file"); }
         };
         reader.readAsText(file);
     }
 
     function extractSources() {
-        const unique = [...new Set(APP.data.map(q => q.source.filename))].sort();
+        // Safe extraction
+        const unique = [...new Set(APP.data.map(q => q.source ? q.source.filename : "Unknown"))].sort();
         APP.sources = unique;
         const fill = (id) => {
             const el = document.getElementById(id);
@@ -483,18 +460,17 @@
         document.getElementById('heroSection').classList.remove('hidden');
     }
 
-    /* --- DATA UTILS (SAFE GETTERS) --- */
-    function getQText(q, lang) {
-        // Robust getter for Question text (handles 'statement' vs 'question')
-        const ar = q.statement ? q.statement.ar : (q.question ? q.question.ar : "No text (AR)");
-        const en = q.statement ? q.statement.en : (q.question ? q.question.en : "No text (EN)");
+    /* --- SAFE DATA GETTERS --- */
+    function getSafeText(q) {
+        // Handle different JSON structures safely
+        const ar = q.statement?.ar || q.question?.ar || "نص السؤال مفقود";
+        const en = q.statement?.en || q.question?.en || "Question Text Missing";
         return { ar, en };
     }
 
     function isTF(q) {
-        // Robust check for T/F type
         const t = (q.type || "").toUpperCase();
-        return t === 'TRUE_FALSE' || t === 'TF' || t === 'TRUE/FALSE';
+        return t === 'TRUE_FALSE' || t === 'TF';
     }
 
     /* --- QUIZ LOGIC --- */
@@ -502,10 +478,17 @@
         const src = document.getElementById('quizSource').value;
         const diff = document.getElementById('quizDiff').value;
         const count = document.getElementById('quizCount').value;
-        let set = APP.data.filter(q => (src==='all'||q.source.filename===src) && (diff==='all'||(q.difficulty||'').toLowerCase()===diff));
-        if(!set.length) return alert("No questions found.");
+        
+        let set = APP.data.filter(q => {
+            const sMatch = src === 'all' || (q.source?.filename === src);
+            const dMatch = diff === 'all' || (q.difficulty || '').toLowerCase() === diff;
+            return sMatch && dMatch;
+        });
+
+        if(!set.length) return alert("No questions found with these filters.");
         set.sort(() => Math.random() - 0.5);
         if(count !== 'all') set = set.slice(0, parseInt(count));
+        
         APP.quiz = { set, idx: 0, score: 0, correct: 0 };
         document.getElementById('dashboardView').classList.add('hidden');
         document.getElementById('heroSection').classList.add('hidden');
@@ -516,64 +499,69 @@
     function renderQuestion() {
         try {
             const q = APP.quiz.set[APP.quiz.idx];
-            if(!q) return; // Safety
+            if(!q) return;
 
-            const lang = APP.lang;
             document.getElementById('qCurr').innerText = APP.quiz.idx + 1;
             document.getElementById('qTotal').innerText = APP.quiz.set.length;
             document.getElementById('qProgress').style.width = `${((APP.quiz.idx)/APP.quiz.set.length)*100}%`;
-            document.getElementById('qDifficultyBadge').innerText = (q.difficulty||'Gen').toUpperCase();
-            document.getElementById('qTypeBadge').innerText = q.type;
             
-            const texts = getQText(q);
+            document.getElementById('qDifficultyBadge').innerText = (q.difficulty || 'Gen').toUpperCase();
+            document.getElementById('qTypeBadge').innerText = q.type || 'Q';
+
+            const txt = getSafeText(q);
             const elAr = document.getElementById('qTextAr');
             const elEn = document.getElementById('qTextEn');
-            elAr.innerHTML = texts.ar; 
-            elEn.innerHTML = texts.en;
-            elAr.style.display = lang==='en'?'none':'block';
-            elEn.style.display = lang==='ar'?'none':'block';
+            elAr.innerHTML = txt.ar; 
+            elEn.innerHTML = txt.en;
             
+            elAr.style.display = APP.lang === 'en' ? 'none' : 'block';
+            elEn.style.display = APP.lang === 'ar' ? 'none' : 'block';
+
             const cont = document.getElementById('qOptions'); cont.innerHTML = '';
-            
-            // Normalize Options
             let opts = [];
+            
             if(isTF(q)) {
                 opts = [{key:true, ar:'صح', en:'True'}, {key:false, ar:'خطأ', en:'False'}];
             } else {
                 opts = (q.options || []).map(o => ({key:o.key, ar:o.ar, en:o.en}));
             }
-                
+
             opts.forEach(o => {
                 const btn = document.createElement('button');
                 btn.className = 'option-btn';
                 btn.dataset.key = String(o.key);
-                let txt = '';
-                if(lang==='ar') txt = o.ar;
-                else if(lang==='en') txt = o.en;
-                else txt = `<span class="ar-text">${o.ar}</span><span class="en-text" style="color:var(--muted)">${o.en}</span>`;
-                btn.innerHTML = txt;
+                
+                let t = '';
+                if(APP.lang==='ar') t = o.ar;
+                else if(APP.lang==='en') t = o.en;
+                else t = `<span class="ar-text">${o.ar}</span><span class="en-text" style="color:var(--muted)">${o.en}</span>`;
+                
+                btn.innerHTML = t;
                 btn.onclick = () => handleAnswer(o.key, btn, q);
                 cont.appendChild(btn);
             });
+
             document.getElementById('qFeedback').className = 'hidden';
             document.getElementById('btnNext').disabled = true;
             document.getElementById('btnHint').disabled = false;
         } catch(e) {
-            console.error("Render Error:", e);
-            alert("Error displaying question. Check console.");
+            console.error(e);
+            alert("Error rendering question: " + e.message);
         }
     }
 
     function handleAnswer(key, btn, q) {
         if(!document.getElementById('btnNext').disabled) return;
+        
         const correctKey = String(isTF(q) ? q.answer : q.answerKey);
         const isCorrect = String(key) === correctKey;
-        
+
+        // Visual Feedback
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
-            if(b.dataset.key === correctKey) { 
-                b.classList.add('correct'); 
-                b.innerHTML += ' <i class="fas fa-check"></i>'; 
+            if(b.dataset.key === correctKey) {
+                b.classList.add('correct');
+                b.innerHTML += ' <i class="fas fa-check"></i>';
             }
         });
 
@@ -594,12 +582,12 @@
         const correctKey = String(isTF(q) ? q.answer : q.answerKey);
         document.querySelectorAll('#qOptions .option-btn').forEach(b => {
             b.disabled = true;
-            if(b.dataset.key === correctKey) { 
-                b.classList.add('correct'); 
-                b.innerHTML += ' <i class="fas fa-check"></i>'; 
+            if(b.dataset.key === correctKey) {
+                b.classList.add('correct');
+                b.innerHTML += ' <i class="fas fa-check"></i>';
             }
         });
-        showFeedback(q, false); 
+        showFeedback(q, false);
         document.getElementById('btnNext').disabled = false;
         document.getElementById('btnHint').disabled = true;
     }
@@ -609,20 +597,24 @@
         fb.className = isCorrect ? 'feedback-box correct-ref' : 'feedback-box wrong-exp';
         const uiLang = (APP.lang === 'en') ? 'en' : 'ar';
         const dict = I18N[uiLang];
+        
         let html = `<div style="font-weight:700; margin-bottom:5px">
             ${isCorrect ? `<i class="fas fa-check-circle"></i> ${dict.refTitle}` : `<i class="fas fa-exclamation-circle"></i> ${dict.expTitle}`}
         </div>`;
+        
         if(!isCorrect) {
-            // Safe Access to Rationale
-            const rAr = q.rationale ? q.rationale.ar : "";
-            const rEn = q.rationale ? q.rationale.en : "";
+            const rAr = q.rationale?.ar || "";
+            const rEn = q.rationale?.en || "";
             if(APP.lang!=='en') html += `<div class="ar-text">${rAr}</div>`;
             if(APP.lang!=='ar') html += `<div class="en-text" style="margin-top:5px">${rEn}</div>`;
         }
-        const fName = q.source ? q.source.filename : "Unknown";
-        const fPage = q.source ? q.source.page : "?";
+        
+        const fName = q.source?.filename || "";
+        const fPage = q.source?.page || "";
         html += `<div style="margin-top:8px; font-size:12px; opacity:0.8"><i class="fas fa-book"></i> ${fName} (p. ${fPage})</div>`;
-        fb.innerHTML = html; fb.classList.remove('hidden');
+        
+        fb.innerHTML = html; 
+        fb.classList.remove('hidden');
     }
 
     function nextQuestion() {
@@ -641,9 +633,15 @@
     function startStudyMode() {
         const src = document.getElementById('studySource').value;
         const diff = document.getElementById('studyDiff').value;
-        let set = APP.data.filter(q => (src==='all'||q.source.filename===src) && (diff==='all'||(q.difficulty||'').toLowerCase()===diff));
-        if(!set.length) return alert("No questions.");
+        let set = APP.data.filter(q => {
+            const sMatch = src === 'all' || (q.source?.filename === src);
+            const dMatch = diff === 'all' || (q.difficulty || '').toLowerCase() === diff;
+            return sMatch && dMatch;
+        });
+
+        if(!set.length) return alert("No questions found.");
         APP.study.set = set;
+        
         document.getElementById('dashboardView').classList.add('hidden');
         document.getElementById('heroSection').classList.add('hidden');
         document.getElementById('studyView').classList.remove('hidden');
@@ -656,42 +654,43 @@
         const sRat = document.getElementById('showRat').checked;
         const sRef = document.getElementById('showRef').checked;
         const lang = APP.lang;
-        
+
         APP.study.set.forEach((q, idx) => {
             const item = document.createElement('div'); item.className = 'study-item';
             
-            const fName = q.source ? q.source.filename : "";
-            const fPage = q.source ? q.source.page : "";
+            const fName = q.source?.filename || "";
+            const fPage = q.source?.page || "";
             const refHtml = sRef ? `<span><i class="fas fa-book"></i> ${fName} : ${fPage}</span>` : '';
+            
             item.innerHTML = `<div class="study-header"><span>#${idx+1} [${q.type}]</span>${refHtml}</div>`;
             
-            const texts = getQText(q);
+            const txt = getSafeText(q);
             let qHtml = '';
-            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px;font-size:16px">${texts.ar}</div>`;
-            if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${texts.en}</div>`;
-            if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${texts.en}</div>`;
+            if(lang!=='en') qHtml += `<div class="ar-text" style="font-weight:700;margin-bottom:5px;font-size:16px">${txt.ar}</div>`;
+            if(lang!=='ar' && sTrans) qHtml += `<div class="en-text" style="color:var(--muted);font-size:0.95em">${txt.en}</div>`;
+            if(lang==='en') qHtml = `<div class="en-text" style="font-weight:700">${txt.en}</div>`;
             item.innerHTML += `<div style="margin-bottom:15px">${qHtml}</div>`;
-            
+
             const correctKey = String(isTF(q) ? q.answer : q.answerKey);
             let opts = [];
             if(isTF(q)) opts = [{key:'true',ar:'صح',en:'True'},{key:'false',ar:'خطأ',en:'False'}];
-            else opts = (q.options||[]).map(o=>({key:o.key,ar:o.ar,en:o.en}));
-            
+            else opts = (q.options || []).map(o => ({key:o.key, ar:o.ar, en:o.en}));
+
             opts.forEach(o => {
-                const isAns = String(o.key)===correctKey;
+                const isAns = String(o.key) === correctKey;
                 const cls = isAns ? 'study-option is-answer' : 'study-option';
-                let txt = '';
-                if(lang!=='en') txt += `<span class="ar-text">${o.ar}</span>`;
-                if(lang!=='ar'&&sTrans) txt += ` <span class="en-text" style="font-size:0.9em; margin-right:10px">(${o.en})</span>`;
-                if(lang==='en') txt = `<span class="en-text">${o.en}</span>`;
+                let t = '';
+                if(lang!=='en') t += `<span class="ar-text">${o.ar}</span>`;
+                if(lang!=='ar'&&sTrans) t += ` <span class="en-text" style="font-size:0.9em; margin-right:10px">(${o.en})</span>`;
+                if(lang==='en') t = `<span class="en-text">${o.en}</span>`;
                 
                 const icon = isAns ? '<i class="fas fa-check-circle" style="color:var(--success-text)"></i> ' : '<i class="far fa-circle" style="opacity:0.3"></i> ';
-                item.innerHTML += `<div class="${cls}">${icon}${txt}</div>`;
+                item.innerHTML += `<div class="${cls}">${icon}${t}</div>`;
             });
-            
+
             if(sRat) {
-                const rAr = q.rationale ? q.rationale.ar : "";
-                const rEn = q.rationale ? q.rationale.en : "";
+                const rAr = q.rationale?.ar || "";
+                const rEn = q.rationale?.en || "";
                 let rHtml = '';
                 if(lang!=='en') rHtml += `<div class="ar-text">${rAr}</div>`;
                 if(lang!=='ar'&&sTrans) rHtml += `<div class="en-text" style="margin-top:5px;font-size:0.9em">${rEn}</div>`;
@@ -702,6 +701,9 @@
         });
     }
 
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+    // START
     init();
 </script>
 </body>
